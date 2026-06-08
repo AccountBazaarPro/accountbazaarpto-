@@ -1,0 +1,1146 @@
+<!DOCTYPE html>  
+<html lang="bn">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Account Bazar Pro</title>  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>  
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+<style>  
+*{  
+  margin:0;  
+  padding:0;  
+  box-sizing:border-box;  
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+}  
+  
+body{  
+  background:#f3f4f6;  
+  height:100vh;  
+  overflow:hidden;  
+  color:#1f2937;  
+}  
+  
+/* PREMIUM AUTHENTICATION SCREEN */  
+.auth-container {  
+  position: fixed;  
+  top: 0;  
+  left: 0;  
+  width: 100%;  
+  height: 100vh;  
+  background: linear-gradient(135deg, #e0e7ff 0%, #eef2ff 100%);  
+  display: flex;  
+  align-items: center;  
+  justify-content: center;  
+  z-index: 10000;  
+  padding: 20px;  
+}  
+  
+.auth-card {  
+  background: #ffffff;  
+  padding: 32px 24px;  
+  border-radius: 24px;  
+  width: 100%;  
+  max-width: 380px;  
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);  
+  border: 1px solid #e5e7eb;  
+  text-align: center;  
+}  
+  
+.auth-title {  
+  font-size: 26px;  
+  font-weight: 800;  
+  margin-bottom: 6px;  
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);  
+  -webkit-background-clip: text;  
+  -webkit-text-fill-color: transparent;  
+}  
+  
+.auth-subtitle {  
+  font-size: 13px;  
+  color: #6b7280;  
+  margin-bottom: 24px;  
+  font-weight: 500;  
+}  
+  
+.auth-form {  
+  display: flex;  
+  flex-direction: column;  
+  gap: 16px;  
+}  
+  
+.input-group {  
+  position: relative;  
+  display: flex;  
+  align-items: center;  
+}  
+  
+.input-group i.input-icon {  
+  position: absolute;  
+  left: 14px;  
+  color: #9ca3af;  
+  font-size: 16px;  
+}  
+  
+.auth-input {  
+  width: 100%;  
+  height: 50px;  
+  border: 1.5px solid #e5e7eb;  
+  border-radius: 14px;  
+  padding: 0 44px;  
+  outline: none;  
+  font-size: 14px;  
+  background: #f9fafb;  
+  transition: all 0.3s;  
+}  
+  
+.auth-input:focus {  
+  border-color: #3b82f6;  
+  background: #ffffff;  
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);  
+}  
+  
+.toggle-password {  
+  position: absolute;  
+  right: 16px;  
+  color: #9ca3af;  
+  cursor: pointer;  
+  font-size: 15px;  
+  padding: 5px;  
+}  
+  
+.auth-btn {  
+  height: 50px;  
+  border: none;  
+  border-radius: 14px;  
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);  
+  color: white;  
+  font-weight: 700;  
+  font-size: 15px;  
+  cursor: pointer;  
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);  
+  transition: all 0.2s;  
+}  
+  
+.auth-btn:active {  
+  transform: scale(0.98);  
+}  
+
+.google-custom-btn {
+  height: 50px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #374151;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;  
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  transition: all 0.2s;
+}
+
+.google-custom-btn:hover {
+  background: #f9fafb;
+}
+
+.google-custom-btn i {
+  color: #ea4335;
+  font-size: 18px;
+}
+  
+.auth-toggle-text {  
+  font-size: 13px;  
+  color: #4b5563;  
+  margin-top: 20px;  
+}  
+  
+.auth-toggle-link {  
+  color: #3b82f6;  
+  font-weight: 700;  
+  cursor: pointer;  
+}  
+  
+.forgot-wrap {  
+  text-align: right;  
+  margin-top: -4px;  
+}  
+  
+.forgot-link {  
+  color: #ea580c;  
+  font-size: 13px;  
+  font-weight: 600;  
+  cursor: pointer;  
+}  
+  
+/* TOPBAR */  
+.topbar{  
+  height:65px;  
+  background:#ffffff;  
+  display:flex;  
+  align-items:center;  
+  justify-content:space-between;  
+  padding:0 20px;  
+  box-shadow:0 2px 10px rgba(0,0,0,.05);  
+  position:sticky;  
+  top:0;  
+  z-index:999;  
+}  
+  
+.logo{  
+  font-size:20px;  
+  font-weight:800;  
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}  
+
+.live {
+  font-size: 13px;
+  font-weight: 700;
+  color: #10b981;
+  background: #ecfdf5;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+  
+.logout-btn {  
+  background: #fef2f2;  
+  border: none;  
+  color: #ef4444;  
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  cursor: pointer;  
+  font-size: 16px;  
+  display: flex;  
+  align-items: center;  
+  justify-content: center;
+}  
+  
+/* LIVE ADMIN NOTICE BOARD */  
+.admin-notice-box {  
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);  
+  border: 1px solid #bfdbfe;  
+  padding: 14px 16px;  
+  border-radius: 16px;  
+  margin-bottom: 16px;  
+  display: none;  
+  align-items: flex-start;  
+  gap: 12px;  
+}  
+
+.admin-notice-box i {  
+  color: #2563eb;  
+  font-size: 18px;  
+  margin-top: 1px;  
+}  
+
+.admin-notice-text {  
+  font-size: 13px;  
+  font-weight: 600;  
+  color: #1e40af;  
+  line-height: 1.5;  
+  flex: 1;  
+}  
+  
+/* SCREEN CONTROL */  
+.screen{  
+  display:none;  
+  height:calc(100vh - 130px);   
+  overflow-y:auto;  
+  padding:16px;  
+  padding-bottom: 90px;  
+}  
+  
+.screen.active{  
+  display:block;  
+}  
+  
+/* HOME PANEL - PRO FEATURE SPLIT GRID */  
+.banner{  
+  width:100%;  
+  height:180px;  
+  object-fit:cover;  
+  border-radius:20px;  
+  box-shadow:0 4px 15px rgba(0,0,0,.05);  
+}  
+  
+.info-card{  
+  margin-top:16px;  
+  background:#ffffff;  
+  padding:18px;  
+  border-radius:20px;  
+  box-shadow:0 4px 15px rgba(0,0,0,.03);  
+}  
+  
+.info-title{  
+  font-size:18px;  
+  font-weight:700;  
+  margin-bottom:6px;  
+}  
+  
+.info-text{  
+  font-size:13px;  
+  color:#6b7280;  
+  line-height:1.5;  
+}  
+  
+.contact-wrap{  
+  display:flex;  
+  gap:12px;  
+  margin-top:16px;  
+}  
+  
+.contact-btn{  
+  flex:1;  
+  height:46px;  
+  border:none;  
+  border-radius:12px;  
+  font-weight:700;  
+  cursor:pointer;  
+  font-size:14px;  
+  display:flex;  
+  align-items:center;  
+  justify-content:center;  
+  gap:8px;  
+  text-decoration:none;  
+  color:white;  
+}  
+  
+.telegram{ background:linear-gradient(135deg,#0ea5e9,#0284c7); }  
+.whatsapp{ background:linear-gradient(135deg,#22c55e,#15803d); }  
+  
+/* Professional Multi-Column Grid System */  
+.main-grid{  
+  display:grid;  
+  grid-template-columns: repeat(2, 1fr);  
+  gap:12px;  
+  margin-top:16px;  
+}  
+  
+.big-btn{  
+  height:95px;  
+  border:none;  
+  border-radius:18px;  
+  display:flex;  
+  flex-direction: column;
+  align-items: flex-start;  
+  justify-content: space-between;  
+  padding: 16px;  
+  font-size:15px;  
+  font-weight:700;  
+  cursor:pointer;  
+  color:white;  
+  box-shadow:0 4px 12px rgba(0,0,0,.05);  
+  transition: transform 0.2s;
+}  
+
+.big-btn:active {
+  transform: scale(0.97);
+}
+  
+.account-btn{ background:linear-gradient(135deg,#2563eb,#1d4ed8); }  
+.youtube-screen-btn { background: linear-gradient(135deg, #dc2626, #b91c1c); }  
+.sheet-btn{ background:linear-gradient(135deg,#16a34a,#15803d); }  
+.admin-control-indicator { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
+
+.big-btn i{  
+  font-size:22px;  
+  align-self: flex-end;
+}  
+  
+/* BACK ACTION */  
+.back{  
+  display:inline-flex;  
+  align-items:center;  
+  gap:8px;  
+  font-weight:700;  
+  margin-bottom:16px;  
+  cursor:pointer;  
+  color:#2563eb;  
+  background: #ffffff;
+  padding: 8px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}  
+  
+/* SOCIAL/ACCOUNT MARKET GRID */  
+.social-grid{  
+  display:grid;  
+  grid-template-columns:repeat(2,1fr);  
+  gap:12px;  
+}  
+  
+.social-btn{  
+  background:#ffffff;  
+  border:1px solid #e5e7eb;  
+  padding:20px 12px;  
+  border-radius:18px;  
+  text-align:center;  
+  cursor:pointer;  
+  box-shadow:0 4px 10px rgba(0,0,0,.02);  
+  transition: all .2s;  
+}  
+  
+.social-btn:active{  
+  transform:scale(.96);  
+}  
+  
+.social-btn i{  
+  font-size:32px;  
+  margin-bottom:8px;  
+}  
+  
+.social-btn div{  
+  font-weight:700;  
+  font-size:14px;  
+  color: #374151;
+}  
+  
+/* YOUTUBE IFRAME LIVE CONTAINER */  
+.youtube-container {  
+  width: 100%;  
+  background: #ffffff;  
+  border-radius: 20px;  
+  padding: 16px;  
+  box-shadow: 0 4px 15px rgba(0,0,0,.04);  
+  text-align: center;  
+}  
+
+.video-wrapper {  
+  position: relative;  
+  padding-bottom: 56.25%;  
+  height: 0;  
+  overflow: hidden;  
+  border-radius: 14px;  
+  background: #000;  
+  margin-bottom: 16px;  
+}  
+
+.video-wrapper iframe {  
+  position: absolute;  
+  top: 0;  
+  left: 0;  
+  width: 100%;  
+  height: 100%;  
+  border: 0;  
+}  
+  
+/* SHEET SYSTEM */  
+.sheet{  
+  background:#fff;  
+  border-radius:18px;  
+  overflow:hidden;  
+  box-shadow:0 4px 15px rgba(0,0,0,.04);  
+}  
+  
+.sheet-head{  
+  background:#16a34a;  
+  padding:16px;  
+  display:flex;  
+  justify-content:space-between;  
+  align-items:center;  
+  color:white;  
+  font-weight:bold;  
+}  
+  
+.sheet-btns{  
+  display:flex;  
+  gap:8px;  
+}  
+  
+.copy-all {  
+  border:none;  
+  padding:8px 14px;  
+  border-radius:10px;  
+  font-weight:bold;  
+  cursor:pointer;  
+  font-size: 13px;
+}  
+  
+.clear{  
+  background:#dc2626;  
+  color:white;  
+}  
+  
+.scroll{  
+  overflow-x:auto;  
+  max-height:50vh;  
+}  
+  
+table{  
+  width:100%;  
+  border-collapse:collapse;  
+  font-size:13px;  
+}  
+  
+th,td{  
+  border:1px solid #e5e7eb;  
+  padding:12px;  
+  text-align:center;  
+}  
+  
+th{  
+  background:#f9fafb;  
+  position:sticky;  
+  top:0;  
+  color: #4b5563;
+}  
+  
+.copy{  
+  font-size:16px;  
+  color:#2563eb;  
+  cursor:pointer;  
+}  
+  
+.delete-btn{  
+  background:none;  
+  border:none;  
+  color:#dc2626;  
+  cursor:pointer;  
+  font-size:16px;  
+}  
+  
+/* BOTTOM FIXED AD BANNER */  
+.ad-banner-container {  
+  position: fixed;  
+  bottom: 0;  
+  left: 0;  
+  width: 100%;  
+  height: 70px;  
+  background: #ffffff;  
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.04);  
+  display: flex;  
+  align-items: center;  
+  justify-content: center;  
+  padding: 10px 16px;  
+  z-index: 999;  
+  border-top: 1px solid #e5e7eb;  
+}  
+  
+.ad-box {  
+  width: 100%;  
+  max-width: 440px;  
+  height: 100%;  
+  background: linear-gradient(135deg, #fef9c3, #fef08a);  
+  border: 1px dashed #ca8a04;  
+  border-radius: 12px;  
+  display: flex;  
+  align-items: center;  
+  justify-content: space-between;  
+  padding: 0 14px;  
+  text-decoration: none;  
+  color: #854d0e;  
+}  
+  
+.ad-content {  
+  display: flex;  
+  align-items: center;  
+  gap: 10px;  
+  font-size: 13px;  
+  font-weight: 600;  
+}  
+  
+.ad-badge {  
+  background: #ca8a04;  
+  color: white;  
+  font-size: 10px;  
+  padding: 2px 6px;  
+  border-radius: 6px;  
+  font-weight: bold;  
+}  
+  
+/* FLOATING ACTION BUTTON */  
+.fab{  
+  position:fixed;  
+  right:16px;  
+  bottom:85px;   
+  width:56px;  
+  height:56px;  
+  border-radius:50%;  
+  background:linear-gradient(135deg,#7c3aed,#6d28d9);  
+  display:flex;  
+  align-items:center;  
+  justify-content:center;  
+  color:white;  
+  font-size:22px;  
+  cursor:pointer;  
+  box-shadow:0 8px 20px rgba(124,58,237,.3);  
+  z-index:9999;  
+}  
+  
+/* SMART ASSISTANT PANEL */  
+.assistant{  
+  position:fixed;  
+  right:16px;  
+  bottom:155px;   
+  width:310px;  
+  background:#ffffff;  
+  border-radius:20px;  
+  padding:16px;  
+  box-shadow:0 10px 30px rgba(0,0,0,.15);  
+  display:none;  
+  z-index:9999;  
+  border: 1px solid #e5e7eb;
+}  
+  
+.assistant.show{ display:block; }  
+.panel-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; }  
+.panel-title{ font-size:14px; font-weight:700; color:#4b5563; }  
+.close-btn{ width:26px; height:26px; border:none; border-radius:50%; background:#f3f4f6; cursor:pointer; font-weight:bold; }  
+  
+.input{  
+  width:100%;  
+  height:44px;  
+  border:1px solid #d1d5db;  
+  border-radius:10px;  
+  padding:0 12px;  
+  margin-bottom:12px;  
+  outline:none;  
+  font-size:13px;  
+}  
+  
+.input:focus{ border-color:#7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }  
+.save-btn{ width:100%; height:44px; border:none; border-radius:10px; background:#16a34a; color:white; font-weight:700; cursor:pointer; font-size:14px; }  
+.reset-btn{ margin-top:8px; width:100%; height:38px; border:none; border-radius:10px; background:#f3f4f6; color:#4b5563; cursor:pointer; font-weight:700; }  
+  
+/* IN-APP MINI BROWSER */  
+.mini-web{  
+  position:fixed;  
+  left:50%;  
+  top:50%;  
+  transform:translate(-50%,-50%);  
+  width:95%;  
+  max-width:420px;  
+  height:80vh;  
+  background:#ffffff;  
+  border-radius:24px;  
+  overflow:hidden;  
+  display:none;  
+  z-index:9998;  
+  box-shadow:0 20px 50px rgba(0,0,0,.25);  
+}  
+  
+.mini-web.show{ display:block; }  
+.mini-top{ height:55px; background:linear-gradient(135deg,#7c3aed,#6d28d9); display:flex; align-items:center; justify-content:space-between; padding:0 16px; color:white; font-weight:700; }  
+.mini-actions{ display:flex; gap:10px; }  
+.mini-btn{ width:32px; height:32px; border:none; border-radius:50%; background:rgba(255,255,255,.2); color:white; cursor:pointer; display:flex; align-items:center; justify-content:center; }  
+.browser-frame{ width:100%; height:calc(100% - 55px); border:none; background: #fff; }  
+  
+@media(max-width:480px){  
+  .assistant{ width:92%; right:4%; }  
+}  
+</style>  
+</head>  
+<body>  
+  
+<div class="auth-container" id="authContainer">  
+  <div class="auth-card" id="loginCard">  
+    <div class="auth-title">Account Bazar Pro</div>  
+    <div class="auth-subtitle">লগইন করে আপনার অ্যাকাউন্টে প্রবেশ করুন</div>  
+    <div class="auth-form">  
+      <div class="input-group">  
+        <input type="email" id="loginEmail" class="auth-input" placeholder="আপনার ইমেইল">  
+        <i class="fa-solid fa-envelope input-icon"></i>  
+      </div>  
+      <div class="input-group">  
+        <input type="password" id="loginPass" class="auth-input" placeholder="পাসওয়ার্ড">  
+        <i class="fa-solid fa-key input-icon"></i>  
+        <i class="fa-solid fa-eye toggle-password" onclick="togglePassVisibility('loginPass', this)"></i>  
+      </div>  
+      <div class="forgot-wrap">  
+        <span class="forgot-link" onclick="toggleAuthCard('forgot')">পাসওয়ার্ড ভুলে গেছেন?</span>  
+      </div>  
+      <button class="auth-btn" onclick="handleLogin()">লগইন করুন</button>  
+      
+      <button class="google-custom-btn" onclick="handleBrowserGoogleLogin()">
+        <i class="fa-brands fa-google"></i> Google অ্যাকাউন্ট দিয়ে লগইন
+      </button>
+    </div>  
+    <div class="auth-toggle-text">  
+      নতুন ইউজার? <span class="auth-toggle-link" onclick="toggleAuthCard('signup')">রেজিস্ট্রেশন করুন</span>  
+    </div>  
+  </div>    
+  
+  <div class="auth-card" id="signupCard" style="display:none;">  
+    <div class="auth-title">নতুন অ্যাকাউন্ট</div>  
+    <div class="auth-subtitle">সঠিক তথ্য দিয়ে সাইন আপ সম্পন্ন করুন</div>  
+    <div class="auth-form">  
+      <div class="input-group">  
+        <input type="email" id="signupEmail" class="auth-input" placeholder="ইমেইল অ্যাড্রেস">  
+        <i class="fa-solid fa-envelope input-icon"></i>  
+      </div>  
+      <div class="input-group">  
+        <input type="password" id="signupPass" class="auth-input" placeholder="নতুন পাসওয়ার্ড">  
+        <i class="fa-solid fa-key input-icon"></i>  
+        <i class="fa-solid fa-eye toggle-password" onclick="togglePassVisibility('signupPass', this)"></i>  
+      </div>  
+      <div class="input-group">  
+        <input type="password" id="signupConfirmPass" class="auth-input" placeholder="কনফার্ম পাসওয়ার্ড">  
+        <i class="fa-solid fa-shield-lock input-icon"></i>  
+        <i class="fa-solid fa-eye toggle-password" onclick="togglePassVisibility('signupConfirmPass', this)"></i>  
+      </div>  
+      <button class="auth-btn" onclick="handleSignUp()">সাইন আপ করুন</button>  
+    </div>  
+    <div class="auth-toggle-text">  
+      ইতিমধ্যে অ্যাকাউন্ট আছে? <span class="auth-toggle-link" onclick="toggleAuthCard('login')">লগইন করুন</span>  
+    </div>  
+  </div>    
+  
+  <div class="auth-card" id="forgotCard" style="display:none;">  
+    <div class="auth-title" style="color: #ea580c;">পাসওয়ার্ড রিসেট</div>  
+    <div class="auth-subtitle">জিমেইলে রিসেট লিংক পাঠানো হবে</div>  
+    <div class="auth-form">  
+      <div class="input-group">  
+        <input type="email" id="forgotEmail" class="auth-input" placeholder="আপনার রেজিস্টার্ড ইমেইল">  
+        <i class="fa-solid fa-envelope input-icon"></i>  
+      </div>  
+      <button class="auth-btn" style="background: linear-gradient(135deg, #ea580c, #c2410c);" onclick="handleForgotPassword()">রিসেট লিংক পাঠান</button>  
+    </div>  
+    <div class="auth-toggle-text">  
+      আবার ফিরে যান? <span class="auth-toggle-link" onclick="toggleAuthCard('login')">লগইন করুন</span>  
+    </div>  
+  </div>  
+</div>  
+  
+<div class="topbar">  
+  <div class="logo">Account Bazar Pro</div>  
+  <div style="display:flex; align-items:center; gap:12px;">  
+    <div class="live"><i class="fa-solid fa-circle-check"></i> Live App</div>  
+    <button class="logout-btn" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i></button>  
+  </div>  
+</div>  
+  
+<div class="screen active" id="home">  
+  <div class="admin-notice-box" id="noticeBox">  
+    <i class="fa-solid fa-bell"></i>  
+    <div class="admin-notice-text" id="noticeText">বিজ্ঞপ্তি লোড হচ্ছে...</div>  
+  </div>  
+  
+  <img class="banner" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop">  
+  
+  <div class="info-card">  
+    <div class="info-title">Professional Account Platform</div>  
+    <div class="info-text">Fast access, modern sheet system, mini browser and smooth mobile layout config.</div>  
+    <div class="contact-wrap">  
+      <a class="contact-btn telegram" href="https://t.me/addlist/tVmRRv6QjzhkMmZl" target="_blank"><i class="fa-brands fa-telegram"></i> Telegram</a>  
+      <a class="contact-btn whatsapp" href="https://wa.me/8801336478617" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>  
+    </div>  
+  </div>  
+  
+  <div class="main-grid">  
+    <button class="big-btn account-btn" onclick="openScreen('account')">
+      <span>Account Bazar</span>
+      <i class="fa-solid fa-user-plus"></i>
+    </button>  
+    <button class="big-btn youtube-screen-btn" onclick="openScreen('youtubeScreen')">
+      <span>Duty Officer YT</span>
+      <i class="fa-brands fa-youtube"></i>
+    </button>  
+    <button class="big-btn sheet-btn" onclick="openScreen('sheet')">
+      <span>Google Sheet</span>
+      <i class="fa-solid fa-table"></i>
+    </button>  
+    <button class="big-btn admin-control-indicator" onclick="toggleAssistant()">
+      <span>Magic Save</span>
+      <i class="fa-solid fa-shield-halved"></i>
+    </button>
+  </div>  
+</div>  
+  
+<div class="screen" id="account">  
+  <div class="back" onclick="openScreen('home')"><i class="fa-solid fa-arrow-left"></i> ফিরে যান</div>  
+  <div class="social-grid">  
+    <button class="social-btn" onclick="openWeb('https://m.facebook.com/reg/')"><i class="fa-brands fa-facebook" style="color:#1877F2"></i><div>Facebook</div></button>  
+    <button class="social-btn" onclick="openWeb('https://www.instagram.com/accounts/emailsignup/')"><i class="fa-brands fa-instagram" style="color:#E1306C"></i><div>Instagram</div></button>  
+    <button class="social-btn" onclick="openWeb('https://accounts.google.com/signup')"><i class="fa-solid fa-envelope" style="color:#EA4335"></i><div>Gmail</div></button>  
+    <button class="social-btn" onclick="openWeb('https://web.telegram.org/')"><i class="fa-brands fa-telegram" style="color:#0ea5e9"></i><div>Telegram</div></button>  
+  </div>  
+</div>  
+  
+<div class="screen" id="youtubeScreen">  
+  <div class="back" onclick="openScreen('home')"><i class="fa-solid fa-arrow-left"></i> ফিরে যান</div>  
+  <div class="youtube-container">  
+    <div class="video-wrapper">  
+      <iframe id="dynamicYoutubeEmbed" src="https://www.youtube.com/embed?listType=user_uploads&list=accountbazarpro" allowfullscreen></iframe>  
+    </div>  
+    <h3 style="font-size:16px; font-weight:700; margin-bottom:5px;">Official YouTube Channel</h3>  
+    <p style="font-size:13px; color:#6b7280; margin-bottom:15px;">প্রতিদিনের নতুন নতুন ভিডিও ও গুরুত্বপূর্ণ তথ্য দেখতে নিচ থেকে লাইভ কমেন্ট ও চ্যানেলটি ভিজিট করুন।</p>  
+    
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <a id="officialYoutubeLink" href="https://youtube.com/@accountbazarpro" target="_blank" class="contact-btn" style="background:#dc2626;">
+        <i class="fa-brands fa-youtube"></i> ওপেন ইউটিউব চ্যানেল
+      </a>  
+      <a id="youtubeCommentLink" href="https://youtube.com/@accountbazarpro" target="_blank" class="contact-btn" style="background:#4b5563;">
+        <i class="fa-solid fa-comments"></i> ভিডিও লাইভ কমেন্ট চেক করুন
+      </a>
+    </div>
+  </div>  
+</div>  
+  
+<div class="screen" id="sheet">  
+  <div class="back" onclick="openScreen('home')"><i class="fa-solid fa-arrow-left"></i> ফিরে যান</div>  
+  <div class="sheet">  
+    <div class="sheet-head">  
+      <span>Google Sheet View</span>  
+      <div class="sheet-btns">  
+        <button class="copy-all" style="background: #fff; color: #16a34a;" onclick="copyAll()">Copy All</button>  
+        <button class="copy-all clear" onclick="clearSheet()">Clear</button>  
+      </div>  
+    </div>  
+    <div class="scroll">  
+      <table>  
+        <thead>  
+          <tr><th>SL</th><th>User</th><th>Pass</th><th>2FA Secret</th><th>Copy</th><th>Delete</th></tr>  
+        </thead>  
+        <tbody id="tbody"></tbody>  
+      </table>  
+    </div>  
+  </div>  
+</div>  
+  
+<div class="ad-banner-container">  
+  <a href="#" id="adLink" class="ad-box" target="_blank">  
+    <div class="ad-content">  
+      <span class="ad-badge">Ad</span>  
+      <span id="adText">বিজ্ঞাপন লোড হচ্ছে...</span>  
+    </div>  
+    <i class="fa-solid fa-arrow-up-right-from-square ad-link-icon"></i>  
+  </a>  
+</div>  
+  
+<div class="fab" onclick="toggleAssistant()"><i class="fa-solid fa-shield-halved"></i></div>  
+  
+<div class="assistant" id="assistant">  
+  <div class="panel-top"><div class="panel-title">Magic Save Panel</div><button class="close-btn" onclick="toggleAssistant()">×</button></div>  
+  <input class="input" id="user" placeholder="Username">  
+  <input class="input" id="pass" placeholder="Password">  
+  <input class="input" id="secret" placeholder="2FA Secret">  
+  <button class="save-btn" onclick="saveData()">Save To Sheet</button>  
+  <button class="reset-btn" onclick="clearInputs()">Fields Reset</button>  
+</div>  
+  
+<div class="mini-web" id="miniWeb">  
+  <div class="mini-top"><div>🌐 Mini Browser</div><div class="mini-actions"><button class="mini-btn" onclick="reloadFrame()"><i class="fa-solid fa-rotate"></i></button><button class="mini-btn" onclick="closeMini()"><i class="fa-solid fa-xmark"></i></button></div></div>  
+  <iframe class="browser-frame" id="miniFrame"></iframe>  
+</div>  
+  
+<script>  
+// ফায়ারবেস কনফিগারেশন বক্স 
+const firebaseConfig = {
+  apiKey: "AIzaSyA-0QQvWeLsgY3WClyd9Ug-ts5hEggwXXc",
+  authDomain: "account-balance-pro.firebaseapp.com",
+  databaseURL: "https://account-balance-pro-default-rtdb.europe-west1.firebasedatabase.app/",
+  projectId: "account-balance-pro",
+  storageBucket: "account-balance-pro.firebasestorage.app",
+  messagingSenderId: "1027464874338",
+  appId: "1:1027464874338:web:7c4bcd80ccceeede0e843b"
+};
+
+// ফায়ারবেস ইনিশিয়ালাইজ করা
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+const auth = firebase.auth();
+const databaseRef = firebase.database();
+
+function togglePassVisibility(inputId, eyeIcon) {  
+  const input = document.getElementById(inputId);  
+  if (input.type === "password") {  
+    input.type = "text";  
+    eyeIcon.classList.remove("fa-eye");  
+    eyeIcon.classList.add("fa-eye-slash");  
+  } else {  
+    input.type = "password";  
+    eyeIcon.classList.remove("fa-eye-slash");  
+    eyeIcon.classList.add("fa-eye");  
+  }  
+}  
+  
+function toggleAuthCard(type) {  
+  document.getElementById('loginCard').style.display = type === 'login' ? 'block' : 'none';  
+  document.getElementById('signupCard').style.display = type === 'signup' ? 'block' : 'none';  
+  document.getElementById('forgotCard').style.display = type === 'forgot' ? 'block' : 'none';  
+}  
+  
+function handleSignUp() {  
+  const email = document.getElementById('signupEmail').value.trim();  
+  const pass = document.getElementById('signupPass').value.trim();  
+  const confirmPass = document.getElementById('signupConfirmPass').value.trim();  
+  
+  if(!email || !pass || !confirmPass) { alert('সবগুলো ফিল্ড পূরণ করুন!'); return; }  
+  if(pass !== confirmPass) { alert('পাসওয়ার্ড দুটি মেলেনি!'); return; }  
+  if(pass.length < 6) { alert('পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে!'); return; }  
+  
+  auth.createUserWithEmailAndPassword(email, pass)
+  .then((userCredential) => {
+      userCredential.user.sendEmailVerification().then(() => {
+          alert('রেজিস্ট্রেশন সফল! আপনার ইমেইলে ভেরিফিকেশন লিংক পাঠানো হয়েছে। চেক করে ভেরিফাই করুন।');  
+          toggleAuthCard('login');
+      });
+  })
+  .catch((error) => { alert('ত্রুটি: ' + error.message); });
+}  
+  
+function handleLogin() {  
+  const email = document.getElementById('loginEmail').value.trim();  
+  const pass = document.getElementById('loginPass').value.trim();  
+  
+  if(!email || !pass) { alert('ইমেইল এবং পাসওয়ার্ড দিন!'); return; }  
+    
+  auth.signInWithEmailAndPassword(email, pass)
+  .then((userCredential) => {
+      if(!userCredential.user.emailVerified) {
+          alert('আপনার ইমেইলটি এখনো ভেরিফাই করা হয়নি! অনুগ্রহ করে জিমেইল চেক করে ভেরিফাই করুন।');
+          auth.signOut();
+          return;
+      }
+      localStorage.setItem('app_logged_in', 'true');  
+      document.getElementById('authContainer').style.display = 'none';  
+      alert('লগইন সফল হয়েছে!');  
+      initializeAppFeatures();
+  })
+  .catch((error) => { alert('ভুল ইমেইল/পাসওয়ার্ড অথবা নেটওয়ার্ক সমস্যা!'); });
+}  
+
+// থাঙ্ক্যাবল ও ব্রাউজার ফ্রেন্ডলি কমপ্লিট গুগল লগইন ইন্টারফেস ট্রিগার
+function handleBrowserGoogleLogin() {
+  if (window.ThunkableWebviewerDevice && window.ThunkableWebviewerDevice.postMessage) {
+    window.ThunkableWebviewerDevice.postMessage("google_login_clicked");
+  } else {
+    // ব্রাউজার টেস্টের জন্য ব্যাকআপ পপআপ অথেন্টিকেশন
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider).then((result) => {
+        handleGoogleSignInSuccess(result.user.email, result.user.displayName || "Google User");
+    }).catch((error) => {
+        alert("গুগল লগইন ট্রাই ব্যর্থ হয়েছে: " + error.message);
+    });
+  }
+}
+
+// গুগল সাকসেস ডাটা রিসিভ গ্লোবাল হ্যান্ডলার
+function handleGoogleSignInSuccess(email, displayName) {
+  localStorage.setItem('app_logged_in', 'true');  
+  document.getElementById('authContainer').style.display = 'none';  
+  
+  // শিট ব্যাকআপ প্রসেসিং ডাটা
+  let database = JSON.parse(localStorage.getItem('sheet_db')) || [];
+  database.push({user: email, pass: "Verified Google Token", code: displayName});  
+  localStorage.setItem('sheet_db', JSON.stringify(database));  
+  
+  initializeAppFeatures();
+  render(); 
+  alert('গুগল লগইন সফলভাবে সম্পন্ন হয়েছে!');  
+}
+  
+function handleForgotPassword() {  
+  const email = document.getElementById('forgotEmail').value.trim();  
+  if(!email) { alert('আপনার ইমেইলটি লিখুন!'); return; }  
+  
+  auth.sendPasswordResetEmail(email)
+  .then(() => {
+      alert('আপনার জিমেইলে পাসওয়ার্ড রিসেট লিংক পাঠানো হয়েছে!');  
+      toggleAuthCard('login');
+  })
+  .catch((error) => { alert('ত্রুটি: ' + error.message); });
+}  
+  
+function handleLogout() {  
+  if(confirm('আপনি কি লগআউট করতে চান?')) {  
+    auth.signOut().then(() => {
+        localStorage.removeItem('app_logged_in');  
+        document.getElementById('authContainer').style.display = 'flex';  
+        toggleAuthCard('login');  
+    });
+  }  
+}  
+  
+window.addEventListener('DOMContentLoaded', () => {  
+  if(localStorage.getItem('app_logged_in') === 'true') {  
+    document.getElementById('authContainer').style.display = 'none';  
+    initializeAppFeatures();  
+  } else {  
+    document.getElementById('authContainer').style.display = 'flex';  
+  }  
+});  
+  
+// অ্যাপের সমস্ত রিয়েলটাইম অ্যাডমিন ডাটা একসাথে লোড করা
+function initializeAppFeatures() {
+  listenLiveNoticeAndPopup();
+  listenYoutubeConfig();
+  loadAdConfig();
+}
+
+// অ্যাডমিন ডাইনামিক লাইভ নোটিশ এবং ইন-অ্যাপ এসএমএস অ্যালার্ট হ্যান্ডলার
+function listenLiveNoticeAndPopup() {
+  // ১. সাধারণ হোম স্ক্রিন নোটিশ বোর্ড রিড
+  databaseRef.ref('adminNotice').on('value', (snapshot) => {
+    const data = snapshot.val();
+    const noticeBox = document.getElementById('noticeBox');
+    const noticeText = document.getElementById('noticeText');
+    
+    if(data && data.text) {
+      noticeText.innerText = data.text;
+      noticeBox.style.display = 'flex';
+    } else {
+      noticeBox.style.display = 'none';
+    }
+
+    // ২. রিয়েলটাইম গ্লোবাল এসএমএস/নোটিফিকেশন পপআপ অ্যালার্ট কন্ট্রোল 
+    if(data && data.popupText) {
+      const lastSeenPopupVersion = localStorage.getItem('last_popup_version');
+      // অ্যাডমিন প্যানেল থেকে যখনই popupVersion চেঞ্জ করা হবে, তখনই ইউজারের স্ক্রিনে নোটিফিকেশন ফ্লাশ হবে
+      if(data.popupVersion !== lastSeenPopupVersion) {
+         alert("📢 এডমিন বার্তা (SMS):\n\n" + data.popupText);
+         localStorage.setItem('last_popup_version', data.popupVersion);
+      }
+    }
+  });
+}
+
+// অ্যাডমিন কন্ট্রোলড ডাইনামিক ইউটিউব নোড রিড হ্যান্ডলার
+function listenYoutubeConfig() {
+  databaseRef.ref('youtubeVideo').on('value', (snapshot) => {
+    const data = snapshot.val();
+    if(data) {
+      // এডমিন প্যানেল থেকে পাঠানো ডাইনামিক এম্বেড লিংক সেট করুন
+      if(data.embedUrl) {
+        document.getElementById('dynamicYoutubeEmbed').src = data.embedUrl;
+      }
+      // অফিশিয়াল মেইন চ্যানেল লিংক আপডেট
+      if(data.channelUrl) {
+        document.getElementById('officialYoutubeLink').href = data.channelUrl;
+        document.getElementById('youtubeCommentLink').href = data.channelUrl;
+      }
+    }
+  });
+}
+  
+function loadAdConfig() {  
+  databaseRef.ref('adConfig').on('value', (snapshot) => {
+    const data = snapshot.val();
+    if(data) {  
+      document.getElementById('adText').innerText = data.text || "এখানে আপনার বিজ্ঞাপন শো করবে!";  
+      document.getElementById('adLink').href = data.link || "#";  
+    } else {  
+      document.getElementById('adText').innerText = "Welcome to Account Bazar Pro!";  
+      document.getElementById('adLink').href = "https://t.me/addlist/tVmRRv6QjzhkMmZl";  
+    }  
+  });
+}  
+  
+let database = JSON.parse(localStorage.getItem('sheet_db')) || [];  
+  
+function openScreen(id){  
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));  
+  document.getElementById(id).classList.add('active');  
+  render();  
+}  
+  
+function toggleAssistant(){  
+  document.getElementById('assistant').classList.toggle('show');  
+}  
+  
+function openWeb(url){  
+  let frame = document.getElementById('miniFrame');  
+  frame.src = url;  
+  document.getElementById('miniWeb').classList.add('show');  
+}  
+  
+function closeMini(){  
+  document.getElementById('miniWeb').classList.remove('show');  
+  document.getElementById('miniFrame').src='';  
+}  
+  
+function reloadFrame(){  
+  let frame = document.getElementById('miniFrame');  
+  frame.src = frame.src;  
+}  
+  
+function saveData(){  
+  let user = document.getElementById('user').value.trim();  
+  let pass = document.getElementById('pass').value.trim();  
+  let secret = document.getElementById('secret').value.trim();  
+  if(user==='' || pass===''){ alert('ইউজারনেম এবং পাসওয়ার্ড অবশ্যই দিতে হবে!'); return; }  
+  
+  database.push({user:user, pass:pass, code:secret});  
+  localStorage.setItem('sheet_db', JSON.stringify(database));  
+  render();  
+  clearInputs();  
+  alert('সফলভাবে শিটে সেভ করা হয়েছে!');  
+}  
+  
+function clearInputs(){  
+  document.getElementById('user').value='';  
+  document.getElementById('pass').value='';  
+  document.getElementById('secret').value='';  
+}  
+  
+function escapeHTML(str) {  
+  return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));  
+}  
+  
+function render(){  
+  let tbody = document.getElementById('tbody');  
+  tbody.innerHTML='';  
+  if(database.length===0){  
+    tbody.innerHTML=`<tr><td colspan="6">No Data Saved</td></tr>`;  
+    return;  
+  }  
+  let rowsHtml = '';  
+  database.forEach((d,i)=>{  
+    let safeUser = escapeHTML(d.user);  
+    let safePass = escapeHTML(d.pass);  
+    let safeCode = escapeHTML(d.code || '');  
+    rowsHtml += `<tr><td>${i+1}</td><td>${safeUser}</td><td>${safePass}</td><td>${safeCode}</td><td><i class="fa-regular fa-copy copy" onclick="copyRow(${i})"></i></td><td><button class="delete-btn" onclick="deleteRow(${i})"><i class="fa-solid fa-trash"></i></button></td></tr>`;  
+  });  
+  tbody.innerHTML = rowsHtml;  
+}  
+  
+function copyRow(i){  
+  let d = database[i];  
+  let txt = d.user + "\t" + d.pass + "\t" + (d.code || '');  
+  navigator.clipboard.writeText(txt);  
+  alert("কপি করা হয়েছে");  
+}  
+  
+function copyAll(){  
+  if(database.length===0){ alert('কোনো ডাটা নেই!'); return; }  
+  let txt='';  
+  database.forEach(d=>{ txt += d.user + "\t" + d.pass + "\t" + (d.code || '') + "\n"; });  
+  navigator.clipboard.writeText(txt);  
+  alert('সব ডাটা একসাথে কপি করা হয়েছে');  
+}  
+  
+function deleteRow(i){  
+  if(confirm('আপনি কি এই রRow-টি ডিলিট করতে চান?')){  
+    database.splice(i,1);  
+    localStorage.setItem('sheet_db', JSON.stringify(database));  
+    render();  
+  }  
+}  
+  
+function clearSheet(){  
+  if(confirm('সব ডাটা ক্লিয়ার করতে চান?')){  
+    database=[];  
+    localStorage.removeItem('sheet_db');  
+    render();  
+  }  
+}  
+render();  
+</script>  
+</body>  
+</html>
