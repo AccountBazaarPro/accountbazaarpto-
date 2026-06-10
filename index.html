@@ -830,24 +830,12 @@ z-index: 5;
 /* FIXED BOTTOM AD BANNER */
 .ad-banner-container {
 position: fixed;
-bottom: 0; left: 0; width: 100%; height: 75px;
-background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px);
+bottom: 0; left: 0; width: 100%; height: 60px; /* অটোমেটিক বিজ্ঞাপনের জন্য উপযুক্ত সাইজ */
+background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(16px);
 display: flex; align-items: center; justify-content: center;
-padding: 10px 16px; z-index: 999;
+padding: 4px 12px; z-index: 100002;
 border-top: 1px solid var(--glass-border);
 }
-
-.ad-box {
-width: 100%; max-width: 440px; height: 100%;
-background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(59, 130, 246, 0.1));
-border: 1px dashed rgba(124, 58, 237, 0.4);
-border-radius: 14px; display: flex; align-items: center;
-justify-content: space-between; padding: 0 14px;
-text-decoration: none; color: #fff;
-}
-
-.ad-content { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; }
-.ad-badge { background: #7c3aed; color: white; font-size: 10px; padding: 2px 7px; border-radius: 6px; font-weight: bold; }
 
 /* SMART ASSISTANT PANEL */
 .assistant{
@@ -1154,7 +1142,7 @@ font-size:13px; background: rgba(15, 23, 42, 0.5); color: #fff;
   <div class="toast-text" id="toastText">বার্তা</div>  
 </div>  
 
-<!-- স্মার্ট গাইডেন্স মডাল পপআপ -->  
+<!-- スマート গাইডেন্স মডাল পপআপ -->  
 <div class="guide-modal" id="guideModal">  
   <div class="guide-box" id="guideBox">  
     <div class="guide-header" id="guideHeader"><i class="fa-solid fa-wand-magic-sparkles"></i> অ্যাকাউন্ট গাইড</div>  
@@ -1246,6 +1234,8 @@ font-size:13px; background: rgba(15, 23, 42, 0.5); color: #fff;
   <div class="logo">Account Bazar Pro</div>    
   <div style="display:flex; align-items:center; gap:12px;">    
     <div class="live"><i class="fa-solid fa-circle-check"></i> Live App</div>    
+    <!-- নতুন এসএমএস বাটন -->
+    <button class="logout-btn" onclick="openScreen('smsScreen')" style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); color: #60a5fa;" title="অ্যাডমিন বার্তা"><i class="fa-solid fa-envelope"></i></button>    
     <button class="logout-btn" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i></button>    
   </div>    
 </div>    
@@ -1327,7 +1317,7 @@ font-size:13px; background: rgba(15, 23, 42, 0.5); color: #fff;
   <div class="back" onclick="openScreen('home')"><i class="fa-solid fa-arrow-left"></i> ফিরে যান</div>    
   <div class="social-grid">    
     <div class="social-btn" onclick="startGuidedFlow('facebook')"><i class="fa-brands fa-facebook" style="color:#1877F2"></i><div>Facebook</div></div>    
-    <div class="social-btn" onclick="startGuidedFlow('instagram')"><i class="fa-brands fa-instagram" style="color:#E1306C"></i><div>Instagram</div></div>    
+    <div class="social-btn" onclick="startGuidedFlow('indigo')"><i class="fa-brands fa-instagram" style="color:#E1306C"></i><div>Instagram</div></div>    
     <div class="social-btn" onclick="startGuidedFlow('gmail')"><i class="fa-solid fa-envelope" style="color:#EA4335"></i><div>Gmail</div></div>    
     <div class="social-btn" onclick="startGuidedFlow('telegram_acc')"><i class="fa-brands fa-telegram" style="color:#0ea5e9"></i><div>Telegram</div></div>    
   </div>    
@@ -1392,14 +1382,30 @@ font-size:13px; background: rgba(15, 23, 42, 0.5); color: #fff;
   <div class="gallery-grid" id="galleryGrid"></div>
 </div>
 
-<div class="ad-banner-container">    
-  <a href="#" id="adLink" class="ad-box" target="_blank">    
-    <div class="ad-content">    
-      <span class="ad-badge">Ad</span>    
-      <span id="adText">বিজ্ঞাপন লোড হচ্ছে...</span>    
-    </div>    
-    <i class="fa-solid fa-arrow-up-right-from-square ad-link-icon"></i>    
-  </a>    
+<!-- নতুন অ্যাডমিন বার্তা ইতিহাস (SMS Inbox) স্ক্রিন -->
+<div class="screen" id="smsScreen">
+  <div class="back" onclick="openScreen('home')"><i class="fa-solid fa-arrow-left"></i> ফিরে যান</div>
+  <div class="sheet" style="padding: 16px;">
+    <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px; color: var(--primary); display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-envelope-open-text"></i> অ্যাডমিন বার্তা ইতিহাস</h3>
+    
+    <!-- ট্যাব ফিল্টার বাটন -->
+    <div style="display: flex; gap: 10px; margin-bottom: 16px;">
+      <button id="btnTodaySms" class="copy-all" style="flex: 1; background: var(--primary); color: #fff; padding: 12px; border-radius: 12px;" onclick="showSmsTab('today')">আজকের বার্তা</button>
+      <button id="btnYesterdaySms" class="copy-all" style="flex: 1; background: rgba(255,255,255,0.05); color: var(--text-muted); padding: 12px; border-radius: 12px;" onclick="showSmsTab('yesterday')">গতকালের বার্তা</button>
+    </div>
+
+    <!-- বার্তা প্রদর্শনের লিস্ট এরিয়া -->
+    <div id="smsListContainer" style="display: flex; flex-direction: column; gap: 12px; max-height: 55vh; overflow-y: auto; padding-right: 4px;">
+      <!-- রিয়েল-টাইম বার্তাগুলো স্ক্রিপ্ট দ্বারা এখানে লোড হবে -->
+    </div>
+  </div>
+</div>
+
+<!-- নতুন রিয়েল-টাইম লাইভ বিজ্ঞাপন ব্যানার (কোনো বাটন বা টেক্সট লিংক থাকবে না, অটোমেটিক বিজ্ঞাপন দেখাবে) -->
+<div class="ad-banner-container" id="adBannerContainer" style="display: none;">    
+  <div id="adContentArea" style="width: 100%; max-width: 440px; height: 100%; overflow: hidden; border-radius: 12px; position: relative;">
+    <!-- ডাইনামিক লাইভ আইফ্রেম বা ইমেজ এখানে রেন্ডার হবে -->
+  </div>
 </div>
 
 <!-- ফ্লোটিং ড্রাগেবল মিউজিক বাবল -->  
@@ -1531,6 +1537,28 @@ let userHasInteracted = false;
 let currentLoadedUrl = ""; // রিয়েল-টাইম গান পরিবর্তন ট্র্যাক করার জন্য
 let retryCount = 0;
 const MAX_RETRIES = 3;
+
+// বার্তা ইতিহাস ডাটাবেজ ভেরিয়েবল
+let smsHistory = [];
+let activeSmsTab = 'today';
+
+// লিঙ্ক বা URL সনাক্ত করে টেক্সট ফিল্টার করার হেল্পার ফাংশন
+function cleanTextIfURL(text, defaultText) {
+  if (!text) return defaultText;
+  const trimmed = text.trim();
+  if (
+    trimmed.startsWith("http://") || 
+    trimmed.startsWith("https://") || 
+    trimmed.includes("effectivecpmnetwork.com") || 
+    trimmed.includes(".com") || 
+    trimmed.includes(".net") || 
+    trimmed.includes(".org") || 
+    trimmed.includes(".xyz")
+  ) {
+    return defaultText;
+  }
+  return text;
+}
 
 // ব্রাউজার অটোপ্লে পলিসি বাইপাস মেকানিজম
 function acceptInteraction() {
@@ -2025,7 +2053,7 @@ facebook: [
 "ধাপ ৩: পাসওয়ার্ডের ঘরে অত্যন্ত স্ট্রং এবং ইউনিক সিক্রেট কোড সেট করুন।",
 "ধাপ ৪: আপনার জিমেইল বা সিমে আসা ওটিপি (OTP) ভেরিফাই করে সাবমিট করুন।"
 ],
-instagram: [
+indigo: [
 "ধাপ ১: আপনার সচল মোবাইল নাম্বার অথবা পার্সোনাল জিমেইল টাইপ করুন।",
 "ধাপ ২: ফুল নেম টাইপ করার পর একটি চমৎকার ইউনিক ইউজারনেম সিলেক্ট করুন।",
 "ধাপ ৩: কমপক্ষে ৬ অক্ষরের ক্যাপিটাল লেটার ও সংখ্যাসহ পাসওয়ার্ড দিন।",
@@ -2249,6 +2277,7 @@ listenVoiceNoticeConfig();
 listenGalleryConfig();
 listenBannerSideBtnConfig();
 listenAppLoadConfig();
+listenSmsHistory(); // রিয়েল-টাইম এসএমএস সিঙ্ক শুরু
 }
 
 function listenLiveNoticeAndPopup() {
@@ -2299,17 +2328,31 @@ ref.on('value', callback);
 firebaseListeners.push({ ref, cb: callback });
 }
 
+// 🌟 বিজ্ঞাপন রিয়েল-টাইম কনফিগারেশন সিঙ্ক (অটোমেটিক ব্যানার ও আইফ্রেম ভিউ)
 function loadAdConfig() {
 const ref = databaseRef.ref('adConfig');
 const callback = (snapshot) => {
-const data = snapshot.val();
-if(data) {
-document.getElementById('adText').innerText = data.text || "এখানে আপনার বিজ্ঞাপন শো করবে!";
-document.getElementById('adLink').href = data.link || "#";
-} else {
-document.getElementById('adText').innerText = "Welcome to Account Bazar Pro!";
-document.getElementById('adLink').href = "https://t.me/addlist/tVmRRv6QjzhkMmZl";
-}
+  const data = snapshot.val();
+  const adContainer = document.getElementById('adBannerContainer');
+  const adContentArea = document.getElementById('adContentArea');
+  
+  if (data && data.status === 'active' && data.link) {
+    const link = data.link.trim();
+    // চেক করা হচ্ছে অ্যাডমিনের সেট করা লিংকটি কোনো সরাসরি ইমেজ কিনা
+    const isImage = /\.(jpeg|jpg|gif|png|webp|svg)/i.test(link) || link.includes("images.unsplash.com") || link.includes("imgur.com");
+    
+    if (isImage) {
+      // ইমেজ বিজ্ঞাপন হলে সরাসরি পেজে রেন্ডার হবে
+      adContentArea.innerHTML = `<a href="${link}" target="_blank" style="display:block; width:100%; height:100%;"><img src="${link}" style="width: 100%; height: 100%; object-fit: cover; border: none; border-radius: 12px;"></a>`;
+    } else {
+      // ওয়েবসাইট বা স্ক্রিপ্ট বা অন্য লাইভ অ্যাড লিংক হলে সেটি সরাসরি আইফ্রেমে লোড হয়ে ভেসে থাকবে
+      adContentArea.innerHTML = `<iframe src="${link}" style="width: 100%; height: 100%; border: none; background: transparent; overflow: hidden;" scrolling="no"></iframe>`;
+    }
+    
+    if (adContainer) adContainer.style.display = 'flex';
+  } else {
+    if (adContainer) adContainer.style.display = 'none';
+  }
 };
 ref.on('value', callback);
 firebaseListeners.push({ ref, cb: callback });
@@ -2418,7 +2461,7 @@ function executeSecureAction(actionName) {
   }
 }
 
-// ভয়েস নোটিশ ডাইনামিক
+// ভয়েস নোটিশ ডাইনামিক (ভয়েস লিঙ্ক মাস্কিংসহ)
 const voiceAudio = document.getElementById('voiceAudio');
 let isVoicePlaying = false;
 
@@ -2431,7 +2474,11 @@ const voiceText = document.getElementById('voiceNoticeText');
 
 if (data && data.status === 'active' && data.voiceUrl) {  
   voiceAudio.src = data.voiceUrl;  
-  if (data.voiceText) voiceText.innerText = data.voiceText;  
+  
+  // ভয়েস নোটিশে সরাসরি লিঙ্ক প্রদর্শন হওয়া প্রতিরোধ করা হচ্ছে
+  const cleanVoiceText = cleanTextIfURL(data.voiceText, "অ্যাডমিন একটি গুরুত্বপূর্ণ ভয়েস বার্তা পাঠিয়েছেন।");
+  voiceText.innerText = cleanVoiceText;
+  
   voiceCard.style.display = 'flex';  
   isVoicePlaying = false;  
   document.getElementById('voicePlayBtnIcon').className = 'fa-solid fa-play';  
@@ -2475,6 +2522,111 @@ isVoicePlaying = false;
 document.getElementById('voicePlayBtnIcon').className = 'fa-solid fa-play';
 if (isMusicPlaying) playAudio();
 });
+
+// 🌟 অ্যাডমিন বার্তা ইতিহাস সিঙ্ক লিসেনার (আজকের এবং গতকালের এসএমএস)
+function listenSmsHistory() {
+  const ref = databaseRef.ref('adminSmsHistory');
+  const callback = (snapshot) => {
+    const data = snapshot.val();
+    smsHistory = [];
+    if (data) {
+      Object.keys(data).forEach(key => {
+        smsHistory.push({
+          id: key,
+          text: data[key].text || "",
+          timestamp: data[key].timestamp || Date.now()
+        });
+      });
+      // নতুন বার্তাগুলো সবার উপরে দেখাবে
+      smsHistory.sort((a, b) => b.timestamp - a.timestamp);
+    }
+    renderSmsList();
+  };
+  ref.on('value', callback);
+  firebaseListeners.push({ ref, cb: callback });
+}
+
+// বার্তা ফিল্টারিং ও রেন্ডারিং মেকানিজম
+function renderSmsList() {
+  const container = document.getElementById('smsListContainer');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const now = new Date();
+  const filtered = smsHistory.filter(item => {
+    const msgDate = new Date(item.timestamp);
+    if (activeSmsTab === 'today') {
+      return isSameDay(msgDate, now);
+    } else {
+      return isYesterday(msgDate, now);
+    }
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 30px; font-size: 13px;">${activeSmsTab === 'today' ? 'আজকে অ্যাডমিন থেকে কোনো বার্তা পাঠানো হয়নি!' : 'গতকাল কোনো বার্তা ছিল না!'}</div>`;
+    return;
+  }
+
+  filtered.forEach(item => {
+    const timeStr = new Date(item.timestamp).toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
+    const itemEl = document.createElement('div');
+    itemEl.style.background = 'rgba(255, 255, 255, 0.03)';
+    itemEl.style.border = '1px solid var(--glass-border)';
+    itemEl.style.padding = '14px';
+    itemEl.style.borderRadius = '16px';
+    itemEl.style.display = 'flex';
+    itemEl.style.flexDirection = 'column';
+    itemEl.style.gap = '8px';
+    
+    itemEl.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 11px; color: var(--primary); font-weight: bold;"><i class="fa-solid fa-clock"></i> সময়: ${timeStr}</span>
+        <button class="delete-btn" style="color: var(--primary); font-size:14px;" onclick="copySmsText('${escapeHTML(item.text)}')"><i class="fa-regular fa-copy"></i> কপি করুন</button>
+      </div>
+      <p style="font-size: 13px; line-height: 1.5; color: #fff; word-break: break-word; white-space: pre-wrap;">${escapeHTML(item.text)}</p>
+    `;
+    container.appendChild(itemEl);
+  });
+}
+
+function copySmsText(text) {
+  navigator.clipboard.writeText(text);
+  showToast("বার্তা সফলভাবে কপি করা হয়েছে", "success");
+}
+
+function showSmsTab(tab) {
+  activeSmsTab = tab;
+  const btnToday = document.getElementById('btnTodaySms');
+  const btnYesterday = document.getElementById('btnYesterdaySms');
+  
+  if (tab === 'today') {
+    btnToday.style.background = 'var(--primary)';
+    btnToday.style.color = '#fff';
+    btnYesterday.style.background = 'rgba(255,255,255,0.05)';
+    btnYesterday.style.color = 'var(--text-muted)';
+  } else {
+    btnYesterday.style.background = 'var(--primary)';
+    btnYesterday.style.color = '#fff';
+    btnToday.style.background = 'rgba(255,255,255,0.05)';
+    btnToday.style.color = 'var(--text-muted)';
+  }
+  renderSmsList();
+}
+
+// তারিখ ম্যাচিং হেল্পার ফাংশন
+function isSameDay(d1, d2) {
+  return d1.getFullYear() === d2.getFullYear() &&
+         d1.getMonth() === d2.getMonth() &&
+         d1.getDate() === d2.getDate();
+}
+
+function isYesterday(d1, d2) {
+  const yesterday = new Date(d2);
+  yesterday.setDate(yesterday.getDate() - 1);
+  return d1.getFullYear() === yesterday.getFullYear() &&
+         d1.getMonth() === yesterday.getMonth() &&
+         d1.getDate() === yesterday.getDate();
+}
 
 auth.onAuthStateChanged((user) => {
 if (user) {
