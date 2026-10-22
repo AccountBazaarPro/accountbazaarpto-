@@ -1,8 +1,9 @@
-<!DOCTYPE html>    <html lang="bn">    
+<!DOCTYPE html>
+<html lang="bn">    
 <head>    
 <meta charset="UTF-8">    
-<meta name="viewport" content="width=device-width, initial-scale=1.0">    
-<title>Account Bazar Pro</title>    
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">    
+<title>Account Bazar Pro - VIP Glass Edition</title>    
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>    
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>  
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>  
@@ -10,3055 +11,1277 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>  
 <style>    
 :root {  
-  --primary: #3b82f6;  
-  --primary-dark: #1d4ed8;  
-  --accent: #8b5cf6;  
+  --primary: #f59e0b;  
+  --primary-dark: #d97706;  
+  --vip-gold: #fde047;
+  --vip-glow: 0 0 25px rgba(245, 158, 11, 0.45);
   --success: #10b981;  
   --error: #ef4444;  
-  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);  
-  --glass: rgba(255, 255, 255, 0.05);  
-  --glass-border: rgba(255, 255, 255, 0.1);  
-  --text-main: #f3f4f6;  
-  --text-muted: #9ca3af;
-  --neon-shadow: 0 0 15px rgba(139, 92, 246, 0.5);  
+  --info: #3b82f6;
+  --bg-gradient: radial-gradient(circle at 20% 20%, #1e1233 0%, #0c0817 50%, #030108 100%);  
+  
+  /* 🌟 ক্রিস্টাল কাঁচের মতো ফ্রস্টেড গ্লাস ডিজাইন 🌟 */
+  --glass-bg: rgba(255, 255, 255, 0.05);  
+  --glass-card: rgba(22, 28, 48, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.16);  
+  --glass-inner-glow: inset 0 0 15px rgba(255, 255, 255, 0.04);
+  --text-main: #f8fafc;  
+  --text-muted: #94a3b8;
 }  
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+margin:0; padding:0; box-sizing:border-box;
 font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 -webkit-tap-highlight-color: transparent;
 }
 
 body{
 background: var(--bg-gradient);
-background-size: 400% 400%;
-animation: gradientBG 15s ease infinite;
-height:100vh;
-overflow:hidden;
-color: var(--text-main);
+background-size: 300% 300%;
+animation: gradientFlow 14s ease infinite;
+height:100vh; overflow:hidden; color: var(--text-main);
 }
 
-@keyframes gradientBG {
+@keyframes gradientFlow {
 0% { background-position: 0% 50%; }
 50% { background-position: 100% 50%; }
 100% { background-position: 0% 50%; }
 }
 
-/* PREMIUM SCROLLBAR */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.3);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--glass-border);
-  border-radius: 10px;
-}
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
 
-/* AUTOPLAY INVITATION OVERLAY */
-.interaction-trigger {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100vh;
-  background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(15px);
-  z-index: 1000000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  text-align: center;
-  padding: 24px;
-}
-.trigger-btn {
-  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-  color: white; border: none; padding: 14px 32px;
-  border-radius: 18px; font-weight: 800; font-size: 15px;
-  cursor: pointer; box-shadow: var(--neon-shadow);
-  transition: transform 0.2s;
-}
-.trigger-btn:active { transform: scale(0.95); }
-
-/* PREMIUM LOADING SCREEN */
+/* 🌟 VIP 1 TO 100% CIRCULAR LOADING SCREEN 🌟 */
 .splash-screen {
-position: fixed;
-top: 0; left: 0; width: 100%; height: 100vh;
-background: #0f172a;
-z-index: 99999;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-transition: opacity 0.5s ease, visibility 0.5s;
+position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+background: radial-gradient(circle at center, #1b1030 0%, #05020c 100%);
+z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center;
+transition: opacity 0.6s ease, visibility 0.6s;
+}
+.splash-logo-container {
+position: relative; width: 110px; height: 110px; margin-bottom: 24px;
+display: flex; align-items: center; justify-content: center;
+}
+.splash-logo-img {
+width: 90px; height: 90px; border-radius: 50%; object-fit: cover;
+border: 2px solid var(--vip-gold); box-shadow: var(--vip-glow);
+animation: pulseLogo 2s infinite alternate; z-index: 2;
+}
+.loader-svg { position: absolute; top: 0; left: 0; width: 110px; height: 110px; transform: rotate(-90deg); }
+.loader-svg circle { fill: none; stroke-width: 4; stroke-linecap: round; }
+.loader-circle-bg { stroke: rgba(255, 255, 255, 0.08); }
+.loader-circle-progress {
+stroke: url(#goldGradient); stroke-dasharray: 314; stroke-dashoffset: 314;
+transition: stroke-dashoffset 0.05s linear;
+}
+@keyframes pulseLogo {
+0% { transform: scale(0.96); filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.3)); }
+100% { transform: scale(1.04); filter: drop-shadow(0 0 25px rgba(245, 158, 11, 0.8)); }
+}
+.splash-title {
+font-size: 24px; font-weight: 900; letter-spacing: 1.5px;
+background: linear-gradient(135deg, #fde047, #f59e0b, #d97706);
+-webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px;
+}
+.percentage-badge {
+font-size: 20px; font-weight: 900; color: #fde047;
+background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4);
+padding: 4px 18px; border-radius: 20px; box-shadow: var(--vip-glow); min-width: 80px; text-align: center;
 }
 
-.splash-logo {
-font-size: 32px;
-font-weight: 900;
-background: linear-gradient(135deg, #60a5fa, #a78bfa);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-margin-bottom: 20px;
-animation: pulseGlow 2s infinite alternate;
-}
-
-.islamic-loader {
-width: 50px;
-height: 50px;
-border: 3px solid transparent;
-border-top-color: #3b82f6;
-border-bottom-color: #7c3aed;
-border-radius: 50%;
-animation: spin 1.5s linear infinite;
-}
-
-.splash-text {
-margin-top: 15px;
-font-size: 13px;
-color: var(--text-muted);
-letter-spacing: 1px;
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes pulseGlow {
-0% { transform: scale(0.98); filter: drop-shadow(0 0 5px rgba(96, 165, 250, 0.3)); }
-100% { transform: scale(1.02); filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.6)); }
-}
-
-/* CUSTOM TOAST NOTIFICATION */
+/* টোস্ট নোটিফিকেশন */
 .toast-container {
-position: fixed;
-top: 20px;
-left: 50%;
+position: fixed; top: 20px; left: 50%;
 transform: translateX(-50%) translateY(-100px);
-z-index: 110000;
-display: flex;
-align-items: center;
-gap: 12px;
-background: rgba(15, 23, 42, 0.95);
-border: 1px solid var(--glass-border);
-padding: 14px 20px;
-border-radius: 16px;
-box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-backdrop-filter: blur(10px);
-width: 90%;
-max-width: 350px;
-transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-pointer-events: none;
+z-index: 1100000; display: flex; align-items: center; gap: 12px;
+background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+border: 1.5px solid var(--glass-border); padding: 14px 20px; border-radius: 18px;
+box-shadow: 0 10px 35px rgba(0,0,0,0.6); width: 90%; max-width: 350px;
+transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none;
 }
-
 .toast-container.show { transform: translateX(-50%) translateY(0); }
 .toast-icon { font-size: 18px; }
 .toast-text { font-size: 13px; font-weight: 600; flex: 1; }
 .toast-success { border-color: var(--success); color: #10b981; }
 .toast-error { border-color: var(--error); color: #ef4444; }
 
-/* PREMIUM AUTHENTICATION SCREEN */
+/* 🌟 কাঁচের মতো ক্রিস্টাল অথেন্টিকেশন স্ক্রীন 🌟 */
 .auth-container {
-position: fixed;
-top: 0; left: 0; width: 100%; height: 100vh;
-background: rgba(15, 23, 42, 0.6);
-backdrop-filter: blur(20px);
-display: flex; align-items: center; justify-content: center;
-z-index: 10000; padding: 20px;
+position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+background: rgba(7, 5, 14, 0.75); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+display: flex; align-items: center; justify-content: center; z-index: 10000; padding: 20px;
 }
-
 .auth-card {
-background: rgba(30, 41, 59, 0.7);
-backdrop-filter: blur(16px);
-padding: 32px 24px;
-border-radius: 28px;
-width: 100%; max-width: 380px;
-box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-border: 1px solid var(--glass-border);
-text-align: center;
-transform: scale(1);
-transition: all 0.3s ease;
-}
-
-.auth-title {
-font-size: 28px; font-weight: 800; margin-bottom: 6px;
-background: linear-gradient(135deg, #60a5fa, #3b82f6);
--webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-
-.auth-subtitle {
-font-size: 13px; color: var(--text-muted); margin-bottom: 24px; font-weight: 500;
-}
-
-.auth-form { display: flex; flex-direction: column; gap: 16px; }
-.input-group { position: relative; display: flex; align-items: center; }
-.input-group i.input-icon { position: absolute; left: 16px; color: var(--text-muted); font-size: 16px; }
-
-.auth-input {
-width: 100%; height: 52px;
-border: 1.5px solid var(--glass-border);
-border-radius: 16px; padding: 0 48px; outline: none;
-font-size: 14px; color: #fff; background: rgba(15, 23, 42, 0.4);
-transition: all 0.3s;
-}
-
-.auth-input:focus {
-border-color: var(--primary);
-background: rgba(15, 23, 42, 0.6);
-box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
-}
-
-.toggle-password { position: absolute; right: 16px; color: var(--text-muted); cursor: pointer; font-size: 15px; padding: 5px; }
-
-.auth-btn {
-height: 52px; border: none; border-radius: 16px;
-background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-color: white; font-weight: 700; font-size: 15px; cursor: pointer;
-box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4); transition: all 0.2s;
+background: var(--glass-card); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+border: 1.5px solid var(--glass-border); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), var(--glass-inner-glow);
+padding: 28px 22px; border-radius: 28px; width: 100%; max-width: 380px; text-align: center;
 position: relative; overflow: hidden;
 }
-
-.auth-btn:active, .google-custom-btn:active { transform: scale(0.97); }
-
-.google-custom-btn {
-height: 52px; border: 1.5px solid var(--glass-border); border-radius: 16px;
-background: rgba(255, 255, 255, 0.05); color: #fff; font-weight: 700; font-size: 15px;
-cursor: pointer; margin-top: 8px; display: flex; align-items: center; justify-content: center;
-gap: 10px; width: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.2s;
+.auth-card::before {
+content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+background: radial-gradient(circle at 50% 10%, rgba(245, 158, 11, 0.12), transparent 60%);
+pointer-events: none;
 }
-
-.google-custom-btn:hover { background: rgba(255, 255, 255, 0.1); }
-.google-custom-btn i { color: #ea4335; font-size: 18px; }
-.auth-toggle-text { font-size: 13px; color: var(--text-muted); margin-top: 20px; }
-.auth-toggle-link { color: var(--primary); font-weight: 700; cursor: pointer; }
-.forgot-wrap { text-align: right; margin-top: -4px; }
-.forgot-link { color: #f97316; font-size: 13px; font-weight: 600; cursor: pointer; }
-
-/* TOPBAR */
-.topbar{
-height:68px; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px);
-display:flex; align-items:center; justify-content:space-between; padding:0 20px;
-border-bottom: 1px solid var(--glass-border); position:sticky; top:0; z-index:999;
+.auth-logo-img {
+width: 68px; height: 68px; border-radius: 50%; object-fit: cover;
+border: 2px solid var(--vip-gold); box-shadow: var(--vip-glow); margin-bottom: 12px;
 }
-
-.logo{
-font-size:22px; font-weight:900;
-background: linear-gradient(135deg, #60a5fa, #3b82f6);
+.auth-title {
+font-size: 22px; font-weight: 900; margin-bottom: 4px;
+background: linear-gradient(135deg, #fde047, #f59e0b);
 -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
+.auth-form { display: flex; flex-direction: column; gap: 12px; position: relative; z-index: 2; }
 
-.live {
-font-size: 12px; font-weight: 700; color: #10b981;
-background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3);
-padding: 6px 14px; border-radius: 20px; display: flex; align-items: center; gap: 6px;
+/* 🌟 পাসওয়ার্ড ইনপুট ও চোখ আইকন 👀 🌟 */
+.input-wrap-glass { position: relative; display: flex; align-items: center; }
+.auth-input {
+width: 100%; height: 48px; border: 1.5px solid var(--glass-border);
+border-radius: 14px; padding: 0 44px 0 16px; outline: none; font-size: 13px;
+color: #fff; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
+transition: all 0.3s;
 }
-
-.logout-btn {
-background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #ef4444;
-width: 40px; height: 40px; border-radius: 14px; cursor: pointer;
-font-size: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+.auth-input:focus {
+border-color: var(--vip-gold); background: rgba(255, 255, 255, 0.08);
+box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
 }
-.logout-btn:active { transform: scale(0.9); }
-
-/* FLOATING FREE-DRAGGABLE MUSIC BUBBLE */
-.music-bubble {
-position: fixed;
-bottom: 100px; right: 16px;
-width: 60px; height: 60px;
-border-radius: 50%;
-background: rgba(15, 23, 42, 0.85);
-border: 2px solid #9ca3af;
-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-backdrop-filter: blur(8px);
-z-index: 100000;
-display: flex; align-items: center; justify-content: center;
-cursor: grab;
-touch-action: none;
-transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+.eye-toggle-btn {
+position: absolute; right: 14px; color: var(--vip-gold); font-size: 17px;
+cursor: pointer; padding: 6px; user-select: none; transition: transform 0.2s;
 }
+.eye-toggle-btn:active { transform: scale(0.9); }
 
-.music-bubble.playing {
-border-color: var(--success);
-box-shadow: 0 0 22px rgba(16, 185, 129, 0.8);
-animation: bubblePulse 2.5s infinite;
+.auth-btn {
+height: 48px; border: none; border-radius: 14px;
+background: linear-gradient(135deg, #f59e0b, #d97706);
+color: #090d16; font-weight: 800; font-size: 14px; cursor: pointer;
+box-shadow: var(--vip-glow); transition: transform 0.2s;
 }
+.auth-btn:active { transform: scale(0.97); }
 
-.music-bubble i {
-font-size: 20px;
-color: #9ca3af;
-transition: color 0.3s;
+.google-custom-btn {
+height: 46px; border: 1.5px solid var(--glass-border); border-radius: 14px;
+background: rgba(255, 255, 255, 0.08); color: #fff; font-weight: 800; font-size: 13px;
+cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+margin-top: 4px; transition: all 0.2s; backdrop-filter: blur(10px);
 }
+.google-custom-btn:hover { background: rgba(255, 255, 255, 0.15); border-color: #ea4335; }
 
-.music-bubble.playing i { color: var(--success); }
-
-/* DRAGGABLE MAGIC SHEET BUBBLE */
-.magic-bubble {
-  position: fixed;
-  bottom: 180px; right: 16px;
-  width: 60px; height: 60px;
-  border-radius: 50%;
-  background: rgba(15, 23, 42, 0.85);
-  border: 2px solid var(--success);
-  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
-  backdrop-filter: blur(8px);
-  z-index: 100000;
-  display: flex; align-items: center; justify-content: center;
-  cursor: grab;
-  touch-action: none;
-  transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+.auth-divider {
+display: flex; align-items: center; text-align: center; margin: 6px 0; color: var(--text-muted); font-size: 11px;
 }
-.magic-bubble i {
-  font-size: 20px;
-  color: var(--success);
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--glass-border); }
+.auth-divider:not(:empty)::before { margin-right: .5em; }
+.auth-divider:not(:empty)::after { margin-left: .5em; }
+
+/* 🌟 গ্লাস টপবার 🌟 */
+.topbar{
+height:64px; background: rgba(12, 17, 34, 0.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+display:flex; align-items:center; justify-content:space-between; padding:0 16px;
+border-bottom: 1px solid var(--glass-border); position:sticky; top:0; z-index:999;
 }
-
-@keyframes bubblePulse {
-0% { transform: scale(1); }
-50% { transform: scale(1.08); }
-100% { transform: scale(1); }
+.brand-wrap { display: flex; align-items: center; gap: 10px; }
+.topbar-logo {
+width: 38px; height: 38px; border-radius: 50%; object-fit: cover;
+border: 1.5px solid var(--vip-gold); box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
 }
-
-/* SMART DIALOG STEP POPUP */
-.guide-modal {
-position: fixed;
-top: 0; left: 0; width: 100%; height: 100vh;
-background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px);
-display: flex; align-items: center; justify-content: center;
-z-index: 150000; display: none; padding: 20px;
+.logo{
+font-size:18px; font-weight:900;
+background: linear-gradient(135deg, #fde047, #f59e0b);
+-webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
-
-.guide-box {
-background: rgba(30, 41, 59, 0.95);
-border: 1px solid var(--glass-border);
-padding: 26px; border-radius: 24px;
-width: 100%; max-width: 360px; text-align: center;
-box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-transform: scale(0.9); transition: all 0.3s ease;
-}
-
-.guide-box.show { transform: scale(1); }
-
-.guide-header {
-font-size: 18px; font-weight: 800; color: var(--primary);
-margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 8px;
-}
-
-.step-container {
-text-align: left; background: rgba(15, 23, 42, 0.4);
-padding: 16px; border-radius: 16px; border: 1px solid var(--glass-border);
-margin-bottom: 20px; min-height: 100px; display: flex; align-items: center;
-}
-
-.step-text { font-size: 15px; font-weight: 600; line-height: 1.6; color: #fff; }
-
-.guide-btn {
-background: var(--primary); color: white; border: none;
-padding: 12px 30px; font-weight: 700; border-radius: 14px;
-cursor: pointer; width: 100%; font-size: 14px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-}
-
-/* LIVE ADMIN NOTICE BOARD */
-.admin-notice-box {
-background: rgba(59, 130, 246, 0.1);
-border: 1px solid rgba(59, 130, 246, 0.25);
-padding: 14px 16px;
-border-radius: 20px;
-margin-bottom: 16px;
-display: none;
-align-items: flex-start;
-gap: 12px;
-backdrop-filter: blur(5px);
-}
-
-.admin-notice-box i {
-color: #60a5fa;
-font-size: 18px;
-margin-top: 1px;
-}
-
-.admin-notice-text {
-font-size: 13px;
-font-weight: 600;
-color: #93c5fd;
-line-height: 1.5;
-flex: 1;
-}
-
-/* DYNAMIC VOICE NOTE / HOUSE NOTICE */
-.voice-notice-card {
-background: rgba(124, 58, 237, 0.15);
-border: 1.5px solid rgba(124, 58, 237, 0.3);
-border-radius: 22px;
-padding: 16px;
-margin-bottom: 16px;
-display: none;
-align-items: center;
-justify-content: space-between;
-backdrop-filter: blur(8px);
-box-shadow: 0 8px 24px rgba(124, 58, 237, 0.15);
-animation: fadeIn 0.4s ease-out;
-}
-
-.voice-notice-info {
-display: flex;
-align-items: center;
-gap: 12px;
-flex: 1;
-}
-
-.voice-notice-icon {
-font-size: 24px;
-color: #a78bfa;
-animation: pulseVoice 1.5s infinite;
-}
-
-@keyframes pulseVoice {
-0% { transform: scale(1); opacity: 0.8; }
-50% { transform: scale(1.15); opacity: 1; }
-100% { transform: scale(1); opacity: 0.8; }
-}
-
-.voice-notice-title {
-font-size: 14px;
-font-weight: 800;
-color: #fff;
-}
-
-.voice-notice-subtitle {
-font-size: 11px;
-color: var(--text-muted);
-margin-top: 3px;
-line-height: 1.4;
-}
-
-.voice-notice-btn {
-width: 44px;
-height: 44px;
-border-radius: 50%;
-border: none;
-background: linear-gradient(135deg, #7c3aed, #6d28d9);
-color: #fff;
-cursor: pointer;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 16px;
-box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
-transition: transform 0.2s, background 0.2s;
-flex-shrink: 0;
-margin-left: 10px;
-}
-
-.voice-notice-btn:active { transform: scale(0.9); }
-
-/* DYNAMIC APP DOWNLOAD BAR */
-.download-app-bar {
-background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.15));
-border: 1.5px solid rgba(16, 185, 129, 0.3);
-border-radius: 22px;
-padding: 16px;
-margin-bottom: 16px;
-display: none;
-align-items: center;
-justify-content: space-between;
-text-decoration: none;
-color: #fff;
-backdrop-filter: blur(8px);
-box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
-transition: transform 0.2s, border-color 0.3s;
-animation: fadeIn 0.4s ease-out;
-}
-
-.download-app-bar:active { transform: scale(0.98); }
-
-.download-content {
-display: flex;
-align-items: center;
-gap: 12px;
-}
-
-.download-icon-pulse {
-font-size: 24px;
-color: #10b981;
-animation: bounceIcon 2s infinite;
-}
-
-@keyframes bounceIcon {
-0%, 100% { transform: translateY(0); }
-50% { transform: translateY(-4px); }
-}
-
-.download-title {
-font-size: 14px;
-font-weight: 800;
-color: #fff;
-}
-
-.download-subtitle {
-font-size: 11px;
-color: var(--text-muted);
-margin-top: 3px;
+.topbar-actions { display: flex; align-items: center; gap: 8px; }
+.top-btn {
+background: rgba(255, 255, 255, 0.06); border: 1px solid var(--glass-border); color: var(--text-main);
+width: 36px; height: 36px; border-radius: 12px; cursor: pointer;
+font-size: 14px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px);
 }
 
 /* SCREEN CONTROL */
 .screen{
-display:none;
-height:calc(100vh - 150px);
-overflow-y:auto;
-padding:16px;
-padding-bottom: 140px;
+display:none; height:calc(100vh - 124px);
+overflow-y:auto; padding:16px; padding-bottom: 85px;
+}
+.screen.active{ display:block; animation: fadeIn 0.3s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* 🌟 গ্লাস বটম ন্যাভিগেশন বার 🌟 */
+.bottom-nav {
+position: fixed; bottom: 0; left: 0; width: 100%; height: 60px;
+background: rgba(12, 17, 34, 0.75); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+border-top: 1px solid var(--glass-border); z-index: 9998;
+display: flex; align-items: center; justify-content: space-around; padding: 0 4px;
+}
+.nav-item {
+display: flex; flex-direction: column; align-items: center; justify-content: center;
+color: var(--text-muted); text-decoration: none; font-size: 10px; font-weight: 700;
+cursor: pointer; gap: 3px; width: 55px; height: 100%;
+}
+.nav-item i { font-size: 16px; }
+.nav-item.active { color: var(--vip-gold); }
+
+/* 🌟 ক্রিস্টাল গ্লাস প্যানেল 🌟 */
+.glass-panel {
+background: var(--glass-card); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+border: 1.5px solid var(--glass-border); border-radius: 24px; padding: 18px;
+margin-bottom: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.4), var(--glass-inner-glow);
+}
+.wallet-hero {
+text-align: center; border-color: rgba(245, 158, 11, 0.3);
+background: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.15), rgba(22, 28, 48, 0.4));
+}
+.balance-label { font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
+.balance-main { font-size: 32px; font-weight: 900; color: #fff; margin: 4px 0; }
+
+/* 🌟 আপডেট নোটিশ বার 🌟 */
+.update-notice-panel {
+background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(217, 119, 6, 0.1));
+border: 1.5px solid var(--vip-gold); border-radius: 18px; padding: 12px 14px;
+margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
+}
+.update-notice-badge {
+background: var(--vip-gold); color: #090d16; font-size: 10px; font-weight: 900;
+padding: 4px 8px; border-radius: 10px; white-space: nowrap;
+}
+.update-notice-text { font-size: 12px; font-weight: 700; color: #fff; flex: 1; }
+
+/* DYNAMIC ACCOUNT CATEGORIES */
+.submission-grid {
+display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px;
+}
+.cat-card {
+background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+border: 1.5px solid var(--glass-border); border-radius: 18px; padding: 16px 12px;
+text-align: center; cursor: pointer; transition: transform 0.2s, border-color 0.2s;
+display: flex; flex-direction: column; justify-content: space-between;
+}
+.cat-card:active { transform: scale(0.96); border-color: var(--vip-gold); }
+.cat-icon { font-size: 28px; margin-bottom: 8px; }
+.cat-title { font-weight: 800; font-size: 13px; color: #fff; margin-bottom: 4px; }
+.cat-rate-badge {
+background: rgba(245, 158, 11, 0.15); border: 1px solid var(--vip-gold);
+color: var(--vip-gold); font-size: 11px; font-weight: 800; padding: 3px 6px;
+border-radius: 10px; margin-top: 6px; display: inline-block;
 }
 
-.screen.active{
-display:block;
-animation: fadeIn 0.4s ease-out;
+/* WITHDRAW INPUTS & CHIPS */
+.input-field {
+width: 100%; height: 44px; border-radius: 12px; border: 1px solid var(--glass-border);
+background: rgba(255, 255, 255, 0.05); color: #fff; padding: 0 14px; font-size: 13px; outline: none; margin-bottom: 10px;
+}
+.input-field:focus { border-color: var(--vip-gold); }
+.quick-amount-wrap { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.quick-amt-chip {
+background: rgba(255, 255, 255, 0.06); border: 1px solid var(--glass-border);
+color: var(--vip-gold); font-size: 11px; font-weight: 800; padding: 6px 12px;
+border-radius: 12px; cursor: pointer; transition: all 0.2s;
+}
+.quick-amt-chip:active { background: rgba(245, 158, 11, 0.2); }
+
+/* VOICE NOTICE CARD & LOVE BUTTON */
+.voice-notice-card {
+background: rgba(124, 58, 237, 0.15); backdrop-filter: blur(15px);
+border: 1.5px solid rgba(124, 58, 237, 0.35); border-radius: 20px;
+padding: 14px; margin-bottom: 14px; display: none; align-items: center; justify-content: space-between;
+}
+.love-react-btn {
+background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35);
+color: #ef4444; height: 36px; padding: 0 12px; border-radius: 18px;
+font-size: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 5px;
 }
 
-@keyframes fadeIn {
-from { opacity: 0; transform: translateY(10px); }
-to { opacity: 1; transform: translateY(0); }
+/* BROWSER VIEWPORT */
+.browser-search-bar {
+display: flex; align-items: center; gap: 8px; background: rgba(255, 255, 255, 0.05);
+border: 1.5px solid var(--glass-border); border-radius: 16px; padding: 4px 8px; margin-bottom: 10px;
 }
+.browser-url-input {
+flex: 1; height: 38px; background: transparent; border: none; color: #fff; font-size: 12px; outline: none; padding: 0 8px;
+}
+.browser-viewport-card {
+flex: 1; background: #000; border: 1.5px solid var(--glass-border);
+border-radius: 18px; overflow: hidden; min-height: 52vh; display: flex; flex-direction: column;
+}
+.browser-viewport-card iframe { width: 100%; flex: 1; border: none; background: #fff; }
 
-/* HOME PANEL LAYOUT WITH DYNAMIC BANNER SIDE BUTTON */
-.banner-wrapper {
-  display: flex;
-  gap: 12px;
-  align-items: stretch;
-  margin-bottom: 16px;
-}
-
-.banner{
-flex: 1;
-height:170px;
-object-fit:cover;
-border-radius:24px;
-box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-border: 1px solid var(--glass-border);
-}
-
-.banner-side-btn {
-  width: 80px;
-  background: linear-gradient(135deg, #ea580c, #c2410c);
-  border: 1.5px solid var(--glass-border);
-  border-radius: 24px;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-weight: 800;
-  font-size: 11px;
-  text-align: center;
-  box-shadow: 0 10px 25px rgba(234, 88, 12, 0.25);
-  transition: all 0.2s;
-  padding: 8px;
-  display: none;
-}
-.banner-side-btn:active {
-  transform: scale(0.95);
-  box-shadow: 0 4px 10px rgba(234, 88, 12, 0.1);
-}
-.banner-side-btn i {
-  font-size: 22px;
-  animation: pulseGlow 1.5s infinite alternate;
-}
-
-.info-card{
-margin-top:16px;
-background: rgba(30, 41, 59, 0.4);
-backdrop-filter: blur(10px);
-padding:20px;
-border-radius:24px;
-border: 1px solid var(--glass-border);
-box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-}
-
-.info-title{
-font-size:18px;
-font-weight:800;
-margin-bottom:6px;
-color: #fff;
-}
-
-.info-text{
-font-size:13px;
-color: var(--text-muted);
-line-height:1.5;
-}
-
-.contact-wrap{
-display:flex;
-gap:12px;
-margin-top:16px;
-}
-
-.contact-btn{
-flex:1;
-height:48px;
-border:none;
-border-radius:14px;
-font-weight:700;
-cursor:pointer;
-font-size:14px;
-display:flex;
-align-items:center;
-justify-content:center;
-gap:8px;
-text-decoration:none;
-color:white;
-box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-transition: transform 0.2s;
-}
-.contact-btn:active { transform: scale(0.96); }
-.telegram{ background:linear-gradient(135deg,#0ea5e9,#0284c7); }
-.whatsapp{ background:linear-gradient(135deg,#22c55e,#15803d); }
-
-
-/* ========================================================================= */
-/* 🌟 NEW GLOWING DYNAMIC CARD GRID (অ্যাডমিন অ্যাপের মতো দৃষ্টিনন্দন বাটন) 🌟 */
-/* ========================================================================= */
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-top: 24px;
-}
-.menu-card {
-  background: rgba(30, 41, 59, 0.35);
-  border: 1.5px solid rgba(255, 255, 255, 0.05);
-  border-radius: 28px;
-  padding: 24px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 155px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
-}
-.menu-card:active {
-  transform: scale(0.95);
-}
-.menu-card-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  margin-bottom: 24px;
-}
-.menu-card-text {
-  font-size: 15px;
-  font-weight: 700;
-  color: #fff;
-}
-
-/* বাটন কালার ও স্পেশাল গ্লো ইফেক্ট */
-.card-account { border-color: rgba(59, 130, 246, 0.25); }
-.card-account .menu-card-icon { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
-
-.card-youtube { border-color: rgba(239, 68, 68, 0.25); }
-.card-youtube .menu-card-icon { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
-
-.card-sheet { border-color: rgba(16, 185, 129, 0.25); }
-.card-sheet .menu-card-icon { background: rgba(16, 185, 129, 0.15); color: #10b981; }
-
-.card-gallery { border-color: rgba(236, 72, 153, 0.25); }
-.card-gallery .menu-card-icon { background: rgba(236, 72, 153, 0.15); color: #ec4899; }
-
-
-/* BACK ACTION */
-.back{
-display:inline-flex;
-align-items:center;
-gap:8px;
-font-weight:700;
-margin-bottom:16px;
-cursor:pointer;
-color:#60a5fa;
-background: rgba(255,255,255,0.05);
-padding: 10px 18px;
-border-radius: 14px;
-border: 1px solid var(--glass-border);
-transition: all 0.2s;
-}
-.back:active { transform: scale(0.95); }
-
-/* SOCIAL MARKET GRID */
-.social-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.social-btn{
-background: rgba(30, 41, 59, 0.4);
-border:1px solid var(--glass-border);
-padding:24px 12px;
-border-radius:22px;
-text-align:center;
-text-decoration: none;
-cursor:pointer;
-box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-transition: all .2s;
-backdrop-filter: blur(10px);
-}
-
-.social-btn:active{ transform:scale(.95); }
-.social-btn i{ font-size:36px; margin-bottom:10px; }
-.social-btn div{ font-weight:700; font-size:14px; color: #fff; }
-
-/* YOUTUBE IFRAME LIVE CONTAINER */
-.youtube-container {
-width: 100%;
-background: rgba(30, 41, 59, 0.4);
-border: 1px solid var(--glass-border);
-border-radius: 24px;
-padding: 18px;
-box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-text-align: center;
-backdrop-filter: blur(10px);
-}
-
-.video-wrapper {
-position: relative;
-padding-bottom: 56.25%;
-height: 0;
-overflow: hidden;
-border-radius: 16px;
-background: #000;
-margin-bottom: 16px;
-border: 1px solid var(--glass-border);
-}
-
-.video-wrapper iframe {
-position: absolute;
-top: 0; left: 0; width: 100%; height: 100%; border: 0;
-}
-
-/* SHEET SYSTEM */
-.sheet{
-background: rgba(30, 41, 59, 0.4);
-border-radius:22px;
-overflow:hidden;
-border: 1px solid var(--glass-border);
-box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-backdrop-filter: blur(10px);
-}
-
-.sheet-head{
-background: rgba(22, 163, 74, 0.2);
-border-bottom: 1px solid rgba(22, 163, 74, 0.3);
-padding:16px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-color:white;
-font-weight:bold;
-}
-
-.sheet-btns{ display:flex; gap:6px; flex-wrap: wrap; }
-
-.copy-all, .export-csv {
-border:none;
-padding:8px 12px;
-border-radius:12px;
-font-weight:bold;
-cursor:pointer;
-font-size: 12px;
-transition: transform 0.2s;
-display: inline-flex;
-align-items: center;
-gap: 5px;
-}
-.copy-all:active, .export-csv:active { transform: scale(0.95); }
-
-.clear{ background:#dc2626; color:white; }
-.scroll{ overflow-x:auto; max-height:45vh; }
-
-/* Live Search Styling */
-.search-wrapper {
-padding: 12px 16px;
-background: rgba(15, 23, 42, 0.2);
-border-bottom: 1px solid var(--glass-border);
-position: relative;
-}
-
-.search-input {
-width: 100%;
-height: 44px;
-border-radius: 12px;
-border: 1.5px solid var(--glass-border);
-background: rgba(15, 23, 42, 0.5);
-color: #fff;
-padding: 0 16px 0 40px;
-outline: none;
-font-size: 13px;
-transition: all 0.3s;
-}
-
-.search-input:focus {
-border-color: var(--success);
-box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-}
-
-.search-icon {
-position: absolute;
-left: 30px;
-top: 50%;
-transform: translateY(-50%);
-color: var(--text-muted);
-font-size: 14px;
-}
-
-table{ width:100%; border-collapse:collapse; font-size:13px; color: #fff; }
-th,td{ border:1px solid var(--glass-border); padding:14px; text-align:center; }
-
-th{
-background: rgba(15, 23, 42, 0.6);
-position:sticky; top:0; color: var(--text-muted);
-z-index: 5;
-}
-
-.copy { font-size:16px; color:#60a5fa; cursor:pointer; }
-.delete-btn { background:none; border:none; color:#ef4444; cursor:pointer; font-size:16px; }
-
-/* FIXED BOTTOM AD BANNER */
-.ad-banner-container {
-position: fixed;
-bottom: 0; left: 0; width: 100%; height: 60px; /* অটোমেটিক বিজ্ঞাপনের জন্য উপযুক্ত সাইজ */
-background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(16px);
-display: flex; align-items: center; justify-content: center;
-padding: 4px 12px; z-index: 100002;
-border-top: 1px solid var(--glass-border);
-}
-
-/* SMART ASSISTANT PANEL */
-.assistant{
-position:fixed;
-right:16px; bottom:165px;
-width:320px;
-background: rgba(30, 41, 59, 0.9); backdrop-filter: blur(16px);
-border-radius:24px; padding:18px;
-box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-display:none; z-index:9999;
-border: 1px solid var(--glass-border);
-}
-
-.assistant.show { display:block; animation: fadeIn 0.3s ease; }
-.panel-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
-.panel-title { font-size:14px; font-weight:700; color: var(--text-muted); }
-.close-btn { width:28px; height:28px; border:none; border-radius:50%; background:rgba(255,255,255,0.1); color:#fff; cursor:pointer; font-weight:bold; }
-
-.input{
-width:100%; height:46px;
-border:1px solid var(--glass-border); border-radius:12px;
-padding:0 14px; margin-bottom:14px; outline:none;
-font-size:13px; background: rgba(15, 23, 42, 0.5); color: #fff;
-}
-
-.input:focus{ border-color:var(--accent); box-shadow: 0 0 0 3px rgba(124,58,237,0.2); }
-.save-btn{ width:100%; height:46px; border:none; border-radius:12px; background:#16a34a; color:white; font-weight:700; cursor:pointer; font-size:14px; box-shadow: 0 4px 15px rgba(22,163,74,0.3); display: flex; align-items: center; justify-content: center; gap: 8px; }
-.save-btn:disabled { background: #4b5563; cursor: not-allowed; box-shadow: none; }
-.reset-btn{ margin-top:8px; width:100%; height:40px; border:none; border-radius:12px; background:rgba(255,255,255,0.05); color:var(--text-muted); cursor:pointer; font-weight:700; }
-
-/* DYNAMIC NEON AUDIO PLAYER UI */
-.audio-player-modal {
-  position: fixed;
-  bottom: 100px;
-  right: 16px;
-  width: 320px;
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(25px);
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  border-radius: 24px;
-  padding: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.5), var(--neon-shadow);
-  z-index: 100001;
-  display: none;
-  flex-direction: column;
-  gap: 15px;
-  animation: fadeIn 0.3s ease-out;
-}
-.audio-player-modal.show { display: flex; }
-.player-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--glass-border);
-  padding-bottom: 8px;
-}
-.player-title {
-  font-size: 14px;
-  font-weight: bold;
-  color: #a78bfa;
-  text-shadow: 0 0 8px rgba(167, 139, 250, 0.4);
-}
-.player-close {
-  background: none; border: none; color: #fff; cursor: pointer; font-size: 18px;
-}
-.player-disc-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-/* MP3 Disc Visualizer Icon */
-.player-disc {
-  width: 70px; height: 70px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #2d1b4e 0%, #0f172a 100%);
-  border: 2px solid #8b5cf6;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: var(--neon-shadow);
-}
-.player-disc.playing {
-  animation: spin 3s linear infinite;
-}
-.player-disc i { font-size: 30px; color: #a78bfa; }
-
-/* 🌟 YOUTUBE VISIBLE PLACEHOLDER (সরাসরি মোডালের ভেতরে পজিশন্ড যাতে ব্যাকগ্রাউন্ড সাসপেনশন ফিক্সড হয়) 🌟 */
-#ytPlayerPlaceholder {
-  width: 140px;
-  height: 95px;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1.5px solid var(--glass-border);
-  box-shadow: var(--neon-shadow);
-  display: none;
-}
-
-/* VISUALIZER ANIMATION */
-.visualizer {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 3px;
-  height: 20px;
-  margin: 5px 0;
-}
-.visualizer-bar {
-  width: 3px;
-  height: 3px;
-  background-color: #8b5cf6;
-  border-radius: 3px;
-}
-.playing .visualizer-bar {
-  animation: bounceBar 0.8s ease-in-out infinite alternate;
-}
-.playing .visualizer-bar:nth-child(2) { animation-delay: 0.1s; }
-.playing .visualizer-bar:nth-child(3) { animation-delay: 0.25s; }
-.playing .visualizer-bar:nth-child(4) { animation-delay: 0.05s; }
-.playing .visualizer-bar:nth-child(5) { animation-delay: 0.15s; }
-
-@keyframes bounceBar {
-  0% { height: 3px; }
-  100% { height: 20px; }
-}
-
-.player-info { text-align: center; }
-.player-song-name { font-size: 13px; font-weight: bold; }
-.player-source { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-
-.player-slider-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  color: var(--text-muted);
-}
-.player-slider {
-  flex: 1;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  outline: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-}
-.player-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  background: #8b5cf6;
-  box-shadow: 0 0 8px #8b5cf6;
-}
-
-.player-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-}
-.player-btn {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid var(--glass-border);
-  color: white;
-  width: 38px; height: 38px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s;
-}
-.player-btn:active { transform: scale(0.9); }
-.player-btn.play-toggle {
-  background: #8b5cf6;
-  border-color: #a78bfa;
-  box-shadow: var(--neon-shadow);
-}
-
-.player-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-height: 120px;
-  overflow-y: auto;
-  border-top: 1px solid var(--glass-border);
-  padding-top: 10px;
-}
-.menu-item {
-  background: rgba(255,255,255,0.03);
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-size: 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid transparent;
-  transition: all 0.2s;
-}
-.menu-item:hover, .menu-item.active {
-  background: rgba(139, 92, 246, 0.1);
-  border-color: rgba(139, 92, 246, 0.3);
-  color: #c084fc;
-}
-
-/* GALLERY SCREEN SYSTEM */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-top: 16px;
-}
-.gallery-card {
-  background: rgba(30, 41, 59, 0.4);
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  backdrop-filter: blur(10px);
-  display: flex;
-  flex-direction: column;
-}
-.gallery-img {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-  transition: transform 0.3s;
-}
-.gallery-card:hover .gallery-img {
-  transform: scale(1.05);
-}
-.gallery-footer {
-  padding: 8px 12px;
-  font-size: 11px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(15, 23, 42, 0.6);
-}
-.gallery-delete {
-  background: none; border: none; color: var(--error); cursor: pointer; font-size: 13px;
-}
-
-/* UPLOAD ZONE */
-.upload-zone {
-  background: rgba(139, 92, 246, 0.05);
-  border: 2px dashed rgba(139, 92, 246, 0.3);
-  border-radius: 22px;
-  padding: 24px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s;
-  position: relative;
-}
-.upload-zone:hover {
-  background: rgba(139, 92, 246, 0.08);
-  border-color: #8b5cf6;
-}
-.upload-zone i {
-  font-size: 32px;
-  color: #a78bfa;
-  margin-bottom: 10px;
-}
-.upload-progress-container {
-  width: 100%;
-  background: rgba(255,255,255,0.1);
-  height: 6px;
-  border-radius: 3px;
-  margin-top: 10px;
-  overflow: hidden;
-  display: none;
-}
-.upload-progress-bar {
-  width: 0%;
-  height: 100%;
-  background: linear-gradient(90deg, #8b5cf6, #d946ef);
-  transition: width 0.3s;
-}
-
-@media(max-width:480px){
-.assistant{ width:92%; right:4%; }
-.audio-player-modal { width: 92%; right: 4%; }
-}
+.status-pill { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 10px; font-weight: 800; }
+.st-submitted { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid #3b82f6; }
+.st-pending { background: rgba(245, 158, 11, 0.2); color: #fde047; border: 1px solid #f59e0b; }
+.st-approved { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid #10b981; }
+.st-rejected { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
+.card-title { font-size: 15px; font-weight: 800; color: var(--vip-gold); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
 </style>
-
 </head>    
 <body>
 
-<!-- অটো-প্লে পলিসি বাইপাস ওভারলে -->
-<div class="interaction-trigger" id="autoplayOverlay">
-  <h2 style="font-size: 18px; font-weight: 800; margin-bottom: 6px; color: #fff;">Account Bazar Pro</h2>
-  <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px; max-width: 280px; line-height: 1.5;">গজল এবং লাইভ অডিও সার্ভিস শুনতে নিচের বাটনে ক্লিক করুন।</p>
-  <button class="trigger-btn" onclick="acceptInteraction()"><i class="fa-solid fa-play"></i> প্রবেশ করুন</button>
-</div>
-
-<!-- স্প্ল্যাশ স্ক্রীন লোডার -->  
+<!-- 🌟 ১ থেকে ১০০ পর্যন্ত VIP লোডার 🌟 -->
 <div class="splash-screen" id="splashScreen">  
-  <div class="splash-logo">Account Bazar Pro</div>  
-  <div class="islamic-loader"></div>  
-  <div class="splash-text">LOADING SECURE SYSTEM...</div>  
+  <div class="splash-logo-container">
+    <svg class="loader-svg" viewBox="0 0 110 110">
+      <defs>
+        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#fde047" />
+          <stop offset="50%" stop-color="#f59e0b" />
+          <stop offset="100%" stop-color="#d97706" />
+        </linearGradient>
+      </defs>
+      <circle class="loader-circle-bg" cx="55" cy="55" r="50"></circle>
+      <circle class="loader-circle-progress" id="loaderCircleProgress" cx="55" cy="55" r="50"></circle>
+    </svg>
+    <img src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" class="splash-logo-img">
+  </div>
+  <div class="splash-title">Account Bazar Pro</div>  
+  <div class="percentage-badge" id="loaderPercentage">১%</div>  
 </div>  
 
-<!-- প্রিমিয়াম কাস্টম টোস্ট নোটিফিকেশন -->  
+<!-- টোস্ট নোটিফিকেশন -->  
 <div class="toast-container" id="customToast">  
   <i class="toast-icon" id="toastIcon"></i>  
-  <div class="toast-text" id="toastText">বার্তা</div>  
+  <div class="toast-text" id="toastText">বিজ্ঞপ্তি</div>  
 </div>  
 
-<!-- スマート গাইডেন্স মডাল পপআপ -->  
-<div class="guide-modal" id="guideModal">  
-  <div class="guide-box" id="guideBox">  
-    <div class="guide-header" id="guideHeader"><i class="fa-solid fa-wand-magic-sparkles"></i> অ্যাকাউন্ট গাইড</div>  
-    <div class="step-container">  
-      <div class="step-text" id="stepText">লোডিং...</div>  
-    </div>  
-    <button class="guide-btn" id="guideNextBtn" onclick="nextStep()">পরবর্তী ধাপ</button>  
-  </div>  
-</div>  
-
-<!-- অ্যাডমিন রিয়েল-টাইম পপআপ এলার্ট ডায়ালগ -->
-<div class="guide-modal" id="adminAlertModal" style="display: none;">
-  <div class="guide-box" id="adminAlertBox">  
-    <div class="guide-header" style="color: var(--accent);"><i class="fa-solid fa-bell"></i> অ্যাডমিন বিশেষ নোটিশ</div>  
-    <div class="step-container" style="border-color: rgba(139, 92, 246, 0.2);">  
-      <div class="step-text" id="adminAlertText" style="text-align: center; width: 100%;">লোডিং...</div>  
-    </div>  
-    <button class="guide-btn" style="background: var(--accent); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);" onclick="closeAdminAlert()">ঠিক আছে</button>  
-  </div>  
-</div>
-
+<!-- 🌟 কাঁচের মতো ক্রিস্টাল অথেন্টিকেশন স্ক্রীন 🌟 -->
 <div class="auth-container" id="authContainer" style="display:none;">    
+  
+  <!-- ১. লগইন কার্ড (পাসওয়ার্ড চোখ 👀 ও ১-ক্লিকে ফরগেট পাসওয়ার্ডসহ) -->
   <div class="auth-card" id="loginCard">    
+    <img src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" class="auth-logo-img">
     <div class="auth-title">Account Bazar Pro</div>    
-    <div class="auth-subtitle">লগইন করে আপনার অ্যাকাউন্টে প্রবেশ করুন</div>    
+    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 16px;">লগইন করে অ্যাকাউন্টে প্রবেশ করুন</div>    
+    
     <div class="auth-form">    
-      <div class="input-group">    
-        <input type="email" id="loginEmail" class="auth-input" placeholder="আপনার ইমেইল">    
-        <i class="fa-solid fa-envelope input-icon"></i>    
+      <input type="email" id="loginEmail" class="auth-input" placeholder="আপনার জিমেইল অ্যাড্রেস">    
+      
+      <!-- পাসওয়ার্ড ফিল্ডে চোখ আইকন 👀 -->
+      <div class="input-wrap-glass">
+        <input type="password" id="loginPass" class="auth-input" placeholder="পাসওয়ার্ড লিখুন">    
+        <span class="eye-toggle-btn" onclick="togglePasswordVisibility('loginPass', this)">👁️</span>
+      </div>
+
+      <!-- ফরগেট পাসওয়ার্ড লিংক -->
+      <div style="text-align: right; margin-top: -4px;">    
+        <span style="color: var(--vip-gold); font-size: 11px; cursor: pointer; font-weight: bold;" onclick="toggleAuthCard('forgot')">পাসওয়ার্ড ভুলে গেছেন?</span>    
       </div>    
-      <div class="input-group">    
-        <input type="password" id="loginPass" class="auth-input" placeholder="পাসওয়ার্ড">    
-        <i class="fa-solid fa-key input-icon"></i>    
-        <i class="fa-solid fa-eye toggle-password" onclick="togglePassVisibility('loginPass', this)"></i>    
-      </div>    
-      <div class="forgot-wrap">    
-        <span class="forgot-link" onclick="toggleAuthCard('forgot')">পাসওয়ার্ড ভুলে গেছেন?</span>    
-      </div>    
-      <button class="auth-btn" id="loginBtn" onclick="handleLogin()">লগইন করুন</button>    
-      <button class="google-custom-btn" onclick="handleBrowserGoogleLogin()">  
-        <i class="fa-brands fa-google"></i> Google অ্যাকাউন্ট দিয়ে লগইন  
-      </button>  
+
+      <button class="auth-btn" onclick="handleLogin()"><i class="fa-solid fa-right-to-bracket"></i> লগইন করুন</button>    
     </div>    
-    <div class="auth-toggle-text">    
-      নতুন ইউজার? <span class="auth-toggle-link" onclick="toggleAuthCard('signup')">রেজিস্ট্রেশন করুন</span>    
+
+    <!-- গুগল সাইন-ইন বাটন -->
+    <div class="auth-divider">অথবা</div>
+    <button class="google-custom-btn" onclick="handleBrowserGoogleLogin()">  
+      <i class="fa-brands fa-google" style="color: #ea4335; font-size: 16px;"></i> Google জিমেইল দিয়ে লগইন
+    </button>  
+
+    <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px;">    
+      নতুন ইউজার? <span style="color: var(--vip-gold); font-weight: 700; cursor: pointer;" onclick="toggleAuthCard('signup')">রেজিস্ট্রেশন করুন</span>    
     </div>    
   </div>      
+  
+  <!-- ২. সাইন আপ কার্ড (রেফার কোড ছাড়া একাউন্ট খোলার অপশন ও পাসওয়ার্ড চোখ 👀) -->
   <div class="auth-card" id="signupCard" style="display:none;">    
-    <div class="auth-title">নতুন অ্যাকাউন্ট</div>    
-    <div class="auth-subtitle">সকল তথ্য দিয়ে সাইন আপ সম্পন্ন করুন</div>    
+    <img src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" class="auth-logo-img">
+    <div class="auth-title">নতুন একাউন্ট খুলুন</div>    
+    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px;">রেজিস্ট্রেশনের পর জিমেইল ভেরিফাই করতে হবে</div>    
+    
     <div class="auth-form">    
-      <div class="input-group">    
-        <input type="email" id="signupEmail" class="auth-input" placeholder="ইমেইল অ্যাড্রেস">    
-        <i class="fa-solid fa-envelope input-icon"></i>    
-      </div>    
-      <div class="input-group">    
-        <input type="password" id="signupPass" class="auth-input" placeholder="নতুন পাসওয়ার্ড">    
-        <i class="fa-solid fa-key input-icon"></i>    
-        <i class="fa-solid fa-eye toggle-password" onclick="togglePassVisibility('signupPass', this)"></i>    
-      </div>    
-      <div class="input-group">    
-        <input type="password" id="signupConfirmPass" class="auth-input" placeholder="কনফার্ম পাসওয়ার্ড">    
-        <i class="fa-solid fa-shield-lock input-icon"></i>    
-        <i class="fa-solid fa-eye toggle-password" onclick="togglePassVisibility('signupConfirmPass', this)"></i>    
-      </div>    
-      <button class="auth-btn" id="signupBtn" onclick="handleSignUp()">সাইন আপ করুন</button>    
+      <input type="text" id="signupName" class="auth-input" placeholder="আপনার পুরো নাম">    
+      <input type="email" id="signupEmail" class="auth-input" placeholder="সঠিক জিমেইল অ্যাড্রেস">    
+      <!-- রেফারেল কোড ছাড়া একাউন্ট খোলা যাবে (ঐচ্ছিক) -->
+      <input type="text" id="signupRef" class="auth-input" placeholder="রেফার কোড (না থাকলে খালি রাখুন)">    
+      
+      <!-- পাসওয়ার্ড ফিল্ডে চোখ আইকন 👀 -->
+      <div class="input-wrap-glass">
+        <input type="password" id="signupPass" class="auth-input" placeholder="পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)">    
+        <span class="eye-toggle-btn" onclick="togglePasswordVisibility('signupPass', this)">👁️</span>
+      </div>
+
+      <button class="auth-btn" onclick="handleSignUp()"><i class="fa-solid fa-user-plus"></i> সাইন আপ করুন</button>    
     </div>    
-    <div class="auth-toggle-text">    
-      ইতিমধ্যে অ্যাকাউন্ট আছে? <span class="auth-toggle-link" onclick="toggleAuthCard('login')">লগইন করুন</span>    
+
+    <div class="auth-divider">অথবা</div>
+    <button class="google-custom-btn" onclick="handleBrowserGoogleLogin()">  
+      <i class="fa-brands fa-google" style="color: #ea4335; font-size: 16px;"></i> Google দিয়ে সরাসরি অ্যাকাউন্ট খুলুন
+    </button>  
+
+    <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px;">    
+      ইতিমধ্যে অ্যাকাউন্ট আছে? <span style="color: var(--vip-gold); font-weight: 700; cursor: pointer;" onclick="toggleAuthCard('login')">লগইন করুন</span>    
     </div>    
   </div>      
+
+  <!-- ৩. ১-ক্লিকে ফরগেট পাসওয়ার্ড কার্ড -->
   <div class="auth-card" id="forgotCard" style="display:none;">    
-    <div class="auth-title" style="color: #f97316;">পাসওয়ার্ড রিসেট</div>    
-    <div class="auth-subtitle">জিমেইলে রিসেট লিংক পাঠানো হবে</div>    
+    <img src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" class="auth-logo-img">
+    <div class="auth-title">পাসওয়ার্ড রিসেট</div>    
+    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 14px;">আপনার জিমেইলে ১-ক্লিকে রিসেট লিংক চলে যাবে</div>    
+    
     <div class="auth-form">    
-      <div class="input-group">    
-        <input type="email" id="forgotEmail" class="auth-input" placeholder="আপনার রেজিস্টার্ড ইমেইল">    
-        <i class="fa-solid fa-envelope input-icon"></i>    
-      </div>    
-      <button class="auth-btn" id="forgotBtn" style="background: linear-gradient(135deg, #f97316, #ea580c);" onclick="handleForgotPassword()">রিসেট লিংক পাঠান</button>    
+      <input type="email" id="forgotEmail" class="auth-input" placeholder="আপনার রেজিস্টার্ড জিমেইল দিন">    
+      <button class="auth-btn" onclick="handleForgotPassword()"><i class="fa-solid fa-paper-plane"></i> রিসেট লিংক পাঠান</button>    
     </div>    
-    <div class="auth-toggle-text">    
-      আবার ফিরে যান? <span class="auth-toggle-link" onclick="toggleAuthCard('login')">লগইন করুন</span>    
+
+    <div style="font-size: 12px; color: var(--text-muted); margin-top: 14px;">    
+      <span style="color: var(--vip-gold); font-weight: 700; cursor: pointer;" onclick="toggleAuthCard('login')">লগইন এ ফিরে যান</span>    
     </div>    
   </div>    
+
+  <!-- ৪. জিমেইল ইমেইল ভেরিফিকেশন কার্ড (Verify Notice) -->
+  <div class="auth-card" id="emailVerifyNoticeCard" style="display:none;">    
+    <img src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" class="auth-logo-img">
+    <div class="auth-title"><i class="fa-solid fa-envelope-circle-check"></i> জিমেইল ভেরিফাই করুন</div>    
+    <p style="font-size: 12px; color: var(--text-main); margin: 12px 0; line-height: 1.6;">
+      আপনার জিমেইলে একটি ভেরিফিকেশন লিংক পাঠানো হয়েছে। দয়া করে আপনার Gmail ইনবক্স (বা স্প্যাম ফোল্ডার) চেক করে লিংকে চাপ দিয়ে ভেরিফাই করুন।
+    </p>    
+    <button class="auth-btn" onclick="checkEmailVerified()"><i class="fa-solid fa-circle-check"></i> আমি ভেরিফাই সম্পন্ন করেছি</button>    
+    <button class="google-custom-btn" style="margin-top: 8px;" onclick="resendEmailVerification()"><i class="fa-solid fa-paper-plane"></i> পুনরায় লিংক পাঠান</button>    
+    <div style="font-size: 11px; color: var(--text-muted); margin-top: 14px; cursor: pointer;" onclick="handleLogout()">লগআউট করুন</div>
+  </div>
+
 </div>    
 
+<!-- টপবার -->
 <div class="topbar">    
-  <div class="logo">Account Bazar Pro</div>    
-  <div style="display:flex; align-items:center; gap:12px;">    
-    <div class="live"><i class="fa-solid fa-circle-check"></i> Live App</div>    
-    <!-- নতুন এসএমএস বাটন -->
-    <button class="logout-btn" onclick="openScreen('smsScreen')" style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); color: #60a5fa;" title="অ্যাডমিন বার্তা"><i class="fa-solid fa-envelope"></i></button>    
-    <button class="logout-btn" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket"></i></button>    
+  <div class="brand-wrap">
+    <img src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" class="topbar-logo">
+    <div class="logo">Account Bazar Pro</div>    
+  </div>
+  <div class="topbar-actions">    
+    <!-- অ্যাডমিন এসএমএস হিস্ট্রি দেখার বাটন -->
+    <button class="top-btn" onclick="openScreen('smsScreen')" title="অ্যাডমিন এসএমএস ইনবক্স"><i class="fa-solid fa-envelope" style="color: #60a5fa;"></i></button>
+    <button class="top-btn" onclick="switchMainTab('browserTab')" title="গুগল ব্রাউজার"><i class="fa-brands fa-google" style="color: #ea4335;"></i></button>
+    <button class="top-btn" onclick="handleLogout()" title="লগআউট"><i class="fa-solid fa-right-from-bracket" style="color: #ef4444;"></i></button>    
   </div>    
 </div>    
 
+<!-- 🌟 ১. মূল হোম ড্যাশবোর্ড 🌟 -->
 <div class="screen active" id="home">    
-  <!-- লাইভ নোটিশ -->  
-  <div class="admin-notice-box" id="noticeBox">    
-    <i class="fa-solid fa-bell"></i>    
-    <div class="admin-notice-text" id="noticeText">বিজ্ঞপ্তি লোড হচ্ছে...</div>    
-  </div>      
+  
+  <!-- 🌟 আপডেট নোটিশ বার 🌟 -->
+  <div class="update-notice-panel" id="updateNoticePanel">
+    <span class="update-notice-badge"><i class="fa-solid fa-bullhorn"></i> আপডেট নোটিশ</span>
+    <div class="update-notice-text" id="updateNoticeText">সিস্টেম আপডেট নোটিশ লোড হচ্ছে...</div>
+  </div>
 
-  <!-- অ্যাডমিন ভয়েস মেসেজ বক্স -->    
+  <div class="glass-panel wallet-hero">
+    <div class="balance-label">ব্যবহারযোগ্য একাউন্ট ব্যালেন্স</div>
+    <div class="balance-main">৳ <span id="homeAvailableBal">0.00</span></div>
+    <div style="display:flex; justify-content:center; gap:10px; margin-top:10px;">
+      <button class="auth-btn" style="height:36px; padding:0 20px; font-size:12px;" onclick="switchMainTab('withdrawTab')"><i class="fa-solid fa-money-bill-transfer"></i> টাকা তুলুন</button>
+      <button class="auth-btn" style="height:36px; padding:0 20px; font-size:12px; background: rgba(255,255,255,0.1); color:#fff;" onclick="switchMainTab('submitTab')"><i class="fa-solid fa-paper-plane"></i> অ্যাকাউন্ট জমা</button>
+    </div>
+  </div>
+
+  <!-- 🌟 অ্যাডমিন ভয়েস বার্তা ও লাভ রিঅ্যাক্ট (❤️) 🌟 -->
   <div class="voice-notice-card" id="voiceNoticeCard">  
-    <div class="voice-notice-info">  
-      <i class="fa-solid fa-microphone-lines voice-notice-icon"></i>  
+    <div style="display: flex; align-items: center; gap: 10px; flex: 1;">  
+      <i class="fa-solid fa-microphone-lines" style="font-size: 20px; color: #a78bfa;"></i>  
       <div>  
-        <div class="voice-notice-title">অ্যাডমিন ভয়েস বার্তা</div>  
-        <div class="voice-notice-subtitle" id="voiceNoticeText">অ্যাডমিন একটি গুরুত্বপূর্ণ ভয়েস বার্তা পাঠিয়েছেন।</div>  
+        <div style="font-size: 13px; font-weight: 800; color: #fff;">অ্যাডমিন ভয়েস বার্তা</div>  
+        <div style="font-size: 11px; color: var(--text-muted);" id="voiceNoticeText">অ্যাডমিন একটি ভয়েস বার্তা পাঠিয়েছেন।</div>  
       </div>  
     </div>  
-    <button class="voice-notice-btn" id="voicePlayBtn" onclick="toggleVoiceNotice()">  
+    <button style="width:36px; height:36px; border-radius:50%; border:none; background:linear-gradient(135deg, #7c3aed, #6d28d9); color:#fff; cursor:pointer;" onclick="toggleVoiceNotice()">  
       <i class="fa-solid fa-play" id="voicePlayBtnIcon"></i>  
+    </button>  
+    <button class="love-react-btn" onclick="sendLoveReaction()">  
+      <i class="fa-solid fa-heart"></i> <span id="voiceLoveCount">0</span>  
     </button>  
     <audio id="voiceAudio" preload="auto"></audio>  
   </div>
 
-  <!-- ব্যানার লেআউট -->
-  <div class="banner-wrapper">
-    <img class="banner" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop">
-    <button class="banner-side-btn" id="bannerSideBtn">
-      <i class="fa-solid fa-bolt"></i>
-      <span id="bannerSideBtnText">VIP Access</span>
-    </button>
+  <!-- লাইভ রেটসহ অ্যাকাউন্ট সাবমিশন শো-কেস -->
+  <div class="glass-panel">
+    <div class="card-title"><i class="fa-solid fa-tags"></i> অ্যাকাউন্ট ক্রয় ও বর্তমান রেট (Live Rates)</div>
+    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 10px;">নিচে প্রতিটি অ্যাকাউন্টের লাইভ মূল্য দেওয়া হলো। অ্যাকাউন্টে চাপ দিলে সরাসরি গুগল ফর্মে নিয়ে যাবে।</p>
+    <div id="homeAccountRatesGrid" class="submission-grid"></div>
   </div>
-
-  <!-- ডাইনামিক অ্যাপ ডাউনলোড বাটন -->    
-  <a id="appDownloadBtn" class="download-app-bar" href="#" target="_blank">  
-    <div class="download-content">  
-      <i class="fa-solid fa-cloud-arrow-down download-icon-pulse"></i>  
-      <div>  
-        <div class="download-title" id="downloadTitle">앱스 ডাউনলোড করুন</div>  
-        <div class="download-subtitle">সর্বশেষ সংস্করণটি ইনস্টল করতে এখানে চাপুন</div>  
-      </div>  
-    </div>  
-    <i class="fa-solid fa-chevron-right" style="color: #10b981;"></i>  
-  </a>
-
-  <div class="info-card">    
-    <div class="info-title">Professional Account Platform</div>    
-    <div class="info-text">Fast access, modern sheet system, secure database and smooth mobile layout config.</div>    
-    <div class="contact-wrap">    
-      <a class="contact-btn telegram" href="https://t.me/addlist/tVmRRv6QjzhkMmZl" target="_blank"><i class="fa-brands fa-telegram"></i> Telegram</a>    
-      <a class="contact-btn whatsapp" href="https://wa.me/8801336478617" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>    
-    </div>    
-  </div>    
-
-  <!-- 🌟 ADMIIN STYLE GLOWING GRID BUTTONS 🌟 -->
-  <div class="menu-grid">    
-    <div class="menu-card card-account" onclick="openScreen('account')">  
-      <div class="menu-card-icon"><i class="fa-solid fa-user-plus"></i></div>  
-      <div class="menu-card-text">Account Bazar</div>  
-    </div>    
-    <div class="menu-card card-youtube" onclick="openScreen('youtubeScreen')">  
-      <div class="menu-card-icon"><i class="fa-brands fa-youtube"></i></div>  
-      <div class="menu-card-text">Duty Officer YT</div>  
-    </div>    
-    <div class="menu-card card-sheet" onclick="openScreen('sheet')">  
-      <div class="menu-card-icon"><i class="fa-solid fa-table"></i></div>  
-      <div class="menu-card-text">Google Sheet</div>  
-    </div>    
-    <div class="menu-card card-gallery" onclick="openScreen('galleryScreen')">  
-      <div class="menu-card-icon"><i class="fa-solid fa-images"></i></div>  
-      <div class="menu-card-text">Gallery & Upload</div>  
-    </div>    
-  </div>    
-</div>    
-
-<div class="screen" id="account">    
-  <div class="back" onclick="openScreen('home')"><i class="fa-solid fa-arrow-left"></i> ফিরে যান</div>    
-  <div class="social-grid">    
-    <div class="social-btn" onclick="startGuidedFlow('facebook')"><i class="fa-brands fa-facebook" style="color:#1877F2"></i><div>Facebook</div></div>    
-    <div class="social-btn" onclick="startGuidedFlow('indigo')"><i class="fa-brands fa-instagram" style="color:#E1306C"></i><div>Instagram</div></div>    
-    <div class="social-btn" onclick="startGuidedFlow('gmail')"><i class="fa-solid fa-envelope" style="color:#EA4335"></i><div>Gmail</div></div>    
-    <div class="social-btn" onclick="startGuidedFlow('telegram_acc')"><i class="fa-brands fa-telegram" style="color:#0ea5e9"></i><div>Telegram</div></div>    
-  </div>    
-</div>    
-
-<div class="screen" id="youtubeScreen">    
-  <div class="back" onclick="openScreen('home')"><i class="fa-solid fa-arrow-left"></i> ফিরে যান</div>    
-  <div class="youtube-container">    
-    <div class="video-wrapper">    
-      <iframe id="dynamicYoutubeEmbed" src="https://www.youtube.com/embed/" allowfullscreen></iframe>    
-    </div>    
-    <h3 style="font-size:16px; font-weight:700; margin-bottom:5px;">Official YouTube Channel</h3>    
-    <p style="font-size:13px; color:#6b7280; margin-bottom:15px;">প্রতিদিনের নতুন নতুন ভিডিও ও গুরুত্বপূর্ণ তথ্য দেখতে নিচ থেকে লাইভ কমেন্ট ও চ্যানেলটি ভিজিট করুন।</p>    
-    <div style="display: flex; flex-direction: column; gap: 10px;">  
-      <a id="officialYoutubeLink" href="https://youtube.com/@accountbazarpro" target="_blank" class="contact-btn" style="background:#dc2626;">  
-        <i class="fa-brands fa-youtube"></i> ওপেন ইউটিউব চ্যানেল  
-      </a>    
-      <a id="youtubeCommentLink" href="https://youtube.com/@accountbazarpro" target="_blank" class="contact-btn" style="background:#4b5563;">  
-        <i class="fa-solid fa-comments"></i> ভিডিও লাইভ কমেন্ট চেক করুন  
-      </a>  
-    </div>  
-  </div>    
-</div>    
-
-<div class="screen" id="sheet">    
-  <div class="back" onclick="openScreen('home')"><i class="fa-solid fa-arrow-left"></i> ফিরে যান</div>    
-  <div class="sheet">    
-    <div class="sheet-head">    
-      <span>Google Sheet View</span>    
-      <div class="sheet-btns">    
-        <button class="copy-all" style="background: #fff; color: #16a34a;" onclick="copyAll()"><i class="fa-solid fa-copy"></i> কপি অল</button>    
-        <button class="export-csv" style="background: #3b82f6; color: #fff;" onclick="exportCSV()"><i class="fa-solid fa-download"></i> CSV</button>    
-        <button class="copy-all clear" onclick="clearSheet()"><i class="fa-solid fa-trash-can"></i> মুছুন</button>    
-      </div>    
-    </div>    
-    <div class="search-wrapper">  
-      <i class="fa-solid fa-magnifying-glass search-icon"></i>  
-      <input type="text" id="sheetSearch" class="search-input" placeholder="ইউজারনেম অথবা পাসওয়ার্ড দিয়ে সার্চ করুন..." oninput="handleSearch(this.value)">  
-    </div>  
-    <div class="scroll">    
-      <table>    
-        <thead>    
-          <tr><th>SL</th><th>User</th><th>Pass</th><th>2FA Secret</th><th>Copy</th><th>Delete</th></tr>    
-        </thead>    
-        <tbody id="tbody"></tbody>    
-      </table>    
-    </div>    
-  </div>    
 </div>
 
-<div class="screen" id="galleryScreen">
-  <div class="back" onclick="openScreen('home')"><i class="fa-solid fa-arrow-left"></i> ফিরে যান</div>
-  <div class="upload-zone" onclick="triggerImageSelect()">
-    <i class="fa-solid fa-cloud-arrow-up"></i>
-    <h3 style="font-size: 15px; font-weight: bold; margin-bottom: 5px;">গ্যালারিতে নতুন ছবি আপলোড করুন</h3>
-    <p style="font-size: 11px; color: var(--text-muted);">এখানে চাপুন এবং ফোনের মেমোরি থেকে আপনার ছবি সিলেক্ট করুন</p>
-    <input type="file" id="imageFileInput" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
-    <div class="upload-progress-container" id="uploadProgressContainer">
-      <div class="upload-progress-bar" id="uploadProgressBar"></div>
+<!-- 🌟 ২. অ্যাকাউন্ট সাবমিশন পেজ (Google Form Integration) 🌟 -->
+<div class="screen" id="submitTab">
+  <div class="glass-panel">
+    <div class="card-title"><i class="fa-solid fa-cloud-arrow-up"></i> অ্যাকাউন্ট জমা দিন</div>
+    <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px;">নিচের কাঙ্ক্ষিত ক্যাটাগরিতে ক্লিক করলেই অ্যাডমিনের অফিসিয়াল গুগল ফর্ম খুলে যাবে।</p>
+    <div id="dynamicCategoryContainer" class="submission-grid"></div>
+  </div>
+</div>
+
+<!-- 🌟 ৩. উইথড্র সিস্টেম (অটোমেটিক ব্যালেন্স শো ও কঠোর ভ্যালিডেশন) 🌟 -->
+<div class="screen" id="withdrawTab">
+  <div class="glass-panel">
+    <div class="card-title"><i class="fa-solid fa-wallet"></i> টাকা উত্তোলন (উইথড্র)</div>
+    
+    <div style="background: rgba(255, 255, 255, 0.04); border: 1.5px solid var(--vip-gold); padding: 12px 14px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+      <div>
+        <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase;">উত্তোলনযোগ্য একাউন্ট ব্যালেন্স:</div>
+        <div style="font-size: 20px; font-weight: 900; color: var(--vip-gold);">৳ <span id="withdrawAvailBal">0.00</span></div>
+      </div>
+      <button class="quick-amt-chip" style="background: rgba(245, 158, 11, 0.2); border-color: var(--vip-gold);" onclick="autoFillMaxAmount()"><i class="fa-solid fa-bolt"></i> সব ব্যালেন্স (MAX)</button>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px;">
+      <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">পেমেন্ট মেথড নির্বাচন করুন:</label>
+      <select id="withdrawMethodSelect" class="input-field" onchange="handleWithdrawMethodChange(this.value)">
+        <option value="Nagad">১. নগদ (Nagad Personal)</option>
+        <option value="Binance">২. বাইনান্স পে (Binance Pay UID)</option>
+      </select>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px;">
+      <label id="withdrawAccountLabel" style="font-size: 11px; color: var(--text-muted); font-weight: 700;">নগদ পার্সোনাল নম্বর:</label>
+      <input type="text" id="withdrawAccountInput" class="input-field" placeholder="017...">
+    </div>
+
+    <div class="form-group" style="margin-bottom: 10px;">
+      <label style="font-size: 11px; color: var(--text-muted); font-weight: 700;">উইথড্র টাকার পরিমাণ (৳):</label>
+      <input type="number" id="withdrawAmountInput" class="input-field" placeholder="টাকার পরিমাণ লিখুন" oninput="validateWithdrawInput(this.value)">
+    </div>
+
+    <div class="quick-amount-wrap">
+      <span class="quick-amt-chip" onclick="setWithdrawAmount(50)">৳ ৫০</span>
+      <span class="quick-amt-chip" onclick="setWithdrawAmount(100)">৳ ১০০</span>
+      <span class="quick-amt-chip" onclick="setWithdrawAmount(200)">৳ ২০০</span>
+      <span class="quick-amt-chip" onclick="setWithdrawAmount(500)">৳ ৫০০</span>
+    </div>
+
+    <div style="font-size: 11px; color: var(--vip-gold); margin-bottom: 12px;" id="withdrawLimitNotice">
+      <i class="fa-solid fa-circle-info"></i> সর্বনিম্ন উইথড্র: ৳ ৫০ | সর্বোচ্চ: ৳ ২৫,০০০
+    </div>
+
+    <button class="auth-btn" id="withdrawSubmitBtn" style="width: 100%;" onclick="submitWithdrawal()"><i class="fa-solid fa-paper-plane"></i> উত্তোলন নিশ্চিত করুন</button>
+  </div>
+
+  <div class="glass-panel">
+    <div class="card-title"><i class="fa-solid fa-receipt"></i> উইথড্র হিস্ট্রি</div>
+    <div class="filter-search-box" style="display:flex; gap:8px; margin-bottom:12px;">
+      <input type="text" id="withdrawSearchQuery" class="input-field" style="margin-bottom:0;" placeholder="আইডি বা মেথড দিয়ে খুঁজুন..." oninput="filterWithdrawHistory()">
+      <input type="date" id="withdrawDateFilter" class="input-field" style="max-width:130px; margin-bottom:0;" onchange="filterWithdrawHistory()">
+    </div>
+    <div id="userWithdrawHistoryList" style="display:flex; flex-direction:column; gap:8px;"></div>
+  </div>
+</div>
+
+<!-- 🌟 ৪. ইন-অ্যাপ গুগল ব্রাউজার সিস্টেম 🌟 -->
+<div class="screen" id="browserTab">
+  <div style="display: flex; flex-direction: column; height: 100%;">
+    <div class="browser-search-bar">
+      <input type="text" id="browserUrlInput" class="browser-url-input" placeholder="গুগলে সার্চ করুন বা লিঙ্ক লিখুন..." onkeypress="if(event.key === 'Enter') handleBrowserNavigate()">
+      <button class="auth-btn" style="height: 32px; padding: 0 12px; font-size: 11px;" onclick="handleBrowserNavigate()"><i class="fa-brands fa-google"></i> সার্চ</button>
+    </div>
+    <div class="browser-viewport-card">
+      <iframe id="browserIframe" src="https://www.google.com/search?igu=1"></iframe>
     </div>
   </div>
-  <div class="gallery-grid" id="galleryGrid"></div>
 </div>
 
-<!-- নতুন অ্যাডমিন বার্তা ইতিহাস (SMS Inbox) স্ক্রিন -->
+<!-- 🌟 ৫. প্রোফাইল ও জমা হিস্ট্রি (তারিখ ও আইডি ফিল্টারসহ) 🌟 -->
+<div class="screen" id="profileTab">
+  <div class="glass-panel" style="text-align: center;">
+    <img id="userDisplayAvatar" src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" class="topbar-logo" style="width:75px; height:75px; margin: 0 auto 10px;">
+    <h3 id="profileName" style="font-size: 17px; font-weight: 800; color: #fff;">User Name</h3>
+    <p id="profileEmail" style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">user@example.com</p>
+    <div style="margin-top: 8px;"><span class="status-pill st-approved" id="refCodeBadge">Ref: ABP1000</span></div>
+  </div>
+
+  <div class="glass-panel">
+    <div class="card-title"><i class="fa-solid fa-clock-rotate-left"></i> জমা দেওয়া অ্যাকাউন্ট ট্র্যাকার</div>
+    <div class="filter-search-box" style="display:flex; gap:8px; margin-bottom:12px;">
+      <input type="text" id="subSearchQuery" class="input-field" style="margin-bottom:0;" placeholder="নাম বা সাবমিশন আইডি..." oninput="filterSubmissionsHistory()">
+      <input type="date" id="subDateFilter" class="input-field" style="max-width:130px; margin-bottom:0;" onchange="filterSubmissionsHistory()">
+    </div>
+    <div id="userSubmissionsList" style="display:flex; flex-direction:column; gap:8px;"></div>
+  </div>
+</div>
+
+<!-- 🌟 ৬. অ্যাডমিন এসএমএস ইনবক্স স্ক্রিন 🌟 -->
 <div class="screen" id="smsScreen">
-  <div class="back" onclick="openScreen('home')"><i class="fa-solid fa-arrow-left"></i> ফিরে যান</div>
-  <div class="sheet" style="padding: 16px;">
-    <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px; color: var(--primary); display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-envelope-open-text"></i> অ্যাডমিন বার্তা ইতিহাস</h3>
-    
-    <!-- ট্যাব ফিল্টার বাটন -->
-    <div style="display: flex; gap: 10px; margin-bottom: 16px;">
-      <button id="btnTodaySms" class="copy-all" style="flex: 1; background: var(--primary); color: #fff; padding: 12px; border-radius: 12px;" onclick="showSmsTab('today')">আজকের বার্তা</button>
-      <button id="btnYesterdaySms" class="copy-all" style="flex: 1; background: rgba(255,255,255,0.05); color: var(--text-muted); padding: 12px; border-radius: 12px;" onclick="showSmsTab('yesterday')">গতকালের বার্তা</button>
-    </div>
-
-    <!-- বার্তা প্রদর্শনের লিস্ট এরিয়া -->
-    <div id="smsListContainer" style="display: flex; flex-direction: column; gap: 12px; max-height: 55vh; overflow-y: auto; padding-right: 4px;">
-      <!-- রিয়েল-টাইম বার্তাগুলো স্ক্রিপ্ট দ্বারা এখানে লোড হবে -->
-    </div>
-  </div>
-</div>
-
-<!-- নতুন রিয়েল-টাইম লাইভ বিজ্ঞাপন ব্যানার (কোনো বাটন বা টেক্সট লিংক থাকবে না, অটোমেটিক বিজ্ঞাপন দেখাবে) -->
-<div class="ad-banner-container" id="adBannerContainer" style="display: none;">    
-  <div id="adContentArea" style="width: 100%; max-width: 440px; height: 100%; overflow: hidden; border-radius: 12px; position: relative;">
-    <!-- ডাইনামিক লাইভ আইফ্রেম বা ইমেজ এখানে রেন্ডার হবে -->
-  </div>
-</div>
-
-<!-- ফ্লোটিং ড্রাগেবল মিউজিক বাবল -->  
-<div class="music-bubble" id="musicBubble">  
-  <i class="fa-solid fa-music" id="musicIcon"></i>  
-</div>
-
-<!-- ফ্লোটিং ড্রাগেবল ম্যাজিক শীট বাটন -->
-<div class="magic-bubble" id="magicBubble">
-  <i class="fa-solid fa-file-invoice"></i>
-</div>
-
-<!-- PREMIUM NEON GLASS AUDIO PLAYER UI -->
-<div class="audio-player-modal" id="audioPlayer">
-  <div class="player-header">
-    <div class="player-title"><i class="fa-solid fa-compact-disc"></i> Account Player Pro</div>
-    <button class="player-close" onclick="togglePlayerUI()">&times;</button>
-  </div>
-  <div class="player-disc-area" id="playerDiscArea">
-    <!-- MP3 Disc Player Icon -->
-    <div class="player-disc" id="playerDisc">
-      <i class="fa-solid fa-music"></i>
+  <div class="glass-panel">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <div class="card-title" style="margin-bottom:0;"><i class="fa-solid fa-envelope-open-text"></i> অ্যাডমিন বার্তা ইনবক্স</div>
+      <button class="quick-amt-chip" onclick="switchMainTab('home')"><i class="fa-solid fa-arrow-left"></i> ফিরে যান</button>
     </div>
     
-    <!-- 🌟 YOUTUBE VISIBLE VIEW (মোডালে দৃশ্যমান রাখা হয়েছে যাতে ব্যাকগ্রাউন্ড সাসপেনশন ফিক্সড হয়) 🌟 -->
-    <div id="ytPlayerPlaceholder"></div>
+    <div style="display:flex; gap:8px; margin-bottom:12px;">
+      <button id="btnTodaySms" class="auth-btn" style="flex:1; height:34px; font-size:11px;" onclick="showSmsTab('today')">আজকের বার্তা</button>
+      <button id="btnYesterdaySms" class="auth-btn" style="flex:1; height:34px; font-size:11px; background:rgba(255,255,255,0.06); color:#fff;" onclick="showSmsTab('yesterday')">গতকালের বার্তা</button>
+    </div>
 
-    <div class="visualizer">
-      <div class="visualizer-bar"></div>
-      <div class="visualizer-bar"></div>
-      <div class="visualizer-bar"></div>
-      <div class="visualizer-bar"></div>
-      <div class="visualizer-bar"></div>
-    </div>
-  </div>
-  <div class="player-info">
-    <div class="player-song-name" id="currentTrackTitle">কোনো গজল সিলেক্ট করা নেই</div>
-    <div class="player-source" id="currentTrackSource">Admin Islamic Engine</div>
-  </div>
-  <div class="player-slider-container">
-    <span id="currentTime">00:00</span>
-    <input type="range" class="player-slider" id="playerSlider" min="0" value="0" step="1" oninput="seekAudio(this.value)">
-    <span id="totalDuration">00:00</span>
-  </div>
-  <div class="player-controls">
-    <button class="player-btn" onclick="prevTrack()"><i class="fa-solid fa-backward"></i></button>
-    <button class="player-btn play-toggle" id="playerPlayBtn" onclick="togglePlayState()"><i class="fa-solid fa-play"></i></button>
-    <button class="player-btn" onclick="nextTrack()"><i class="fa-solid fa-forward"></i></button>
-  </div>
-  
-  <div class="player-menu">
-    <div class="menu-item active" onclick="selectAudioSource('adminGojol', event)">
-      <span><i class="fa-solid fa-mosque"></i> অ্যাডমিন অফিশিয়াল গজল</span>
-      <i class="fa-solid fa-circle-play"></i>
-    </div>
-    <div class="menu-item" onclick="selectAudioSource('houseVoice', event)">
-      <span><i class="fa-solid fa-microphone"></i> অ্যাডমিন ভয়েস বার্তা</span>
-      <i class="fa-solid fa-circle-play"></i>
-    </div>
-    <div class="menu-item" onclick="triggerLocalAudioSelect()">
-      <span><i class="fa-solid fa-folder-open"></i> গ্যালারি মিউজিক (আপনার ফোন)</span>
-      <i class="fa-solid fa-cloud-arrow-up"></i>
-    </div>
-    <input type="file" id="localAudioInput" accept="audio/*" style="display:none;" onchange="handleLocalAudioFile(event)">
+    <div id="smsListContainer" style="display:flex; flex-direction:column; gap:8px;"></div>
   </div>
 </div>
 
-<div class="assistant" id="assistant">    
-  <div class="panel-top"><div class="panel-title">Magic Save Panel</div><button class="close-btn" onclick="toggleAssistant()">×</button></div>    
-  <input class="input" id="user" placeholder="Username (Min 3 Chars)">    
-  <input class="input" id="pass" placeholder="Password (Min 6 Chars)">    
-  <input class="input" id="secret" placeholder="2FA Secret (Optional)">    
-  <button class="save-btn" id="saveDataBtn" onclick="saveData()"><i class="fa-solid fa-floppy-disk"></i> Save To Sheet</button>    
-  <button class="reset-btn" onclick="clearInputs()">Fields Reset</button>    
-</div>    
+<!-- 🌟 গ্লাস বটম ন্যাভিগেশন বার 🌟 -->
+<div class="bottom-nav">
+  <div class="nav-item active" id="navHome" onclick="switchMainTab('home')">
+    <i class="fa-solid fa-house"></i><span>হোম</span>
+  </div>
+  <div class="nav-item" id="navSubmit" onclick="switchMainTab('submitTab')">
+    <i class="fa-solid fa-cloud-arrow-up"></i><span>জমা দিন</span>
+  </div>
+  <div class="nav-item" id="navBrowser" onclick="switchMainTab('browserTab')">
+    <i class="fa-solid fa-globe" style="color: #60a5fa;"></i><span>ব্রাউজার</span>
+  </div>
+  <div class="nav-item" id="navWithdraw" onclick="switchMainTab('withdrawTab')">
+    <i class="fa-solid fa-wallet"></i><span>উইথড্র</span>
+  </div>
+  <div class="nav-item" id="navProfile" onclick="switchMainTab('profileTab')">
+    <i class="fa-solid fa-user"></i><span>প্রোফাইল</span>
+  </div>
+</div>
 
-<audio id="bgAudio" loop preload="auto" crossorigin="anonymous"></audio>  
+<script>
+// আপনার ফায়ারবেস কনফিগারেশন বক্স (DO NOT CHANGE)
+const firebaseConfig = {
+  apiKey: "AIzaSyAf_5tTj4gDGW6_VCPhzlfhTvLFm2d-w8s",
+  authDomain: "account-bazar-pro-52a00.firebaseapp.com",
+  databaseURL: "https://account-bazar-pro-52a00-default-rtdb.firebaseio.com",
+  projectId: "account-bazar-pro-52a00",
+  storageBucket: "account-bazar-pro-52a00.firebasestorage.app",
+  messagingSenderId: "167778436812",
+  appId: "1:167778436812:web:d75232596ed67e53bc6469"
+};
 
-<script>    
-// ফায়ারবেস কনফিগারেশন বক্স (DO NOT CHANGE)  
-const firebaseConfig = {  
-  apiKey: "AIzaSyA-0QQvWeLsgY3WClyd9Ug-ts5hEggwXXc",  
-  authDomain: "account-balance-pro.firebaseapp.com",  
-  databaseURL: "https://account-balance-pro-default-rtdb.europe-west1.firebasedatabase.app/",  
-  projectId: "account-balance-pro",  
-  storageBucket: "account-balance-pro.firebasestorage.app",  
-  messagingSenderId: "1027464874338",  
-  appId: "1:1027464874338:web:7c4bcd80ccceeede0e843b"  
-};  
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const databaseRef = firebase.database();
-const storage = firebase.storage();
 
-const firebaseErrorsBn = {
-"auth/invalid-email": "ইমেইল অ্যাড্রেসটির ফরম্যাট সঠিক নয়!",
-"auth/user-disabled": "এই অ্যাকাউন্টটি অ্যাডমিন দ্বারা ব্যান করা আছে।",
-"auth/user-not-found": "এই ইমেইল দিয়ে কোনো অ্যাকাউন্ট খোলা হয়নি!",
-"auth/wrong-password": "আপনার দেওয়া পাসওয়ার্ডটি ভুল!",
-"auth/email-already-in-use": "এই ইমেইলটি অলরেডি ব্যবহার করা হয়েছে!",
-"auth/weak-password": "পাসওয়ার্ডটি কমপক্ষে ৬ অক্ষরের দিন।",
-"auth/network-request-failed": "ইন্টারনেট সংযোগে সমস্যা হচ্ছে!"
-};
-
-function getBnError(errorCode, defaultMsg) {
-return firebaseErrorsBn[errorCode] || defaultMsg || "একটি অজানা সমস্যা হয়েছে!";
-}
-
-let firebaseListeners = [];
-let database = [];
-let currentSearchQuery = "";
-let adminAudioUrl = ""; 
-let adminPlaylist = [];
-let currentTrackIndex = 0;
-let isOneTimeListen = false;
-let galleryImages = [];
-
-let activePlayerType = 'mp3'; 
-let ytPlayer = null;
-let isYTApiReady = false;
-let pendingYTId = null;
-let ytPollInterval = null;
-let isMusicPlaying = false;
-let currentAudioSource = 'adminGojol';
-let userHasInteracted = false;
-let currentLoadedUrl = ""; // রিয়েল-টাইম গান পরিবর্তন ট্র্যাক করার জন্য
-let retryCount = 0;
-const MAX_RETRIES = 3;
-
-// বার্তা ইতিহাস ডাটাবেজ ভেরিয়েবল
-let smsHistory = [];
+let currentUserData = null;
+let currentMinWithdraw = 50;
+let currentMaxWithdraw = 25000;
+let rawSubmissionsList = [];
+let rawWithdrawalsList = [];
+let rawSmsList = [];
 let activeSmsTab = 'today';
 
-// লিঙ্ক বা URL সনাক্ত করে টেক্সট ফিল্টার করার হেল্পার ফাংশন
-function cleanTextIfURL(text, defaultText) {
-  if (!text) return defaultText;
-  const trimmed = text.trim();
-  if (
-    trimmed.startsWith("http://") || 
-    trimmed.startsWith("https://") || 
-    trimmed.includes("effectivecpmnetwork.com") || 
-    trimmed.includes(".com") || 
-    trimmed.includes(".net") || 
-    trimmed.includes(".org") || 
-    trimmed.includes(".xyz")
-  ) {
-    return defaultText;
-  }
-  return text;
-}
-
-// ব্রাউজার অটোপ্লে পলিসি বাইপাস মেকানিজম
-function acceptInteraction() {
-  userHasInteracted = true;
-  document.getElementById('autoplayOverlay').style.display = 'none';
-  showToast('সিস্টেম প্রস্তুত হয়েছে!', 'success');
-  
-  // অডিও প্লেয়ারকে আনলক করা হচ্ছে
-  const audio = document.getElementById('bgAudio');
-  audio.play().then(() => {
-    audio.pause(); // ব্রাউজার আনলক সফল
-    startDefaultPlayback();
-  }).catch(e => {
-    console.log("Audio silent-unlock failed: ", e);
-    startDefaultPlayback();
-  });
-}
-
-// ডিফল্ট প্লেব্যাক শুরু করার লজিক
-function startDefaultPlayback() {
-  if (adminAudioUrl && currentAudioSource === 'adminGojol') {
-    setAudioSource(adminAudioUrl);
-    playAudio();
-  }
-}
-
-// যে কোনো বডি ক্লিকের মাধ্যমে ব্রাউজার আনলক নিশ্চিত করার পদ্ধতি
-function universalAudioUnlock() {
-  if (userHasInteracted) return;
-  const audio = document.getElementById('bgAudio');
-  audio.play().then(() => {
-    audio.pause();
-    userHasInteracted = true;
-    console.log("Audio Engine Unlocked via gesture.");
-  }).catch(e => console.log("Gesture unlock bypass: ", e));
-}
-document.body.addEventListener('click', universalAudioUnlock, { once: true });
-document.body.addEventListener('touchstart', universalAudioUnlock, { once: true });
-
-// ইউটিউব লিঙ্ক কনভার্টার
-function convertToEmbedUrl(url) {
-  if (!url) return "https://www.youtube.com/embed/";
-  let videoId = "";
-  
-  if (url.includes("youtu.be/")) {
-    videoId = url.split("youtu.be/")[1].split(/[?#]/)[0];
-  } else if (url.includes("youtube.com/embed/")) {
-    return url;
-  } else if (url.includes("watch?v=")) {
-    videoId = url.split("watch?v=")[1].split("&")[0];
-  } else if (url.includes("/shorts/")) {
-    videoId = url.split("/shorts/")[1].split(/[?#]/)[0];
-  }
-  
-  return videoId ? "https://www.youtube.com/embed/" + videoId : url;
-}
-
-function getYouTubeId(url) {
-  if (!url) return null;
-  if (url.includes('/shorts/')) {
-    const parts = url.split('/shorts/');
-    if (parts[1]) return parts[1].split(/[?#]/)[0];
-  }
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : null;
-}
-
-window.onYouTubeIframeAPIReady = function() {
-  isYTApiReady = true;
-  initYTPlayer();
-};
-
-(function loadYoutubeIframeAPI() {
-  const tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  const firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-})();
-
-function initYTPlayer() {
-  ytPlayer = new YT.Player('ytPlayerPlaceholder', {
-    height: '95', width: '140', videoId: '',
-    playerVars: { 'playsinline': 1, 'controls': 0, 'disablekb': 1, 'fs': 0, 'rel': 0, 'modestbranding': 1, 'autoplay': 0 },
-    events: { 
-      'onStateChange': onYTPlayerStateChange, 
-      'onReady': onYTPlayerReady,
-      'onError': onYTPlayerError
+// ১ থেকে ১০০% লোডার
+function runSplashLoader() {
+  let progress = 1;
+  const pEl = document.getElementById('loaderPercentage');
+  const cEl = document.getElementById('loaderCircleProgress');
+  const iv = setInterval(() => {
+    progress++;
+    if (pEl) pEl.innerText = progress + '%';
+    if (cEl) cEl.style.strokeDashoffset = 314 - (progress / 100) * 314;
+    if (progress >= 100) {
+      clearInterval(iv);
+      const splash = document.getElementById('splashScreen');
+      splash.style.opacity = '0';
+      setTimeout(() => splash.style.display = 'none', 600);
     }
-  });
+  }, 18);
+}
+window.addEventListener('load', runSplashLoader);
+
+function showToast(text, type = 'success') {
+  const toast = document.getElementById('customToast');
+  document.getElementById('toastText').innerText = text;
+  toast.className = `toast-container show toast-${type}`;
+  setTimeout(() => toast.classList.remove('show'), 3500);
 }
 
-function onYTPlayerReady() {
-  if (pendingYTId) {
-    ytPlayer.cueVideoById(pendingYTId);
-    if (typeof ytPlayer.setPlaybackQuality === 'function') ytPlayer.setPlaybackQuality('tiny');
-    pendingYTId = null;
-  }
+function switchMainTab(tabId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const target = document.getElementById(tabId);
+  if (target) target.classList.add('active');
+
+  if (tabId === 'home') document.getElementById('navHome').classList.add('active');
+  if (tabId === 'submitTab') document.getElementById('navSubmit').classList.add('active');
+  if (tabId === 'browserTab') document.getElementById('navBrowser').classList.add('active');
+  if (tabId === 'withdrawTab') document.getElementById('navWithdraw').classList.add('active');
+  if (tabId === 'profileTab') document.getElementById('navProfile').classList.add('active');
 }
 
-function onYTPlayerError(event) {
-  console.error("YT Player Error: ", event.data);
-  showToast("গজল বর্তমানে उपलब्ध নয়", "error");
+function openScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(id);
+  if (target) target.classList.add('active');
 }
 
-function onYTPlayerStateChange(event) {
-  if (event.data === YT.PlayerState.PLAYING) {
-    isMusicPlaying = true;
-    updateMusicBubbleUI(true);
-    updatePlayerUIState(true);
-    startYTPolling();
-  } else if (event.data === YT.PlayerState.ENDED) {
-    stopYTPolling();
-    handleAudioEnded();
-  }
-}
-
-function setAudioSource(url) {
-  if (!url) return;
-  userHasInteracted = true; 
-  const ytId = getYouTubeId(url);
-  const ytPlaceholder = document.getElementById('ytPlayerPlaceholder');
-  const playerDisc = document.getElementById('playerDisc');
-
-  if (ytId) {
-    activePlayerType = 'youtube';
-    document.getElementById('bgAudio').pause();
-    
-    if (ytPlaceholder) ytPlaceholder.style.display = 'block';
-    if (playerDisc) playerDisc.style.display = 'none';
-
-    if (ytPlayer && typeof ytPlayer.cueVideoById === 'function') {
-      ytPlayer.cueVideoById(ytId);
-      if (typeof ytPlayer.setPlaybackQuality === 'function') ytPlayer.setPlaybackQuality('tiny');
-    } else {
-      pendingYTId = ytId;
-    }
+// 🌟 পাসওয়ার্ড দেখানোর চোখ 👀 আইকন টগল 🌟
+function togglePasswordVisibility(inputId, btn) {
+  const inp = document.getElementById(inputId);
+  if (inp.type === "password") {
+    inp.type = "text";
+    btn.innerText = "🙈";
   } else {
-    activePlayerType = 'mp3';
-    
-    if (ytPlaceholder) ytPlaceholder.style.display = 'none';
-    if (playerDisc) playerDisc.style.display = 'flex';
-
-    try {
-      if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') ytPlayer.pauseVideo();
-    } catch(e) {}
-    
-    const audio = document.getElementById('bgAudio');
-    audio.src = url;
-    audio.load(); 
+    inp.type = "password";
+    btn.innerText = "👁️";
   }
 }
 
-function playAudio() {
-  if (activePlayerType === 'youtube' && ytPlayer) {
-    if (typeof ytPlayer.unMute === 'function') ytPlayer.unMute();
-    if (typeof ytPlayer.playVideo === 'function') {
-      ytPlayer.playVideo();
-      isMusicPlaying = true;
-      updateMusicBubbleUI(true);
-      updatePlayerUIState(true);
-      startYTPolling();
-    }
-  } else if (activePlayerType === 'mp3') {
-    const audio = document.getElementById('bgAudio');
-    audio.play().then(() => {
-      isMusicPlaying = true;
-      updateMusicBubbleUI(true);
-      updatePlayerUIState(true);
-      retryCount = 0; // সফলভাবে শুরু হলে রিট্রাই কাউন্টার ০ করা হচ্ছে
-    }).catch((err) => {
-      console.warn("Autoplay context denied. Retrying reload engine...", err);
-      handleAudioError();
+function toggleAuthCard(type) {
+  document.getElementById('loginCard').style.display = type === 'login' ? 'block' : 'none';
+  document.getElementById('signupCard').style.display = type === 'signup' ? 'block' : 'none';
+  document.getElementById('forgotCard').style.display = type === 'forgot' ? 'block' : 'none';
+  document.getElementById('emailVerifyNoticeCard').style.display = 'none';
+}
+
+// 🌟 সাইন আপ ও জিমেইল ভেরিফিকেশন লিংক পাঠানো (রেফার কোড ছাড়া যাবে) 🌟
+function handleSignUp() {
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const ref = document.getElementById('signupRef').value.trim(); // ঐচ্ছিক
+  const pass = document.getElementById('signupPass').value.trim();
+
+  if (!name || !email || !pass) { 
+    showToast('নাম, ইমেইল এবং পাসওয়ার্ড আবশ্যক!', 'error'); 
+    return; 
+  }
+
+  if (pass.length < 6) {
+    showToast('পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের দিন!', 'error');
+    return;
+  }
+
+  auth.createUserWithEmailAndPassword(email, pass).then(cred => {
+    // 🌟 জিমেইল ভেরিফিকেশন লিংক পাঠানো হচ্ছে 🌟
+    cred.user.sendEmailVerification().then(() => {
+      const uid = cred.user.uid;
+      const refCode = "ABP" + Math.floor(1000 + Math.random() * 9000);
+      const initial = {
+        uid: uid,
+        displayName: name,
+        email: email,
+        referralCode: refCode,
+        referredBy: ref || '', // রেফার কোড না দিলে খালি থাকবে
+        availableBalance: 0.00,
+        createdAt: Date.now()
+      };
+      
+      databaseRef.ref('users/' + uid).set(initial).then(() => {
+        document.getElementById('signupCard').style.display = 'none';
+        document.getElementById('emailVerifyNoticeCard').style.display = 'block';
+        showToast('আপনার জিমেইলে ভেরিফিকেশন লিংক পাঠানো হয়েছে!', 'success');
+      });
+    });
+  }).catch(e => {
+    showToast(e.message, 'error');
+  });
+}
+
+// 🌟 জিমেইল ভেরিফিকেশন স্ট্যাটাস চেক 🌟
+function checkEmailVerified() {
+  if (auth.currentUser) {
+    auth.currentUser.reload().then(() => {
+      if (auth.currentUser.emailVerified) {
+        document.getElementById('authContainer').style.display = 'none';
+        showToast('জিমেইল সফলভাবে ভেরিফাইড হয়েছে!', 'success');
+        initUserData(auth.currentUser.uid);
+      } else {
+        showToast('আপনার জিমেইল এখনো ভেরিফাই করা হয়নি! ইনবক্স চেক করুন', 'error');
+      }
     });
   }
 }
 
-// অডিও লোড বা প্লেব্যাক এরর হ্যান্ডলিং এবং অটো-রিট্রাই
-function handleAudioError() {
-  if (retryCount < MAX_RETRIES) {
-    retryCount++;
-    console.log(`Audio play error detected. Auto-retrying... Attempt ${retryCount} of ${MAX_RETRIES}`);
-    setTimeout(() => {
-      const audio = document.getElementById('bgAudio');
-      audio.load();
-      if (isMusicPlaying) {
-        audio.play().catch(e => console.warn("Retry failed: ", e));
-      }
-    }, 2000);
-  } else {
-    retryCount = 0;
-    showToast("গজল বর্তমানে উপলব্ধ নয়", "error");
+function resendEmailVerification() {
+  if (auth.currentUser) {
+    auth.currentUser.sendEmailVerification().then(() => {
+      showToast('পুনরায় জিমেইলে ভেরিফিকেশন লিংক পাঠানো হয়েছে', 'success');
+    });
   }
 }
 
-// HTML5 অডিও এরর লিসেনার যুক্ত করা হলো
-document.getElementById('bgAudio').addEventListener('error', (e) => {
-  console.error("HTML5 Audio Error: ", e);
-  handleAudioError();
-});
-
-function pauseAudio() {
-  try {
-    if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') ytPlayer.pauseVideo();
-  } catch(e) {}
-  try {
-    document.getElementById('bgAudio').pause();
-  } catch(e) {}
-  isMusicPlaying = false;
-  updateMusicBubbleUI(false);
-  updatePlayerUIState(false);
-  stopYTPolling();
-}
-
-function updateMusicBubbleUI(playing) {
-  const musicBubble = document.getElementById('musicBubble');
-  const musicIcon = document.getElementById('musicIcon');
-  if (playing) {
-    musicBubble.classList.add('playing');
-    musicIcon.className = 'fa-solid fa-compact-disc fa-spin';
-  } else {
-    musicBubble.classList.remove('playing');
-    musicIcon.className = 'fa-solid fa-music';
-  }
-}
-
-function startYTPolling() {
-  stopYTPolling();
-  const playerSlider = document.getElementById('playerSlider');
-  const currentTimeText = document.getElementById('currentTime');
-  const totalDurationText = document.getElementById('totalDuration');
-  ytPollInterval = setInterval(() => {
-    if (activePlayerType === 'youtube' && ytPlayer && typeof ytPlayer.getCurrentTime === 'function') {
-      const current = ytPlayer.getCurrentTime();
-      const duration = ytPlayer.getDuration();
-      if (!isNaN(duration) && duration > 0) {
-        playerSlider.max = Math.floor(duration);
-        playerSlider.value = Math.floor(current);
-        currentTimeText.innerText = formatTime(current);
-        totalDurationText.innerText = formatTime(duration);
-      }
-    }
-  }, 500);
-}
-
-function stopYTPolling() {
-  if (ytPollInterval) {
-    clearInterval(ytPollInterval);
-    ytPollInterval = null;
-  }
-}
-
-function handleAudioEnded() {
-  if (adminPlaylist.length > 0) {
-    nextTrack();
-  } else {
-    toggleMusicEngine(false);
-  }
-}
-
-document.getElementById('bgAudio').addEventListener('timeupdate', () => {
-  const audio = document.getElementById('bgAudio');
-  const playerSlider = document.getElementById('playerSlider');
-  const currentTimeText = document.getElementById('currentTime');
-  const totalDurationText = document.getElementById('totalDuration');
-  if (activePlayerType === 'mp3' && !isNaN(audio.duration)) {
-    playerSlider.max = Math.floor(audio.duration);
-    playerSlider.value = Math.floor(audio.currentTime);
-    currentTimeText.innerText = formatTime(audio.currentTime);
-    totalDurationText.innerText = formatTime(audio.duration);
-  }
-});
-
-document.getElementById('bgAudio').addEventListener('ended', () => {
-  if (activePlayerType === 'mp3') handleAudioEnded();
-});
-
-// টোস্ট নোটিফিকেশন সিস্টেম
-function showToast(text, type = 'success') {
-const toast = document.getElementById('customToast');
-const icon = document.getElementById('toastIcon');
-const msgText = document.getElementById('toastText');
-
-toast.className = 'toast-container show';
-if(type === 'success') {
-toast.classList.add('toast-success');
-icon.className = 'fa-solid fa-circle-check';
-playFeedbackSound(true);
-} else {
-toast.classList.add('toast-error');
-icon.className = 'fa-solid fa-triangle-exclamation';
-playFeedbackSound(false);
-}
-msgText.innerText = text;
-
-setTimeout(() => { toast.classList.remove('show'); }, 3500);
-}
-
-function playFeedbackSound(isSuccess) {
-try {
-const context = new (window.AudioContext || window.webkitAudioContext)();
-const osc = context.createOscillator();
-const gain = context.createGain();
-osc.connect(gain);
-gain.connect(context.destination);
-
-if(isSuccess) {  
-  osc.frequency.setValueAtTime(587.33, context.currentTime); 
-  osc.frequency.setValueAtTime(880, context.currentTime + 0.1); 
-  gain.gain.setValueAtTime(0.1, context.currentTime);  
-  osc.start(); osc.stop(context.currentTime + 0.25);  
-} else {  
-  osc.type = 'sawtooth';  
-  osc.frequency.setValueAtTime(150, context.currentTime);  
-  gain.gain.setValueAtTime(0.1, context.currentTime);  
-  osc.start(); osc.stop(context.currentTime + 0.3);  
-}
-} catch(e) {}
-}
-
-window.addEventListener('online', () => {
-showToast('✅ ইন্টারনেট আবার চালু হয়েছে!', 'success');
-if (isMusicPlaying) playAudio();
-});
-
-window.addEventListener('offline', () => {
-showToast('❌ ইন্টারনেট কানেকশন বন্ধ!', 'error');
-pauseAudio();
-});
-
-window.addEventListener('load', () => {
-setTimeout(() => {
-const splash = document.getElementById('splashScreen');
-splash.style.opacity = '0';
-setTimeout(() => splash.style.display = 'none', 500);
-}, 1800);
-});
-
-// ফ্লোটিং ড্রাগেবল মিউজিক বাবল
-const musicBubble = document.getElementById('musicBubble');
-let dragDistance = 0;
-musicBubble.addEventListener('click', (e) => {
-if (dragDistance < 5) {
-  const currentUrl = (currentAudioSource === 'adminGojol') ? adminAudioUrl : document.getElementById('bgAudio').src;
-  if (!currentUrl && currentAudioSource === 'adminGojol') {
-    showToast("অ্যাডমিন দ্বারা কোনো অডিও ফাইল এখনো সেট করা হয়নি!", "error");
-    return;
-  }
-  togglePlayerUI();
-}
-});
-
-function toggleMusicEngine(shouldPlay) {
-userHasInteracted = true; 
-const currentUrl = (currentAudioSource === 'adminGojol') ? adminAudioUrl : document.getElementById('bgAudio').src;
-if (!currentUrl && currentAudioSource === 'adminGojol') {
-  showToast("অ্যাডমিন দ্বারা কোনো অডিও ফাইল এখনো সেট করা হয়নি!", "error");
-  return;
-}
-if (shouldPlay) {
-  playAudio();
-} else {
-  pauseAudio();
-}
-}
-
-let isDragging = false;
-let dragStartX, dragStartY, elementStartX, elementStartY;
-
-function onDragStart(clientX, clientY) {
-isDragging = true;
-dragDistance = 0;
-dragStartX = clientX;
-dragStartY = clientY;
-const rect = musicBubble.getBoundingClientRect();
-elementStartX = rect.left;
-elementStartY = rect.top;
-musicBubble.style.cursor = 'grabbing';
-}
-
-function onDrag(clientX, clientY) {
-if (!isDragging) return;
-const deltaX = clientX - dragStartX;
-const deltaY = clientY - dragStartY;
-dragDistance = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
-let newX = elementStartX + deltaX;
-let newY = elementStartY + deltaY;
-
-newX = Math.max(0, Math.min(newX, window.innerWidth - musicBubble.offsetWidth));
-newY = Math.max(0, Math.min(newY, window.innerHeight - musicBubble.offsetHeight));
-
-musicBubble.style.left = newX + 'px';
-musicBubble.style.top = newY + 'px';
-musicBubble.style.right = 'auto';
-musicBubble.style.bottom = 'auto';
-}
-
-function onDragEnd() {
-if (isDragging) {
-isDragging = false;
-musicBubble.style.cursor = 'grab';
-const rect = musicBubble.getBoundingClientRect();
-const screenWidth = window.innerWidth;
-const bubbleWidth = musicBubble.offsetWidth;
-let finalX = (rect.left + bubbleWidth / 2 < screenWidth / 2) ? 10 : screenWidth - bubbleWidth - 10;
-
-musicBubble.style.transition = 'left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-musicBubble.style.left = finalX + 'px';
-
-setTimeout(() => {
-  musicBubble.style.transition = 'none';
-  localStorage.setItem('music_bubble_pos', JSON.stringify({ x: finalX, y: rect.top }));
-}, 300);
-}
-}
-
-musicBubble.addEventListener('mousedown', (e) => { onDragStart(e.clientX, e.clientY); });
-document.addEventListener('mousemove', (e) => { onDrag(e.clientX, e.clientY); });
-document.addEventListener('mouseup', onDragEnd);
-musicBubble.addEventListener('touchstart', (e) => { onDragStart(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
-document.addEventListener('touchmove', (e) => { if (isDragging) onDrag(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
-document.addEventListener('touchend', onDragEnd);
-
-// ফ্লোটিং ড্রাগেবল ম্যাজিক শিট বাবল
-const magicBubble = document.getElementById('magicBubble');
-let isMagicDragging = false;
-let magicDragStartX, magicDragStartY, magicElementStartX, magicElementStartY, magicDragDistance = 0;
-
-magicBubble.addEventListener('click', (e) => {
-  if (magicDragDistance < 5) toggleAssistant();
-});
-
-function onMagicDragStart(clientX, clientY) {
-  isMagicDragging = true;
-  magicDragDistance = 0;
-  magicDragStartX = clientX;
-  magicDragStartY = clientY;
-  const rect = magicBubble.getBoundingClientRect();
-  magicElementStartX = rect.left;
-  magicElementStartY = rect.top;
-  magicBubble.style.cursor = 'grabbing';
-}
-
-function onMagicDrag(clientX, clientY) {
-  if (!isMagicDragging) return;
-  const deltaX = clientX - magicDragStartX;
-  const deltaY = clientY - magicDragStartY;
-  magicDragDistance = Math.sqrt(deltaX*deltaX + deltaY*deltaY);
-  let newX = magicElementStartX + deltaX;
-  let newY = magicElementStartY + deltaY;
-
-  newX = Math.max(0, Math.min(newX, window.innerWidth - magicBubble.offsetWidth));
-  newY = Math.max(0, Math.min(newY, window.innerHeight - magicBubble.offsetHeight));
-
-  magicBubble.style.left = newX + 'px';
-  magicBubble.style.top = newY + 'px';
-  magicBubble.style.right = 'auto';
-  magicBubble.style.bottom = 'auto';
-}
-
-function onMagicDragEnd() {
-  if (isMagicDragging) {
-    isMagicDragging = false;
-    magicBubble.style.cursor = 'grab';
-    const rect = magicBubble.getBoundingClientRect();
-    const screenWidth = window.innerWidth;
-    const bubbleWidth = magicBubble.offsetWidth;
-    let finalX = (rect.left + bubbleWidth / 2 < screenWidth / 2) ? 10 : screenWidth - bubbleWidth - 10;
-
-    magicBubble.style.transition = 'left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-    magicBubble.style.left = finalX + 'px';
-
-    setTimeout(() => {
-      magicBubble.style.transition = 'none';
-      localStorage.setItem('magic_bubble_pos', JSON.stringify({ x: finalX, y: rect.top }));
-    }, 300);
-  }
-}
-
-magicBubble.addEventListener('mousedown', (e) => { onMagicDragStart(e.clientX, e.clientY); });
-document.addEventListener('mousemove', (e) => { if (isMagicDragging) onMagicDrag(e.clientX, e.clientY); });
-document.addEventListener('mouseup', onMagicDragEnd);
-magicBubble.addEventListener('touchstart', (e) => { onMagicDragStart(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
-document.addEventListener('touchmove', (e) => { if (isMagicDragging) onMagicDrag(e.touches[0].clientX, e.touches[0].clientY); }, { passive: true });
-document.addEventListener('touchend', onMagicDragEnd);
-
-// গাইডেন্স সেটিংস
-const guides = {
-facebook: [
-"ধাপ ১: ওপেন হওয়া পেজে আপনার প্রথম ও শেষ নাম সঠিক বানানে লিখুন।",
-"ধাপ ২: একটি ভ্যালিড মোবাইল নাম্বার অথবা জিমেইল অ্যাকাউন্ট প্রোভাইড করুন।",
-"ধাপ ৩: পাসওয়ার্ডের ঘরে অত্যন্ত স্ট্রং এবং ইউনিক সিক্রেট কোড সেট করুন।",
-"ধাপ ৪: আপনার জিমেইল বা সিমে আসা ওটিপি (OTP) ভেরিফাই করে সাবমিট করুন।"
-],
-indigo: [
-"ধাপ ১: আপনার সচল মোবাইল নাম্বার অথবা পার্সোনাল জিমেইল টাইপ করুন।",
-"ধাপ ২: ফুল নেম টাইপ করার পর একটি চমৎকার ইউনিক ইউজারনেম সিলেক্ট করুন।",
-"ধাপ ৩: কমপক্ষে ৬ অক্ষরের ক্যাপিটাল লেটার ও সংখ্যাসহ পাসওয়ার্ড দিন।",
-"ধাপ ৪: ওটিপি কোডটি টাইপ করে অ্যাকাউন্ট ক্রিয়েশন কনফার্ম করুন।"
-],
-gmail: [
-"ধাপ ১: 'Create Account' এ চাপ দিয়ে 'For my personal use' সিলেক্ট করুন।",
-"ধাপ ২: আপনার ফার্স্ট নেম ও লাস্ট নেম প্রোভাইড করে নেক্সট বাটনে ক্লিক করুন।",
-"ধাপ ৩: আপনার রিয়েল জন্মতারিখ এবং জেন্ডার সঠিকভাবে সিলেক্ট করুন।",
-"ধাপ ৪: একটি স্ট্রং পাসওয়ার্ড দিন এবং ফোন নাম্বার দিয়ে জিমেইল ভেরিফাই করুন।"
-],
-telegram_acc: [
-"ধাপ ১: কান্ট্রি কোড (+880) সিলেক্ট করে আপনার সচল ফোন নাম্বারটি লিখুন।",
-"ধাপ ২: আপনার নাম টাইপ করুন এবং নেক্সট অ্যারো বাটনে ক্লিক করুন।",
-"ধাপ ৩: সিমে আসা ওটিপি কোডটি সাবমিট করুন।"
-]
-};
-
-let currentGuideType = null, currentStepIndex = 0, finalRedirectUrl = "";
-
-function startGuidedFlow(type) {
-currentGuideType = type;
-currentStepIndex = 0;
-
-if(type === 'facebook') finalRedirectUrl = "https://m.facebook.com/reg/";
-if(type === 'instagram') finalRedirectUrl = "https://www.instagram.com/accounts/emailsignup/";
-if(type === 'gmail') finalRedirectUrl = "https://accounts.google.com/signup";
-if(type === 'telegram_acc') finalRedirectUrl = "https://web.telegram.org/";
-
-document.getElementById('guideModal').style.display = 'flex';
-setTimeout(() => document.getElementById('guideBox').classList.add('show'), 50);
-showStep();
-}
-
-function showStep() {
-const currentStepText = guides[currentGuideType][currentStepIndex];
-document.getElementById('stepText').innerText = currentStepText;
-
-const nextBtn = document.getElementById('guideNextBtn');
-if(currentStepIndex === guides[currentGuideType].length - 1) {
-nextBtn.innerText = "অফিসিয়াল সাইটে যান";
-nextBtn.style.background = "linear-gradient(135deg, #10b981, #059669)";
-} else {
-nextBtn.innerText = "পরবর্তী ধাপ";
-nextBtn.style.background = "var(--primary)";
-}
-}
-
-function nextStep() {
-if(currentStepIndex < guides[currentGuideType].length - 1) {
-currentStepIndex++;
-showStep();
-} else {
-document.getElementById('guideBox').classList.remove('show');
-setTimeout(() => {
-document.getElementById('guideModal').style.display = 'none';
-window.open(finalRedirectUrl, '_blank');
-}, 200);
-}
-}
-
-function togglePassVisibility(inputId, eyeIcon) {
-const input = document.getElementById(inputId);
-if (input.type === "password") {
-input.type = "text";
-eyeIcon.className = "fa-solid fa-eye-slash toggle-password";
-} else {
-input.type = "password";
-eyeIcon.className = "fa-solid fa-eye toggle-password";
-}
-}
-
-function toggleAuthCard(type) {
-document.getElementById('loginCard').style.display = type === 'login' ? 'block' : 'none';
-document.getElementById('signupCard').style.display = type === 'signup' ? 'block' : 'none';
-document.getElementById('forgotCard').style.display = type === 'forgot' ? 'block' : 'none';
-}
-
-function handleSignUp() {
-const email = document.getElementById('signupEmail').value.trim();
-const pass = document.getElementById('signupPass').value.trim();
-const confirmPass = document.getElementById('signupConfirmPass').value.trim();
-const signupBtn = document.getElementById('signupBtn');
-
-if(!email || !pass || !confirmPass) { showToast('সবগুলো ফিল্ড অবশ্যই পূরণ করুন!', 'error'); return; }
-if(pass !== confirmPass) { showToast('পাসওয়ার্ড দুটি মেলেনি!', 'error'); return; }
-if(pass.length < 6) { showToast('পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের দিন!', 'error'); return; }
-
-signupBtn.disabled = true; signupBtn.innerText = "রেজিস্ট্রেশন হচ্ছে...";
-
-auth.createUserWithEmailAndPassword(email, pass)
-.then((userCredential) => {
-userCredential.user.sendEmailVerification().then(() => {
-showToast('রেজিস্ট্রেশন সফল! ভেরিফিকেশন লিংক জিমেইলে পাঠানো হয়েছে।', 'success');
-toggleAuthCard('login');
-});
-})
-.catch((error) => { showToast(getBnError(error.code, error.message), 'error'); })
-.finally(() => { signupBtn.disabled = false; signupBtn.innerText = "সাইন আপ করুন"; });
-}
-
+// 🌟 লগইন হ্যান্ডলিং (ভেরিফাই না থাকলে নোটিস কার্ড দেখাবে) 🌟
 function handleLogin() {
-const email = document.getElementById('loginEmail').value.trim();
-const pass = document.getElementById('loginPass').value.trim();
-const loginBtn = document.getElementById('loginBtn');
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value.trim();
+  if (!email || !pass) { showToast('ইমেইল ও পাসওয়ার্ড দিন!', 'error'); return; }
 
-if(!email || !pass) { showToast('ইমেইল এবং পাসওয়ার্ড দিন!', 'error'); return; }
+  auth.signInWithEmailAndPassword(email, pass).then(cred => {
+    if (!cred.user.emailVerified) {
+      document.getElementById('loginCard').style.display = 'none';
+      document.getElementById('emailVerifyNoticeCard').style.display = 'block';
+      showToast('লগইন করার পূর্বে আপনার জিমেইল ভেরিফাই করুন!', 'error');
+      return;
+    }
 
-loginBtn.disabled = true; loginBtn.innerText = "প্রবেশ করা হচ্ছে...";
-
-auth.signInWithEmailAndPassword(email, pass)
-.then((userCredential) => {
-if(!userCredential.user.emailVerified) {
-showToast('আপনার জিমেইলটি ভেরিফাই সম্পন্ন করুন!', 'error');
-auth.signOut();
-return;
-}
-localStorage.setItem('app_logged_in', 'true');
-localStorage.setItem('session_login_time', Date.now());
-document.getElementById('authContainer').style.display = 'none';
-showToast('সফলভাবে লগইন হয়েছে!', 'success');
-initializeAppFeatures();
-})
-.catch((error) => { showToast(getBnError(error.code, error.message), 'error'); })
-.finally(() => { loginBtn.disabled = false; loginBtn.innerText = "লগইন করুন"; });
+    document.getElementById('authContainer').style.display = 'none';
+    showToast('লগইন সফল!', 'success');
+  }).catch(e => showToast(e.message, 'error'));
 }
 
+// 🌟 ১-ক্লিকে ফরগেট পাসওয়ার্ড রিসেট লিংক 🌟
+function handleForgotPassword() {
+  const email = document.getElementById('forgotEmail').value.trim();
+  if (!email) { showToast('আপনার জিমেইল লিখুন!', 'error'); return; }
+
+  auth.sendPasswordResetEmail(email).then(() => {
+    showToast('পাসওয়ার্ড রিসেট লিংক আপনার জিমেইলে চলে গেছে!', 'success');
+    toggleAuthCard('login');
+  }).catch(e => showToast(e.message, 'error'));
+}
+
+// 🌟 GOOGLE SIGN-IN SYSTEM 🌟
 function handleBrowserGoogleLogin() {
-if (window.ThunkableWebviewerDevice && window.ThunkableWebviewerDevice.postMessage) {
-window.ThunkableWebviewerDevice.postMessage("google_login_clicked");
-} else {
-const provider = new firebase.auth.GoogleAuthProvider();
-auth.signInWithPopup(provider).then((result) => {
-handleGoogleSignInSuccess(result.user.email);
-}).catch((error) => {
-if (error.code !== 'auth/popup-closed-by-user' && error.code !== 'auth/cancelled-popup-request') {
-auth.signInWithRedirect(provider).catch(e => {
-showToast("গুগল লগইন ব্যর্থ: " + getBnError(e.code, e.message), 'error');
-});
-}
-});
-}
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider).then((result) => {
+    handleGoogleUserRecord(result.user);
+  }).catch((error) => {
+    if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
+      auth.signInWithRedirect(provider).catch(e => showToast(e.message, 'error'));
+    } else {
+      showToast('গুগল লগইন সমস্যা: ' + error.message, 'error');
+    }
+  });
 }
 
 auth.getRedirectResult().then((result) => {
-if (result.user) handleGoogleSignInSuccess(result.user.email);
-}).catch((error) => { showToast(getBnError(error.code, error.message), 'error'); });
+  if (result && result.user) {
+    handleGoogleUserRecord(result.user);
+  }
+}).catch((error) => {
+  showToast(error.message, 'error');
+});
 
-function handleGoogleSignInSuccess(email) {
-localStorage.setItem('app_logged_in', 'true');
-localStorage.setItem('session_login_time', Date.now());
-document.getElementById('authContainer').style.display = 'none';
-initializeAppFeatures();
-showToast('গুগল অ্যাকাউন্ট দিয়ে সফল লগইন সম্পন্ন!', 'success');
-}
-
-function handleForgotPassword() {
-const email = document.getElementById('forgotEmail').value.trim();
-const forgotBtn = document.getElementById('forgotBtn');
-if(!forgotBtn) return;
-if(!email) { showToast('রেজিস্টার্ড ইমেইলটি লিখুন!', 'error'); return; }
-
-forgotBtn.disabled = true; forgotBtn.innerText = "পাঠানো হচ্ছে...";
-
-auth.sendPasswordResetEmail(email)
-.then(() => {
-showToast('পাসওয়ার্ড রিসেট লিংক পাঠানো হয়েছে!', 'success');
-toggleAuthCard('login');
-})
-.catch((error) => { showToast(getBnError(error.code, error.message), 'error'); })
-.finally(() => { forgotBtn.disabled = false; forgotBtn.innerText = "রিসেট লিংক পাঠান"; });
+function handleGoogleUserRecord(user) {
+  const userRef = databaseRef.ref('users/' + user.uid);
+  userRef.once('value', snap => {
+    if (!snap.exists()) {
+      const refCode = "ABP" + Math.floor(1000 + Math.random() * 9000);
+      const initial = {
+        uid: user.uid,
+        displayName: user.displayName || user.email.split('@')[0],
+        email: user.email,
+        photoURL: user.photoURL || "https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png",
+        referralCode: refCode,
+        referredBy: '',
+        availableBalance: 0.00,
+        createdAt: Date.now()
+      };
+      userRef.set(initial);
+    }
+    document.getElementById('authContainer').style.display = 'none';
+    showToast('গুগল অ্যাকাউন্ট দিয়ে সফলভাবে প্রবেশ সম্পন্ন হয়েছে!', 'success');
+  });
 }
 
 function handleLogout() {
-if(confirm('আপনি কি নিশ্চিতভাবে লগআউট করতে চান?')) executeLogout();
-}
-
-function executeLogout() {
-firebaseListeners.forEach(listener => { listener.ref.off('value', listener.cb); });
-firebaseListeners = [];
-auth.signOut().then(() => {
-localStorage.removeItem('app_logged_in');
-localStorage.removeItem('session_login_time');
-document.getElementById('authContainer').style.display = 'flex';
-toggleAuthCard('login');
-});
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-  const lastPlayed = localStorage.getItem('last_played_gojol');
-  if (lastPlayed) {
-    adminAudioUrl = lastPlayed;
-    currentLoadedUrl = lastPlayed;
+  if (confirm("লগআউট করতে চান?")) {
+    auth.signOut().then(() => location.reload());
   }
+}
 
-  const loginTime = localStorage.getItem('session_login_time');
-  if (loginTime) {
-    const elapsed = Date.now() - parseInt(loginTime);
-    if (elapsed > 24 * 60 * 60 * 1000) {
-      executeLogout();
-      showToast("২৪ ঘণ্টা অতিক্রান্ত থাকায় সিকিউরিটি লকআউট করা হয়েছে!", 'error');
-      return;
+auth.onAuthStateChanged(user => {
+  if (user) {
+    if (user.emailVerified || user.providerData.some(p => p.providerId === 'google.com')) {
+      document.getElementById('authContainer').style.display = 'none';
+      initUserData(user.uid);
+    } else {
+      document.getElementById('authContainer').style.display = 'flex';
+      toggleAuthCard('login');
+      document.getElementById('loginCard').style.display = 'none';
+      document.getElementById('emailVerifyNoticeCard').style.display = 'block';
     }
-  }
-
-  if(localStorage.getItem('app_logged_in') === 'true') {
-    document.getElementById('authContainer').style.display = 'none';
-    initializeAppFeatures();
   } else {
     document.getElementById('authContainer').style.display = 'flex';
+    toggleAuthCard('login');
   }
 });
 
-function initializeAppFeatures() {
-listenLiveNoticeAndPopup();
-listenYoutubeConfig();
-loadAdConfig();
-listenAudioConfig();
-listenAppDownloadConfig();
-listenVoiceNoticeConfig();
-listenGalleryConfig();
-listenBannerSideBtnConfig();
-listenAppLoadConfig();
-listenSmsHistory(); // রিয়েল-টাইম এসএমএস সিঙ্ক শুরু
-}
+function initUserData(uid) {
+  databaseRef.ref('users/' + uid).on('value', snap => {
+    currentUserData = snap.val();
+    if (!currentUserData) return;
 
-function listenLiveNoticeAndPopup() {
-const ref = databaseRef.ref('adminNotice');
-const callback = (snapshot) => {
-const data = snapshot.val();
-const noticeBox = document.getElementById('noticeBox');
-const noticeText = document.getElementById('noticeText');
-
-if(data && data.text) {  
-  noticeText.innerText = data.text;  
-  noticeBox.style.display = 'flex';  
-} else {  
-  noticeBox.style.display = 'none';  
-}  
-
-if(data && data.popupText) {  
-  const lastSeenPopupVersion = localStorage.getItem('last_popup_version');  
-  if(data.popupVersion !== lastSeenPopupVersion) {  
-     document.getElementById('adminAlertText').innerText = data.popupText;
-     document.getElementById('adminAlertModal').style.display = 'flex';
-     localStorage.setItem('last_popup_version', data.popupVersion);  
-  }  
-}
-};
-ref.on('value', callback);
-firebaseListeners.push({ ref, cb: callback });
-}
-
-function closeAdminAlert() { document.getElementById('adminAlertModal').style.display = 'none'; }
-
-function listenYoutubeConfig() {
-const ref = databaseRef.ref('youtubeVideo');
-const callback = (snapshot) => {
-const data = snapshot.val();
-if(data) {
-if(data.embedUrl) {
-  const formattedEmbedUrl = convertToEmbedUrl(data.embedUrl);
-  document.getElementById('dynamicYoutubeEmbed').src = formattedEmbedUrl;
-}
-if(data.channelUrl) {
-document.getElementById('officialYoutubeLink').href = data.channelUrl;
-document.getElementById('youtubeCommentLink').href = data.channelUrl;
-}
-}
-};
-ref.on('value', callback);
-firebaseListeners.push({ ref, cb: callback });
-}
-
-// 🌟 বিজ্ঞাপন রিয়েল-টাইম কনফিগারেশন সিঙ্ক (অটোমেটিক ব্যানার ও আইফ্রেম ভিউ)
-function loadAdConfig() {
-const ref = databaseRef.ref('adConfig');
-const callback = (snapshot) => {
-  const data = snapshot.val();
-  const adContainer = document.getElementById('adBannerContainer');
-  const adContentArea = document.getElementById('adContentArea');
-  
-  if (data && data.status === 'active' && data.link) {
-    const link = data.link.trim();
-    // চেক করা হচ্ছে অ্যাডমিনের সেট করা লিংকটি কোনো সরাসরি ইমেজ কিনা
-    const isImage = /\.(jpeg|jpg|gif|png|webp|svg)/i.test(link) || link.includes("images.unsplash.com") || link.includes("imgur.com");
-    
-    if (isImage) {
-      // ইমেজ বিজ্ঞাপন হলে সরাসরি পেজে রেন্ডার হবে
-      adContentArea.innerHTML = `<a href="${link}" target="_blank" style="display:block; width:100%; height:100%;"><img src="${link}" style="width: 100%; height: 100%; object-fit: cover; border: none; border-radius: 12px;"></a>`;
-    } else {
-      // ওয়েবসাইট বা স্ক্রিপ্ট বা অন্য লাইভ অ্যাড লিংক হলে সেটি সরাসরি আইফ্রেমে লোড হয়ে ভেসে থাকবে
-      adContentArea.innerHTML = `<iframe src="${link}" style="width: 100%; height: 100%; border: none; background: transparent; overflow: hidden;" scrolling="no"></iframe>`;
-    }
-    
-    if (adContainer) adContainer.style.display = 'flex';
-  } else {
-    if (adContainer) adContainer.style.display = 'none';
-  }
-};
-ref.on('value', callback);
-firebaseListeners.push({ ref, cb: callback });
-}
-
-// 🌟 অডিও রিয়েল-টাইম কনফিগারেশন সিঙ্ক (Gojol Sync Lock Implementation)
-function listenAudioConfig() {
-const ref = databaseRef.ref('audioConfig');
-const callback = (snapshot) => {
-const data = snapshot.val();
-if (data) {
-  const newUrl = data.audioUrl || "";
-  isOneTimeListen = !!data.oneTimeListen;
-  if (data.playlist) {
-    adminPlaylist = Array.isArray(data.playlist) ? data.playlist : Object.values(data.playlist);
-  }
-  
-  // অ্যাডমিন নতুন অডিও পাঠালে পুরানোটি বন্ধ হয়ে নতুনটি অটো-প্লে হবে
-  if (newUrl !== currentLoadedUrl) {
-    currentLoadedUrl = newUrl;
-    adminAudioUrl = newUrl;
-    localStorage.setItem('last_played_gojol', newUrl);
-    
-    if (currentAudioSource === 'adminGojol') {
-      setAudioSource(newUrl);
-      if (userHasInteracted) {
-        playAudio();
-      }
-    }
-  }
-}
-};
-ref.on('value', callback);
-firebaseListeners.push({ ref, cb: callback });
-}
-
-function listenAppDownloadConfig() {
-const ref = databaseRef.ref('appConfig');
-const callback = (snapshot) => {
-const data = snapshot.val();
-const downloadBtn = document.getElementById('appDownloadBtn');
-const downloadTitle = document.getElementById('downloadTitle');
-
-if (data && data.status === 'active' && data.downloadUrl) {  
-  downloadBtn.href = data.downloadUrl;  
-  if (data.btnText) downloadTitle.innerText = data.btnText;  
-  downloadBtn.style.display = 'flex';  
-} else {  
-  downloadBtn.style.display = 'none';  
-}
-};
-ref.on('value', callback);
-firebaseListeners.push({ ref, cb: callback });
-}
-
-function listenBannerSideBtnConfig() {
-  const ref = databaseRef.ref('bannerSideBtnConfig');
-  const callback = (snapshot) => {
-    const data = snapshot.val();
-    const sideBtn = document.getElementById('bannerSideBtn');
-    const sideBtnText = document.getElementById('bannerSideBtnText');
-    if (data && data.status === 'active') {
-      sideBtn.style.display = 'flex';
-      sideBtnText.innerText = data.text || "Special Link";
-      sideBtn.onclick = () => {
-        if (data.link) { window.open(data.link, '_blank'); } else { showToast("কোনো লিংক সেট করা নেই!", "error"); }
-      };
-    } else {
-      sideBtn.style.display = 'flex';
-      sideBtnText.innerText = "VIP Group";
-      sideBtn.onclick = () => { window.open("https://t.me/addlist/tVmRRv6QjzhkMmZl", "_blank"); };
-    }
-  };
-  ref.on('value', callback);
-  firebaseListeners.push({ ref, cb: callback });
-}
-
-function listenAppLoadConfig() {
-  const ref = databaseRef.ref('appLoadConfig');
-  const callback = (snapshot) => {
-    const data = snapshot.val();
-    if (data && data.status === 'active') {
-      if (data.redirectUrl) {
-        showToast("অ্যাডমিন দ্বারা নতুন সংস্করণ লোড হচ্ছে...", "success");
-        setTimeout(() => { window.location.href = data.redirectUrl; }, 2000);
-      } else if (data.secureAction) {
-        executeSecureAction(data.secureAction);
-      }
-    }
-  };
-  ref.on('value', callback);
-  firebaseListeners.push({ ref, cb: callback });
-}
-
-function executeSecureAction(actionName) {
-  const allowedActions = {
-    'reload': () => window.location.reload(),
-    'logout': () => executeLogout(),
-    'clear_cache': () => {
-      localStorage.clear();
-      showToast("লোকাল ডাটা ক্লিয়ার করা হয়েছে", "success");
-    }
-  };
-  if (allowedActions[actionName]) {
-    try { allowedActions[actionName](); } catch(e) {}
-  }
-}
-
-// ভয়েস নোটিশ ডাইনামিক (ভয়েস লিঙ্ক মাস্কিংসহ)
-const voiceAudio = document.getElementById('voiceAudio');
-let isVoicePlaying = false;
-
-function listenVoiceNoticeConfig() {
-const ref = databaseRef.ref('voiceNoticeConfig');
-const callback = (snapshot) => {
-const data = snapshot.val();
-const voiceCard = document.getElementById('voiceNoticeCard');
-const voiceText = document.getElementById('voiceNoticeText');
-
-if (data && data.status === 'active' && data.voiceUrl) {  
-  voiceAudio.src = data.voiceUrl;  
-  
-  // ভয়েস নোটিশে সরাসরি লিঙ্ক প্রদর্শন হওয়া প্রতিরোধ করা হচ্ছে
-  const cleanVoiceText = cleanTextIfURL(data.voiceText, "অ্যাডমিন একটি গুরুত্বপূর্ণ ভয়েস বার্তা পাঠিয়েছেন।");
-  voiceText.innerText = cleanVoiceText;
-  
-  voiceCard.style.display = 'flex';  
-  isVoicePlaying = false;  
-  document.getElementById('voicePlayBtnIcon').className = 'fa-solid fa-play';  
-} else {  
-  voiceCard.style.display = 'none';  
-  voiceAudio.pause();  
-}
-};
-ref.on('value', callback);
-firebaseListeners.push({ ref, cb: callback });
-}
-
-function toggleVoiceNotice() {
-const playBtnIcon = document.getElementById('voicePlayBtnIcon');
-if (isVoicePlaying) {
-voiceAudio.pause();
-isVoicePlaying = false;
-playBtnIcon.className = 'fa-solid fa-play';
-if (isMusicPlaying) playAudio();
-} else {
-if (isOneTimeListen) {
-  const isPlayed = localStorage.getItem('voice_notice_played_' + voiceAudio.src);
-  if (isPlayed) {
-    showToast('দুঃখিত! এই বিশেষ বার্তাটি আপনি শুধুমাত্র একবারই শুনতে পারবেন।', 'error');
-    return;
-  }
-}
-pauseAudio();
-voiceAudio.play().then(() => {
-isVoicePlaying = true;
-playBtnIcon.className = 'fa-solid fa-pause';
-if (isOneTimeListen) localStorage.setItem('voice_notice_played_' + voiceAudio.src, 'true');
-}).catch(() => {
-showToast('ভয়েস বার্তাটি চালু করতে সমস্যা হয়েছে!', 'error');
-});
-}
-}
-
-voiceAudio.addEventListener('ended', () => {
-isVoicePlaying = false;
-document.getElementById('voicePlayBtnIcon').className = 'fa-solid fa-play';
-if (isMusicPlaying) playAudio();
-});
-
-// 🌟 অ্যাডমিন বার্তা ইতিহাস সিঙ্ক লিসেনার (আজকের এবং গতকালের এসএমএস)
-function listenSmsHistory() {
-  const ref = databaseRef.ref('adminSmsHistory');
-  const callback = (snapshot) => {
-    const data = snapshot.val();
-    smsHistory = [];
-    if (data) {
-      Object.keys(data).forEach(key => {
-        smsHistory.push({
-          id: key,
-          text: data[key].text || "",
-          timestamp: data[key].timestamp || Date.now()
-        });
-      });
-      // নতুন বার্তাগুলো সবার উপরে দেখাবে
-      smsHistory.sort((a, b) => b.timestamp - a.timestamp);
-    }
-    renderSmsList();
-  };
-  ref.on('value', callback);
-  firebaseListeners.push({ ref, cb: callback });
-}
-
-// বার্তা ফিল্টারিং ও রেন্ডারিং মেকানিজম
-function renderSmsList() {
-  const container = document.getElementById('smsListContainer');
-  if (!container) return;
-  container.innerHTML = '';
-
-  const now = new Date();
-  const filtered = smsHistory.filter(item => {
-    const msgDate = new Date(item.timestamp);
-    if (activeSmsTab === 'today') {
-      return isSameDay(msgDate, now);
-    } else {
-      return isYesterday(msgDate, now);
+    const bal = parseFloat(currentUserData.availableBalance || 0).toFixed(2);
+    document.getElementById('homeAvailableBal').innerText = bal;
+    document.getElementById('withdrawAvailBal').innerText = bal;
+    document.getElementById('profileName').innerText = currentUserData.displayName || 'User';
+    document.getElementById('profileEmail').innerText = currentUserData.email || '';
+    document.getElementById('refCodeBadge').innerText = "Ref: " + (currentUserData.referralCode || 'ABP1000');
+    if (currentUserData.photoURL) {
+      document.getElementById('userDisplayAvatar').src = currentUserData.photoURL;
     }
   });
 
+  listenDynamicCategories();
+  listenWithdrawSettings();
+  listenUserSubmissions(uid);
+  listenUserWithdrawals(uid);
+  listenVoiceNotice();
+  listenUpdateNotice();
+  listenAdminSmsHistory();
+}
+
+// 🌟 আপডেট নোটিশ লিসেনার 🌟
+function listenUpdateNotice() {
+  databaseRef.ref('adminNotice/text').on('value', snap => {
+    const text = snap.val();
+    const panel = document.getElementById('updateNoticePanel');
+    const noticeEl = document.getElementById('updateNoticeText');
+    if (text) {
+      noticeEl.innerText = text;
+      panel.style.display = 'flex';
+    } else {
+      panel.style.display = 'none';
+    }
+  });
+}
+
+// ক্যাটাগরি ও গুগল ফর্ম
+function listenDynamicCategories() {
+  databaseRef.ref('accountCategories').on('value', snap => {
+    const data = snap.val() || {};
+    const homeGrid = document.getElementById('homeAccountRatesGrid');
+    const submitGrid = document.getElementById('dynamicCategoryContainer');
+    homeGrid.innerHTML = '';
+    submitGrid.innerHTML = '';
+
+    const keys = Object.keys(data);
+    if (keys.length === 0) {
+      const defaultCats = [
+        { name: "Facebook Account", rate: "৳১০০ - ৳১৫০", formUrl: "https://forms.google.com", icon: "fa-brands fa-facebook", color: "#1877f2" },
+        { name: "Instagram Account", rate: "৳৮০ - ৳১২০", formUrl: "https://forms.google.com", icon: "fa-brands fa-instagram", color: "#e1306c" },
+        { name: "Gmail Account", rate: "৳১৫ - ৳২৫", formUrl: "https://forms.google.com", icon: "fa-solid fa-envelope", color: "#ea4335" },
+        { name: "Binance Account", rate: "৳৫০০ - ৳৮০০", formUrl: "https://forms.google.com", icon: "fa-solid fa-coins", color: "#f59e0b" }
+      ];
+      defaultCats.forEach(c => {
+        renderCategoryCardUI(c, homeGrid);
+        renderCategoryCardUI(c, submitGrid);
+      });
+      return;
+    }
+
+    keys.forEach(k => {
+      const c = data[k];
+      if (c.status !== false) {
+        renderCategoryCardUI(c, homeGrid);
+        renderCategoryCardUI(c, submitGrid);
+      }
+    });
+  });
+}
+
+function renderCategoryCardUI(c, container) {
+  const card = document.createElement('div');
+  card.className = 'cat-card';
+  card.innerHTML = `
+    <div>
+      <i class="${c.icon || 'fa-solid fa-folder'} cat-icon" style="color: ${c.color || 'var(--vip-gold)'};"></i>
+      <div class="cat-title">${escapeHTML(c.name)}</div>
+      <div class="cat-rate-badge"><i class="fa-solid fa-tag"></i> রেট: ${escapeHTML(c.rate || 'আলোচনা সাপেক্ষে')}</div>
+    </div>
+    <div style="font-size:10px; color:#60a5fa; margin-top:6px; font-weight:700;"><i class="fa-solid fa-arrow-up-right-from-square"></i> ফর্মে জমা দিন</div>
+  `;
+  card.onclick = () => {
+    window.open(c.formUrl, '_blank');
+    showToast(`${c.name}-এর গুগল ফর্ম ওপেন হয়েছে! পূরণ করে সাবমিট করুন`, 'success');
+  };
+  container.appendChild(card);
+}
+
+// উইথড্র লিমিট ও সেটিংস
+function listenWithdrawSettings() {
+  databaseRef.ref('withdrawSettings').on('value', snap => {
+    const s = snap.val() || {};
+    currentMinWithdraw = parseFloat(s.minWithdraw || 50);
+    currentMaxWithdraw = parseFloat(s.maxWithdraw || 25000);
+    const notice = document.getElementById('withdrawLimitNotice');
+    notice.innerHTML = `<i class="fa-solid fa-circle-info"></i> সর্বনিম্ন উইথড্র: ৳ ${currentMinWithdraw} | সর্বোচ্চ: ৳ ${currentMaxWithdraw}`;
+  });
+}
+
+function handleWithdrawMethodChange(method) {
+  const label = document.getElementById('withdrawAccountLabel');
+  const input = document.getElementById('withdrawAccountInput');
+
+  if (method === 'Nagad') {
+    label.innerText = 'নগদ পার্সোনাল নম্বর:';
+    input.placeholder = 'নগদ নম্বর দিন (যেমন: 017...)';
+  } else if (method === 'Binance') {
+    label.innerText = 'বাইনান্স পে ইউজার আইডি (Binance Pay UID):';
+    input.placeholder = '৮-১০ ডিজিটের বাইনান্স UID দিন';
+  }
+}
+
+function setWithdrawAmount(amt) {
+  document.getElementById('withdrawAmountInput').value = amt;
+  validateWithdrawInput(amt);
+}
+
+function autoFillMaxAmount() {
+  if (!currentUserData) return;
+  const max = Math.floor(currentUserData.availableBalance || 0);
+  document.getElementById('withdrawAmountInput').value = max;
+  validateWithdrawInput(max);
+}
+
+function validateWithdrawInput(val) {
+  const amt = parseFloat(val);
+  const avail = currentUserData ? parseFloat(currentUserData.availableBalance || 0) : 0;
+  const btn = document.getElementById('withdrawSubmitBtn');
+
+  if (isNaN(amt) || amt <= 0) {
+    btn.style.opacity = '1';
+    return;
+  }
+
+  if (amt > avail) {
+    showToast('❌ আপনার একাউন্টে পর্যাপ্ত টাকা নেই!', 'error');
+    btn.style.opacity = '0.5';
+  } else {
+    btn.style.opacity = '1';
+  }
+}
+
+function submitWithdrawal() {
+  if (!currentUserData) return;
+  const method = document.getElementById('withdrawMethodSelect').value;
+  const accountNo = document.getElementById('withdrawAccountInput').value.trim();
+  const amt = parseFloat(document.getElementById('withdrawAmountInput').value);
+  const availBal = parseFloat(currentUserData.availableBalance || 0);
+
+  if (!accountNo || isNaN(amt) || amt <= 0) {
+    showToast('সঠিক নম্বর/UID এবং টাকার পরিমাণ দিন!', 'error');
+    return;
+  }
+
+  if (amt > availBal) {
+    showToast('❌ উত্তোলনের মতো পর্যাপ্ত টাকা আপনার একাউন্টে নেই!', 'error');
+    return;
+  }
+
+  if (amt < currentMinWithdraw) {
+    showToast(`সর্বনিম্ন উইথড্র ৳ ${currentMinWithdraw}!`, 'error');
+    return;
+  }
+
+  if (amt > currentMaxWithdraw) {
+    showToast(`সর্বোচ্চ উইথড্র ৳ ${currentMaxWithdraw}!`, 'error');
+    return;
+  }
+
+  const reqId = "WD-" + Date.now().toString().slice(-6);
+
+  databaseRef.ref('withdrawRequests/' + auth.currentUser.uid + '/' + reqId).set({
+    requestId: reqId,
+    method: method,
+    accountNo: accountNo,
+    amount: amt,
+    status: 'Pending',
+    timestamp: Date.now()
+  }).then(() => {
+    databaseRef.ref('users/' + auth.currentUser.uid + '/availableBalance').set(availBal - amt);
+    document.getElementById('withdrawAccountInput').value = '';
+    document.getElementById('withdrawAmountInput').value = '';
+    showToast('✅ টাকা উত্তোলনের আবেদন সফল হয়েছে!', 'success');
+  });
+}
+
+// উইথড্র সার্চ
+function listenUserWithdrawals(uid) {
+  databaseRef.ref('withdrawRequests/' + uid).on('value', snap => {
+    rawWithdrawalsList = [];
+    const data = snap.val() || {};
+    Object.keys(data).forEach(k => rawWithdrawalsList.push(data[k]));
+    rawWithdrawalsList.sort((a,b) => b.timestamp - a.timestamp);
+    filterWithdrawHistory();
+  });
+}
+
+function filterWithdrawHistory() {
+  const q = document.getElementById('withdrawSearchQuery').value.trim().toLowerCase();
+  const dateFilter = document.getElementById('withdrawDateFilter').value;
+  const container = document.getElementById('userWithdrawHistoryList');
+  container.innerHTML = '';
+
+  const filtered = rawWithdrawalsList.filter(item => {
+    const matchQ = !q || (item.requestId && item.requestId.toLowerCase().includes(q)) || (item.method && item.method.toLowerCase().includes(q));
+    let matchDate = true;
+    if (dateFilter) {
+      const itemDate = new Date(item.timestamp).toISOString().split('T')[0];
+      matchDate = itemDate === dateFilter;
+    }
+    return matchQ && matchDate;
+  });
+
   if (filtered.length === 0) {
-    container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 30px; font-size: 13px;">${activeSmsTab === 'today' ? 'আজকে অ্যাডমিন থেকে কোনো বার্তা পাঠানো হয়নি!' : 'গতকাল কোনো বার্তা ছিল না!'}</div>`;
+    container.innerHTML = '<div style="text-align:center; color:var(--text-muted); font-size:11px;">কোনো হিস্ট্রি পাওয়া যায়নি</div>';
     return;
   }
 
   filtered.forEach(item => {
-    const timeStr = new Date(item.timestamp).toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' });
-    const itemEl = document.createElement('div');
-    itemEl.style.background = 'rgba(255, 255, 255, 0.03)';
-    itemEl.style.border = '1px solid var(--glass-border)';
-    itemEl.style.padding = '14px';
-    itemEl.style.borderRadius = '16px';
-    itemEl.style.display = 'flex';
-    itemEl.style.flexDirection = 'column';
-    itemEl.style.gap = '8px';
-    
-    itemEl.innerHTML = `
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <span style="font-size: 11px; color: var(--primary); font-weight: bold;"><i class="fa-solid fa-clock"></i> সময়: ${timeStr}</span>
-        <button class="delete-btn" style="color: var(--primary); font-size:14px;" onclick="copySmsText('${escapeHTML(item.text)}')"><i class="fa-regular fa-copy"></i> কপি করুন</button>
+    let pillClass = item.status === 'Paid' ? 'st-approved' : (item.status === 'Rejected' ? 'st-rejected' : 'st-pending');
+    container.innerHTML += `
+      <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; border:1px solid var(--glass-border); display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-size:12px; font-weight:800; color:#fff;">৳ ${item.amount} (${item.method})</div>
+          <div style="font-size:10px; color:var(--text-muted);">ID: ${item.requestId} • ${new Date(item.timestamp).toLocaleDateString('bn-BD')}</div>
+        </div>
+        <span class="status-pill ${pillClass}">${item.status}</span>
       </div>
-      <p style="font-size: 13px; line-height: 1.5; color: #fff; word-break: break-word; white-space: pre-wrap;">${escapeHTML(item.text)}</p>
     `;
-    container.appendChild(itemEl);
   });
 }
 
-function copySmsText(text) {
-  navigator.clipboard.writeText(text);
-  showToast("বার্তা সফলভাবে কপি করা হয়েছে", "success");
+// সাবমিশন সার্চ
+function listenUserSubmissions(uid) {
+  databaseRef.ref('submissions/' + uid).on('value', snap => {
+    rawSubmissionsList = [];
+    const data = snap.val() || {};
+    Object.keys(data).forEach(k => rawSubmissionsList.push(data[k]));
+    rawSubmissionsList.sort((a,b) => b.timestamp - a.timestamp);
+    filterSubmissionsHistory();
+  });
+}
+
+function filterSubmissionsHistory() {
+  const q = document.getElementById('subSearchQuery').value.trim().toLowerCase();
+  const dateFilter = document.getElementById('subDateFilter').value;
+  const container = document.getElementById('userSubmissionsList');
+  container.innerHTML = '';
+
+  const filtered = rawSubmissionsList.filter(item => {
+    const matchQ = !q || (item.submissionId && item.submissionId.toLowerCase().includes(q)) || (item.categoryName && item.categoryName.toLowerCase().includes(q));
+    let matchDate = true;
+    if (dateFilter) {
+      const itemDate = new Date(item.timestamp).toISOString().split('T')[0];
+      matchDate = itemDate === dateFilter;
+    }
+    return matchQ && matchDate;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div style="text-align:center; color:var(--text-muted); font-size:11px;">কোনো সাবমিশন রেকর্ড পাওয়া যায়নি</div>';
+    return;
+  }
+
+  filtered.forEach(item => {
+    container.innerHTML += `
+      <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:12px; border:1px solid var(--glass-border); display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div style="font-size:12px; font-weight:800; color:#fff;">${escapeHTML(item.categoryName)}</div>
+          <div style="font-size:10px; color:var(--vip-gold);">ID: ${item.submissionId} • ${new Date(item.timestamp).toLocaleDateString('bn-BD')}</div>
+        </div>
+        <span class="status-pill st-submitted">${item.status}</span>
+      </div>
+    `;
+  });
+}
+
+// 🌟 অ্যাডমিন ভয়েস বার্তা ও লাভ রিঅ্যাক্ট (❤️) 🌟
+function listenVoiceNotice() {
+  databaseRef.ref('voiceNoticeConfig').on('value', snap => {
+    const d = snap.val();
+    const card = document.getElementById('voiceNoticeCard');
+    if (d && d.voiceUrl && d.status === 'active') {
+      document.getElementById('voiceAudio').src = d.voiceUrl;
+      document.getElementById('voiceNoticeText').innerText = d.voiceText || 'অ্যাডমিন একটি ভয়েস বার্তা পাঠিয়েছেন।';
+      document.getElementById('voiceLoveCount').innerText = d.loveCount || 0;
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+let isVoicePlaying = false;
+function toggleVoiceNotice() {
+  const audio = document.getElementById('voiceAudio');
+  const icon = document.getElementById('voicePlayBtnIcon');
+  if (isVoicePlaying) {
+    audio.pause();
+    isVoicePlaying = false;
+    icon.className = 'fa-solid fa-play';
+  } else {
+    audio.play();
+    isVoicePlaying = true;
+    icon.className = 'fa-solid fa-pause';
+  }
+}
+document.getElementById('voiceAudio').addEventListener('ended', () => {
+  isVoicePlaying = false;
+  document.getElementById('voicePlayBtnIcon').className = 'fa-solid fa-play';
+});
+
+function sendLoveReaction() {
+  databaseRef.ref('voiceNoticeConfig/loveCount').transaction(count => {
+    return (count || 0) + 1;
+  });
+  showToast('❤️ লাভ রিঅ্যাক্ট পাঠানো হয়েছে!', 'success');
+}
+
+// 🌟 অ্যাডমিন এসএমএস হিস্ট্রি লিসেনার 🌟
+function listenAdminSmsHistory() {
+  databaseRef.ref('adminSmsHistory').on('value', snap => {
+    rawSmsList = [];
+    const data = snap.val() || {};
+    Object.keys(data).forEach(k => rawSmsList.push(data[k]));
+    rawSmsList.sort((a,b) => b.timestamp - a.timestamp);
+    renderSmsInbox();
+  });
 }
 
 function showSmsTab(tab) {
   activeSmsTab = tab;
   const btnToday = document.getElementById('btnTodaySms');
-  const btnYesterday = document.getElementById('btnYesterdaySms');
-  
+  const btnYest = document.getElementById('btnYesterdaySms');
   if (tab === 'today') {
-    btnToday.style.background = 'var(--primary)';
+    btnToday.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
+    btnToday.style.color = '#090d16';
+    btnYest.style.background = 'rgba(255,255,255,0.06)';
+    btnYest.style.color = '#fff';
+  } else {
+    btnYest.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
+    btnYest.style.color = '#090d16';
+    btnToday.style.background = 'rgba(255,255,255,0.06)';
     btnToday.style.color = '#fff';
-    btnYesterday.style.background = 'rgba(255,255,255,0.05)';
-    btnYesterday.style.color = 'var(--text-muted)';
-  } else {
-    btnYesterday.style.background = 'var(--primary)';
-    btnYesterday.style.color = '#fff';
-    btnToday.style.background = 'rgba(255,255,255,0.05)';
-    btnToday.style.color = 'var(--text-muted)';
   }
-  renderSmsList();
+  renderSmsInbox();
 }
 
-// তারিখ ম্যাচিং হেল্পার ফাংশন
-function isSameDay(d1, d2) {
-  return d1.getFullYear() === d2.getFullYear() &&
-         d1.getMonth() === d2.getMonth() &&
-         d1.getDate() === d2.getDate();
-}
+function renderSmsInbox() {
+  const container = document.getElementById('smsListContainer');
+  if (!container) return;
+  container.innerHTML = '';
 
-function isYesterday(d1, d2) {
-  const yesterday = new Date(d2);
-  yesterday.setDate(yesterday.getDate() - 1);
-  return d1.getFullYear() === yesterday.getFullYear() &&
-         d1.getMonth() === yesterday.getMonth() &&
-         d1.getDate() === yesterday.getDate();
-}
-
-auth.onAuthStateChanged((user) => {
-if (user) {
-const ref = databaseRef.ref('users/' + user.uid + '/sheet_db');
-const callback = (snapshot) => {
-const data = snapshot.val();
-database = data ? data : [];
-render();
-};
-ref.on('value', callback);
-firebaseListeners.push({ ref, cb: callback });
-} else {
-database = []; render();
-}
-});
-
-function openScreen(id){
-document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-render();
-}
-
-function toggleAssistant(){ document.getElementById('assistant').classList.toggle('show'); }
-
-function saveData(){
-let userField = document.getElementById('user').value.trim();
-let passField = document.getElementById('pass').value.trim();
-let secretField = document.getElementById('secret').value.trim();
-const saveBtn = document.getElementById('saveDataBtn');
-
-if(userField === '' || passField === '') {
-showToast('ইউজারনেম এবং পাসওয়ার্ড অবশ্যই দিন!', 'error'); return;
-}
-if(userField.length < 3) {
-showToast('ইউজারনেম অবশ্যই কমপক্ষে ৩ অক্ষরের দিন!', 'error'); return;
-}
-if(passField.length < 6) {
-showToast('নিরাপত্তার স্বার্থে পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের দিন!', 'error'); return;
-}
-if(database.length >= 500) {
-showToast('আপনার রো লিমিট (৫০০) পূর্ণ হয়ে গেছে!', 'error'); return;
-}
-
-const isDuplicate = database.some(item => item.user.toLowerCase() === userField.toLowerCase() && item.pass === passField);
-if(isDuplicate) {
-showToast('এই ডাটা অলরেডি সেভ করা আছে!', 'error'); return;
-}
-
-saveBtn.disabled = true;
-saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
-
-const newData = {user: userField, pass: passField, code: secretField};
-database.push(newData);
-
-const currentUser = auth.currentUser;
-if(currentUser) {
-databaseRef.ref('users/' + currentUser.uid + '/sheet_db').set(database)
-.then(() => {
-clearInputs();
-showToast('সফলভাবে ক্লাউডে সেভ করা হয়েছে!', 'success');
-})
-.catch((error) => {
-showToast('সেভ করতে সমস্যা হয়েছে: ' + error.message, 'error');
-database.pop();
-})
-.finally(() => {
-saveBtn.disabled = false;
-saveBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save To Sheet';
-});
-} else {
-showToast('দয়া করে আগে লগইন করুন!', 'error');
-saveBtn.disabled = false;
-saveBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save To Sheet';
-}
-}
-
-function clearInputs(){
-document.getElementById('user').value='';
-document.getElementById('pass').value='';
-document.getElementById('secret').value='';
-}
-
-function escapeHTML(str) {
-return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
-}
-
-function render(){
-let tbody = document.getElementById('tbody');
-if(!tbody) return;
-tbody.innerHTML='';
-
-const filteredData = database.filter(item => {
-const query = currentSearchQuery.toLowerCase();
-return item.user.toLowerCase().includes(query) ||
-item.pass.toLowerCase().includes(query) ||
-(item.code && item.code.toLowerCase().includes(query));
-});
-
-if(filteredData.length===0){
-tbody.innerHTML='<tr><td colspan="6" style="color: var(--text-muted)">কোনো ম্যাচিং ডেটা পাওয়া যায়নি</td></tr>';
-return;
-}
-let rowsHtml = '';
-filteredData.forEach((d,i)=>{
-let safeUser = escapeHTML(d.user);
-let safePass = escapeHTML(d.pass);
-let safeCode = escapeHTML(d.code || '');
-const originalIndex = database.findIndex(orig => orig.user === d.user && orig.pass === d.pass && orig.code === d.code);  
-
-rowsHtml += `<tr>  
-  <td>${i+1}</td>  
-  <td>${safeUser}</td>  
-  <td>${safePass}</td>  
-  <td>${safeCode}</td>  
-  <td><i class="fa-regular fa-copy copy" onclick="copyRow(${originalIndex})"></i></td>  
-  <td><button class="delete-btn" onclick="deleteRow(${originalIndex})"><i class="fa-solid fa-trash"></i></button></td>  
-</tr>`;
-});
-tbody.innerHTML = rowsHtml;
-}
-
-function handleSearch(val) {
-currentSearchQuery = val.trim();
-render();
-}
-
-function copyRow(i){
-let d = database[i];
-let txt = d.user + "\t" + d.pass + "\t" + (d.code || '');
-navigator.clipboard.writeText(txt);
-showToast("রো (Row) সফলভাবে কপি করা হয়েছে", 'success');
-}
-
-function copyAll(){
-if(database.length===0){ showToast('কপি করার মতো কোনো ডেটা নেই!', 'error'); return; }
-let txt='';
-database.forEach(d=>{ txt += d.user + "\t" + d.pass + "\t" + (d.code || '') + "\n"; });
-navigator.clipboard.writeText(txt);
-showToast('সব ডেটা একসাথে কপি করা হয়েছে', 'success');
-}
-
-function exportCSV() {
-if (database.length === 0) { showToast('এক্সপোর্ট করার মতো কোনো ডেটা নেই!', 'error'); return; }
-let csvContent = "\uFEFFSL,User,Pass,2FA Secret\n";
-database.forEach((d, i) => {
-let cleanUser = d.user.replace(/"/g, '""');
-let cleanPass = d.pass.replace(/"/g, '""');
-let cleanCode = (d.code || '').replace(/"/g, '""');
-csvContent += `${i + 1},"${cleanUser}","${cleanPass}","${cleanCode}"\n`;
-});
-
-const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-const url = URL.createObjectURL(blob);
-const link = document.createElement("a");
-link.setAttribute("href", url);
-link.setAttribute("download", "sheet_backup.csv");
-link.style.visibility = 'hidden';
-document.body.appendChild(link);
-link.click();
-document.body.removeChild(link);
-showToast("CSV ফাইল ডাউনলোড সম্পন্ন হয়েছে!", 'success');
-}
-
-function deleteRow(i){
-if(confirm('আপনি কি নিশ্চিতভাবে এই রো টি ডিলিট করতে চান?')){
-database.splice(i,1);
-const currentUser = auth.currentUser;
-if(currentUser) {
-databaseRef.ref('users/' + currentUser.uid + '/sheet_db').set(database).then(() => {
-showToast('রো ডিলিট করা হয়েছে', 'error');
-});
-}
-}
-}
-
-function clearSheet(){
-if(confirm('সাবধান! আপনি কি নিশ্চিতভাবে সব ডেটা একসাথে ক্লিয়ার করতে চান?')){
-database = [];
-const currentUser = auth.currentUser;
-if(currentUser) {
-databaseRef.ref('users/' + currentUser.uid + '/sheet_db').remove()
-.then(() => { render(); showToast('সব ডেটা ক্লিয়ার করা হয়েছে', 'error'); });
-}
-}
-}
-
-// অডিও প্লেয়ার কনফিগারেশন
-const audioPlayer = document.getElementById('audioPlayer');
-const playerDisc = document.getElementById('playerDisc');
-const playerDiscArea = document.getElementById('playerDiscArea');
-const currentTrackTitle = document.getElementById('currentTrackTitle');
-const currentTrackSource = document.getElementById('currentTrackSource');
-const playerPlayBtn = document.getElementById('playerPlayBtn');
-const playerSlider = document.getElementById('playerSlider');
-const currentTimeText = document.getElementById('currentTime');
-const totalDurationText = document.getElementById('totalDuration');
-
-/* 🌟 মোডাল ক্লিয়ার ব্যাকগ্রাউন্ড প্লেব্যাক নিশ্চিতকরণ (মোডাল ক্লোজ করলেও গান বাজবে) */
-function togglePlayerUI() {
-  if (audioPlayer.style.display === 'flex') {
-    audioPlayer.style.display = 'none'; // মোডাল হাইড হবে, কিন্তু গান বন্ধ হবে না
-  } else {
-    audioPlayer.style.display = 'flex';
-    syncPlayerDetails();
-  }
-}
-
-function syncPlayerDetails() {
-  if (currentAudioSource === 'adminGojol') {
-    currentTrackTitle.innerText = activePlayerType === 'youtube' ? "অ্যাডমিন ইউটিউব অডিও" : "অ্যাডমিন ইসলামিক গজল";
-    currentTrackSource.innerText = "Official Server Play";
-  } else if (currentAudioSource === 'houseVoice') {
-    currentTrackTitle.innerText = "অ্যাডমিন গুরুত্বপূর্ণ বার্তা";
-    currentTrackSource.innerText = "Admin Mic Broadcast";
-  } else if (currentAudioSource === 'localGallery') {
-    currentTrackTitle.innerText = localStorage.getItem('local_audio_name') || "আমার গ্যালারি গজল";
-    currentTrackSource.innerText = "Local Device File";
-  }
-  updatePlayerUIState(isMusicPlaying);
-}
-
-function updatePlayerUIState(isPlaying) {
-  if (isPlaying) {
-    playerDisc.classList.add('playing');
-    playerDiscArea.classList.add('playing');
-    playerPlayBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-  } else {
-    playerDisc.classList.remove('playing');
-    playerDiscArea.classList.remove('playing');
-    playerPlayBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-  }
-}
-
-function togglePlayState() {
-  if (isMusicPlaying) {
-    toggleMusicEngine(false);
-  } else {
-    toggleMusicEngine(true);
-  }
-}
-
-function selectAudioSource(source, event) {
-  currentAudioSource = source;
-  document.querySelectorAll('.player-menu .menu-item').forEach(el => el.classList.remove('active'));
-  
-  if (source === 'adminGojol') {
-    if (event) event.currentTarget.classList.add('active');
-    setAudioSource(adminAudioUrl);
-    toggleMusicEngine(true);
-  } else if (source === 'houseVoice') {
-    if (event) event.currentTarget.classList.add('active');
-    togglePlayerUI();
-    toggleVoiceNotice();
-    return;
-  }
-  syncPlayerDetails();
-}
-
-function triggerLocalAudioSelect() { document.getElementById('localAudioInput').click(); }
-
-function handleLocalAudioFile(event) {
-  const file = event.target.files[0];
-  if (file) {
-    const fileUrl = URL.createObjectURL(file);
-    localStorage.setItem('local_audio_name', file.name);
-    setAudioSource(fileUrl);
-    currentAudioSource = 'localGallery';
-    
-    document.querySelectorAll('.player-menu .menu-item').forEach(el => el.classList.remove('active'));
-    document.getElementById('localAudioInput').previousElementSibling.classList.add('active');
-    
-    toggleMusicEngine(true);
-    syncPlayerDetails();
-    showToast("গ্যালারি থেকে গজল সফলভাবে সংযুক্ত করা হয়েছে", 'success');
-  }
-}
-
-function formatTime(seconds) {
-  let min = Math.floor(seconds / 60);
-  let sec = Math.floor(seconds % 60);
-  if (min < 10) min = '0' + min;
-  if (sec < 10) sec = '0' + sec;
-  return min + ':' + sec;
-}
-
-function seekAudio(value) {
-  userHasInteracted = true; 
-  if (activePlayerType === 'youtube' && ytPlayer && typeof ytPlayer.seekTo === 'function') {
-    ytPlayer.seekTo(value, true);
-  } else if (activePlayerType === 'mp3') {
-    document.getElementById('bgAudio').currentTime = value;
-  }
-}
-
-function prevTrack() {
-  userHasInteracted = true;
-  if (adminPlaylist.length > 0) {
-    currentTrackIndex = (currentTrackIndex - 1 + adminPlaylist.length) % adminPlaylist.length;
-    adminAudioUrl = adminPlaylist[currentTrackIndex];
-    setAudioSource(adminAudioUrl);
-    toggleMusicEngine(true);
-    syncPlayerDetails();
-    showToast(`গজল ${currentTrackIndex + 1} চালু হয়েছে`, 'success');
-  } else {
-    showToast('অ্যাডমিন গজল প্লেলিস্টে আর কোনো আইটেম নেই!', 'error');
-  }
-}
-
-function nextTrack() {
-  userHasInteracted = true;
-  if (adminPlaylist.length > 0) {
-    currentTrackIndex = (currentTrackIndex + 1) % adminPlaylist.length;
-    adminAudioUrl = adminPlaylist[currentTrackIndex];
-    setAudioSource(adminAudioUrl);
-    toggleMusicEngine(true);
-    syncPlayerDetails();
-    showToast(`গজল ${currentTrackIndex + 1} চালু হয়েছে`, 'success');
-  } else {
-    showToast('অ্যাডমিন গজল প্লেলিস্টে আর কোনো আইটেম নেই!', 'error');
-  }
-}
-
-// গ্যালারি ইমেজ আপলোড
-function triggerImageSelect() { document.getElementById('imageFileInput').click(); }
-
-function handleImageUpload(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const progressContainer = document.getElementById('uploadProgressContainer');
-  const progressBar = document.getElementById('uploadProgressBar');
-  progressContainer.style.display = 'block';
-  progressBar.style.width = '0%';
-
-  const storageRef = storage.ref('gallery/' + Date.now() + '_' + file.name);
-  const uploadTask = storageRef.put(file);
-
-  uploadTask.on('state_changed', 
-    (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      progressBar.style.width = progress + '%';
-    }, 
-    (error) => {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const base64Data = e.target.result;
-        saveImageDataToDB(base64Data, "base64");
-      };
-      reader.readAsDataURL(file);
-    }, 
-    () => {
-      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-        saveImageDataToDB(downloadURL, "cloud");
-      });
+  const now = new Date();
+  const filtered = rawSmsList.filter(item => {
+    const itemDate = new Date(item.timestamp);
+    if (activeSmsTab === 'today') {
+      return itemDate.toDateString() === now.toDateString();
+    } else {
+      const yesterday = new Date();
+      yesterday.setDate(now.getDate() - 1);
+      return itemDate.toDateString() === yesterday.toDateString();
     }
-  );
-}
+  });
 
-function saveImageDataToDB(url, type) {
-  const newImgKey = databaseRef.ref('galleryImages').push().key;
-  const imgData = { id: newImgKey, url: url, timestamp: Date.now(), type: type };
-
-  databaseRef.ref('galleryImages/' + newImgKey).set(imgData)
-    .then(() => {
-      showToast("গ্যালারিতে নতুন ছবি আপলোড সম্পন্ন হয়েছে!", 'success');
-      document.getElementById('uploadProgressContainer').style.display = 'none';
-    })
-    .catch(() => { showToast("আপলোড ব্যর্থ হয়েছে!", 'error'); });
-}
-
-function listenGalleryConfig() {
-  const ref = databaseRef.ref('galleryImages');
-  const callback = (snapshot) => {
-    const data = snapshot.val();
-    galleryImages = data ? Object.values(data) : [];
-    renderGallery();
-  };
-  ref.on('value', callback);
-  firebaseListeners.push({ ref, cb: callback });
-}
-
-function renderGallery() {
-  const grid = document.getElementById('galleryGrid');
-  if (!grid) return;
-  grid.innerHTML = '';
-  if (galleryImages.length === 0) {
-    grid.innerHTML = '<div style="grid-column: span 2; text-align:center; color: var(--text-muted); padding: 40px 0;">কোনো ছবি খুঁজে পাওয়া যায়নি!</div>';
+  if (filtered.length === 0) {
+    container.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:12px; padding:20px;">${activeSmsTab === 'today' ? 'আজকের কোনো বার্তা নেই' : 'গতকালের কোনো বার্তা ছিল না'}</div>`;
     return;
   }
-  galleryImages.forEach(img => {
-    const card = document.createElement('div');
-    card.className = 'gallery-card';
-    card.innerHTML = `
-      <img src="${img.url}" class="gallery-img" alt="Gallery Image" onclick="previewImage('${img.url}')">
-      <div class="gallery-footer">
-        <span>${new Date(img.timestamp).toLocaleDateString('bn-BD')}</span>
-        <button class="gallery-delete" onclick="deleteGalleryImage('${img.id}')"><i class="fa-solid fa-trash-can"></i></button>
+
+  filtered.forEach(item => {
+    container.innerHTML += `
+      <div style="background:rgba(255,255,255,0.05); padding:12px; border-radius:14px; border:1px solid var(--glass-border);">
+        <div style="font-size:10px; color:var(--vip-gold); font-weight:bold; margin-bottom:4px;">
+          <i class="fa-solid fa-clock"></i> ${new Date(item.timestamp).toLocaleTimeString('bn-BD', {hour:'2-digit', minute:'2-digit'})}
+        </div>
+        <div style="font-size:12px; color:#fff; line-height:1.5;">${escapeHTML(item.text)}</div>
       </div>
     `;
-    grid.appendChild(card);
   });
 }
 
-function previewImage(url) {
-  const modal = document.createElement('div');
-  modal.style.position = 'fixed';
-  modal.style.top = '0'; modal.style.left = '0';
-  modal.style.width = '100%'; modal.style.height = '100vh';
-  modal.style.background = 'rgba(15,23,42,0.95)';
-  modal.style.zIndex = '200000';
-  modal.style.display = 'flex'; modal.style.alignItems = 'center'; modal.style.justifyContent = 'center';
-  modal.style.cursor = 'zoom-out';
-  
-  modal.innerHTML = `
-    <img src="${url}" style="max-width: 90%; max-height: 85vh; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--glass-border);">
-    <button style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: white; font-size: 30px; cursor: pointer;">&times;</button>
-  `;
-  modal.onclick = () => document.body.removeChild(modal);
-  document.body.appendChild(modal);
-}
-
-function deleteGalleryImage(id) {
-  if (confirm('আপনি কি নিশ্চিতভাবে এই ছবিটি ডিলিট করতে চান?')) {
-    databaseRef.ref('galleryImages/' + id).remove()
-      .then(() => { showToast("গ্যালারি থেকে ছবি সফলভাবে মুছে ফেলা হয়েছে!", 'success'); });
+// ইন-অ্যাপ ব্রাউজার
+function handleBrowserNavigate() {
+  const inp = document.getElementById('browserUrlInput');
+  let q = inp.value.trim();
+  if (!q) return;
+  if (!q.startsWith('http://') && !q.startsWith('https://')) {
+    q = q.includes('.') ? 'https://' + q : 'https://www.google.com/search?igu=1&q=' + encodeURIComponent(q);
   }
+  document.getElementById('browserIframe').src = q;
 }
 
-window.addEventListener('beforeunload', () => {
-  firebaseListeners.forEach(listener => { listener.ref.off('value', listener.cb); });
-});
+function escapeHTML(s) {
+  if (!s) return '';
+  return s.replace(/[&<>'"]/g, t => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[t] || t));
+}
 </script>
-
 </body>    
 </html>
