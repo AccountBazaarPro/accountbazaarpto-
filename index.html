@@ -93,17 +93,18 @@ body{
 .toast-success { border-color: var(--success); color: #10b981; }
 .toast-error { border-color: var(--error); color: #ef4444; }
 
+/* 🌟 ইন্টারস্টিশিয়াল বিজ্ঞাপন পপআপ ডিজাইন 🌟 */
 .modal-popup-overlay, .ad-interstitial-modal {
   position: fixed !important; inset: 0 !important;
-  background: rgba(0, 0, 0, 0.85) !important; backdrop-filter: blur(18px) !important;
-  -webkit-backdrop-filter: blur(18px) !important;
+  background: rgba(0, 0, 0, 0.92) !important; backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
   z-index: 100050 !important; display: none; align-items: center; justify-content: center; padding: 20px;
 }
 .modal-popup-card {
   background: var(--glass-card); backdrop-filter: blur(35px);
   -webkit-backdrop-filter: blur(35px);
   border: 2px solid var(--vip-gold);
-  border-radius: 28px; padding: 22px 18px; width: 100%; max-width: 400px;
+  border-radius: 28px; padding: 22px 18px; width: 100%; max-width: 420px;
   text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.85);
   position: relative; animation: zoomModal 0.25s ease-out;
 }
@@ -178,7 +179,23 @@ body{
 .st-pending { background: rgba(245, 158, 11, 0.2); color: #fde047; border: 1px solid #f59e0b; }
 .st-rejected { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
 
-/* 🌟 টেলিগ্রাম মেগা পাবলিক ও প্রাইভেট গ্রুপ 🌟 */
+.vip-ad-card {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(20, 15, 30, 0.9) 100%);
+  border: 1.5px dashed var(--vip-gold); border-radius: 20px; padding: 14px;
+  margin-bottom: 14px; position: relative; overflow: hidden; box-shadow: 0 4px 20px rgba(245, 158, 11, 0.2);
+  cursor: pointer;
+}
+.vip-ad-badge {
+  display: inline-block; font-size: 9px; font-weight: 900; background: var(--vip-gold);
+  color: #000; padding: 2px 8px; border-radius: 6px; text-transform: uppercase; margin-bottom: 6px;
+}
+
+.geo-info-tag {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 11px;
+  padding: 3px 10px; border-radius: 20px; background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--vip-gold); color: var(--vip-gold);
+}
+
 .tg-group-card {
   display: flex; flex-direction: column; height: calc(100vh - 165px);
   background: var(--glass-card); border: 2px solid var(--glass-border);
@@ -226,7 +243,6 @@ body{
 .tg-action-icon-btn:active { transform: scale(0.9); }
 .tg-mic-recording { color: #ef4444 !important; animation: pulseGlow 1s infinite; }
 
-/* বটম বার */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; width: 100%; height: 62px;
   background: var(--topbar-bg); backdrop-filter: blur(28px) saturate(190%);
@@ -240,7 +256,6 @@ body{
 }
 .nav-item.active { color: var(--vip-gold); }
 
-/* WebRTC কল ও স্ক্রিন শেয়ার */
 #callOverlay {
   position: fixed; inset: 0; background: radial-gradient(circle at center, #1e1302 0%, #080310 100%);
   z-index: 100060; display: none; flex-direction: column; justify-content: space-between; padding: 25px 20px;
@@ -278,6 +293,10 @@ body{
     <div style="font-size:16px; font-weight:900; color:var(--vip-gold);"><i class="fa-solid fa-crown"></i> <span data-i18n="vipMenu">ভিআইপি মেনু</span></div>
     <button class="top-btn" onclick="toggleSidebar()"><i class="fa-solid fa-xmark"></i></button>
   </div>
+  <div class="side-item" onclick="openAdLinkDirectly(); toggleSidebar();" style="border:1px dashed var(--vip-gold); background:rgba(245,158,11,0.15);">
+    <i class="fa-solid fa-gift" style="color:var(--vip-gold); font-size:18px;"></i> 
+    <span style="color:var(--vip-gold); font-weight:900;">🔥 স্পেশাল অফার দেখুন (Live Ad)</span>
+  </div>
   <div class="side-item" onclick="switchMainTab('telegramGroupTab'); toggleSidebar();"><i class="fa-brands fa-telegram" style="color:var(--tg-blue); font-size:18px;"></i> <span data-i18n="sideTg">টেলিগ্রাম মেগা চ্যাট (সার্চ ও কল)</span></div>
   <div class="side-item" onclick="openAdminSheet(); toggleSidebar();"><i class="fa-solid fa-table" style="color:#10b981; font-size:18px;"></i> <span data-i18n="sideSheet">গুগল শিট (Google Sheet)</span></div>
   <div class="side-item" onclick="openReportModal(); toggleSidebar();"><i class="fa-solid fa-triangle-exclamation" style="color:#ef4444; font-size:18px;"></i> <span data-i18n="sideReport">ইউজার বা একাউন্ট রিপোর্ট</span></div>
@@ -293,7 +312,7 @@ body{
   <div class="side-item" onclick="handleLogout()" style="color:#ef4444;"><i class="fa-solid fa-right-from-bracket"></i> <span data-i18n="sideLogout">লগআউট</span></div>
 </div>
 
-<!-- অথেনটিকেশন স্ক্রিন (পাসওয়ার্ড রিসেট বাটন সহ) -->
+<!-- অথেনটিকেশন স্ক্রিন -->
 <div class="auth-container" id="authContainer" style="display:none; position:fixed; inset:0; z-index:100000; background:rgba(7,4,14,0.96); backdrop-filter:blur(30px); align-items:center; justify-content:center; padding:20px;">    
   <div class="modal-popup-card" id="loginCard">    
     <img src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" class="topbar-logo" style="width:65px; height:65px; margin:0 auto 12px;">
@@ -342,9 +361,8 @@ body{
     <div class="logo">Account Bazar Pro</div>    
   </div>
   <div style="display:flex; gap:5px; align-items:center;">
-    <!-- ভাষা পরিবর্তনের বাটন -->
+    <button class="top-btn" onclick="openAdLinkDirectly()" style="color:var(--vip-gold); border-color:var(--vip-gold); animation:pulseGlow 2s infinite;"><i class="fa-solid fa-bolt"></i> ADS</button>
     <button class="top-btn" onclick="toggleLanguage()" id="langToggleBtn" style="color:var(--vip-gold);"><i class="fa-solid fa-globe"></i> EN</button>
-    <!-- গুগল শিট বাটন -->
     <button class="top-btn" onclick="openAdminSheet()" title="Google Sheet" style="color:#10b981;"><i class="fa-solid fa-table"></i> <span data-i18n="topSheet">শিট</span></button>
     <button class="top-btn" onclick="toggleTheme()" id="themeToggleBtn">🌙</button>
     <button class="top-btn" onclick="switchMainTab('telegramGroupTab')" title="টেলিগ্রাম মেগা গ্রুপ"><i class="fa-brands fa-telegram" style="color:var(--tg-blue);"></i></button>
@@ -357,6 +375,13 @@ body{
   <div class="glass-panel" style="padding:10px 14px; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
     <span style="font-size:10px; font-weight:bold; background:var(--vip-gold); color:#000; padding:3px 8px; border-radius:8px; white-space:nowrap;"><i class="fa-solid fa-bullhorn"></i> <span data-i18n="noticeLabel">নোটিশ</span></span>
     <marquee style="font-size:12px; color:var(--text-main);" id="scrollingNoticeText">নোটিশ লোড হচ্ছে...</marquee>
+  </div>
+
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding:0 4px;">
+    <div class="geo-info-tag" id="userLocationBadge">
+      <i class="fa-solid fa-earth-americas"></i> <span id="detectedGeoLocation">লোকেশন শনাক্ত হচ্ছে...</span>
+    </div>
+    <span style="font-size:10px; color:#10b981; font-weight:bold;"><i class="fa-solid fa-signal"></i> লাইভ সিস্টেম এক্টিভ</span>
   </div>
 
   <!-- লাইভ অ্যাডমিন সাপোর্ট বার -->
@@ -406,6 +431,21 @@ body{
     </div>
   </div>
 
+  <!-- সরাসরি বিজ্ঞাপন ব্যানার -->
+  <div class="vip-ad-card" id="homeAdBannerBox" onclick="openAdLinkDirectly()">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span class="vip-ad-badge"><i class="fa-solid fa-bullhorn"></i> Sponsored VIP Ad</span>
+      <span style="font-size:11px; color:var(--vip-gold); font-weight:bold;">ক্লিক করে অফার দেখুন <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+    </div>
+    <div style="display:flex; gap:12px; align-items:center; margin-top:8px;">
+      <img id="homeFeedAdImg" src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" style="width:65px; height:65px; border-radius:12px; object-fit:cover; border:1.5px solid var(--vip-gold);">
+      <div>
+        <h4 id="homeFeedAdTitle" style="color:var(--text-main); font-size:13px; font-weight:800;">স্পেশাল গোল্ডেন রিওয়ার্ড ও অফার</h4>
+        <p id="homeFeedAdDesc" style="color:var(--text-muted); font-size:11px; margin-top:2px;">অফারটি ভিজিট করুন এবং বোনাস নিশ্চিত করুন।</p>
+      </div>
+    </div>
+  </div>
+
   <!-- সেল রেট কার্ড -->
   <div class="glass-panel">
     <div class="card-title"><i class="fa-solid fa-tags"></i> <span data-i18n="sellRatesTitle">আমরা যেসব অ্যাকাউন্ট কিনি (সেল রেট)</span></div>
@@ -413,7 +453,7 @@ body{
   </div>
 </div>
 
-<!-- 🌟 ২. টেলিগ্রাম মেগা চ্যাট হাব (ইউজার সার্চ, ফাইল, প্রাইভেট চ্যাট ও কলিং) 🌟 -->
+<!-- 🌟 ২. টেলিগ্রাম মেগা চ্যাট হাব 🌟 -->
 <div class="screen" id="telegramGroupTab">
   <div class="tg-group-card">
     <div class="tg-header-bar">
@@ -446,19 +486,16 @@ body{
 
     <!-- ইনপুট বার -->
     <div class="tg-bottom-input-wrap">
-      <!-- ছবি আপলোড -->
       <label for="tgImageFileInput" class="tg-action-icon-btn" title="ছবি পাঠান">
         <i class="fa-solid fa-image"></i>
       </label>
       <input type="file" id="tgImageFileInput" accept="image/*" style="display:none;" onchange="handleGroupImageUpload(event)">
       
-      <!-- যেকোনো ফাইল/ডকুমেন্ট আপলোড -->
       <label for="tgDocumentFileInput" class="tg-action-icon-btn" title="ফাইল বা ডকুমেন্ট পাঠান">
         <i class="fa-solid fa-paperclip"></i>
       </label>
       <input type="file" id="tgDocumentFileInput" style="display:none;" onchange="handleGroupDocumentUpload(event)">
 
-      <!-- ভয়েস মেসেজ বাটন -->
       <button class="tg-action-icon-btn" id="tgVoiceRecordBtn" onclick="toggleVoiceRecord()" title="মাইক্রোফোন চেপে ভয়েস রেকর্ড করুন">
         <i class="fa-solid fa-microphone" id="tgMicIcon"></i>
       </button>
@@ -480,7 +517,6 @@ body{
       <button class="top-btn" onclick="switchMainTab('home')"><i class="fa-solid fa-arrow-left"></i></button>
     </div>
 
-    <!-- লাইভ ব্যালেন্স প্রদর্শক -->
     <div style="background:rgba(245, 158, 11, 0.12); border:1.5px solid var(--vip-gold); border-radius:16px; padding:14px; margin-bottom:14px; text-align:center;">
       <div style="font-size:11px; color:var(--text-muted); font-weight:700;" data-i18n="curBalanceLabel">আপনার একাউন্টের বর্তমান ব্যালেন্স:</div>
       <div style="font-size:26px; font-weight:900; color:var(--vip-gold); margin-top:4px;">৳ <span id="wdScreenCurrentBal">0.00</span></div>
@@ -496,7 +532,6 @@ body{
     <label style="font-size:11px; color:var(--vip-gold); font-weight:bold; display:block; margin-bottom:4px;" data-i18n="amountBDT">টাকার পরিমাণ (BDT):</label>
     <input type="number" id="withdrawAmountInput" class="input-field" placeholder="যেমন: 500" oninput="calculateWithdrawFee()">
 
-    <!-- ফি ও মোট হিসেব -->
     <div style="background:rgba(255,255,255,0.03); border:1.5px solid var(--glass-border); border-radius:14px; padding:12px; margin-bottom:14px;">
       <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
         <span style="color:var(--text-muted);" data-i18n="lblWdAmount">উইথড্র অ্যামাউন্ট:</span>
@@ -536,11 +571,12 @@ body{
     </h3>
     <p id="profileEmail" style="font-size:12px; color:var(--text-muted);">user@gmail.com</p>
 
-    <div style="margin:10px 0; display:flex; justify-content:center; gap:6px;">
+    <div style="margin:10px 0; display:flex; justify-content:center; gap:6px; flex-wrap:wrap;">
       <span class="status-pill" id="trustedSellerBadge" style="background:rgba(16, 185, 129, 0.2); color:#10b981; border:1px solid #10b981;">
         <i class="fa-solid fa-user-shield"></i> মেম্বার
       </span>
       <span class="status-pill st-pending" id="profileUserId">ID: ABP100</span>
+      <span class="geo-info-tag" id="profileGeoBadge"><i class="fa-solid fa-location-dot"></i> শনাক্ত হচ্ছে...</span>
     </div>
 
     <button class="auth-btn" style="height:36px; font-size:11px; margin-top:8px;" onclick="openProfileEditModal()"><i class="fa-solid fa-user-pen"></i> <span data-i18n="btnEditProfile">নাম ও ছবি পরিবর্তন করুন</span></button>
@@ -559,21 +595,17 @@ body{
 <div class="modal-popup-overlay" id="profileEditModal">
   <div class="modal-popup-card">
     <div class="card-title"><span><i class="fa-solid fa-user-pen"></i> প্রোফাইল আপডেট</span><span onclick="closeProfileEditModal()" style="cursor:pointer; font-size:18px;">&times;</span></div>
-    
     <label style="font-size:11px; color:var(--vip-gold); display:block; text-align:left; margin-bottom:4px;">আপনার নাম:</label>
     <input type="text" id="editProfileNameInput" class="input-field" placeholder="আপনার নাম লিখুন">
-
     <label style="font-size:11px; color:var(--vip-gold); display:block; text-align:left; margin-bottom:4px;">ডিভাইস থেকে ছবি বেছে নিন:</label>
     <input type="file" id="editProfileFileInput" accept="image/*" class="input-field" style="padding-top:10px;">
-
     <label style="font-size:11px; color:var(--vip-gold); display:block; text-align:left; margin-bottom:4px;">অথবা ছবির সরাসরি লিংক (Image URL):</label>
     <input type="text" id="editProfilePhotoUrl" class="input-field" placeholder="https://example.com/photo.jpg">
-
     <button class="auth-btn" onclick="saveProfileChanges()"><i class="fa-solid fa-floppy-disk"></i> সংরক্ষণ করুন</button>
   </div>
 </div>
 
-<!-- 🌟 ৬. ইউজার সার্চ ও ওয়ান-টু-ওয়ান চ্যাট মোডাল 🌟 -->
+<!-- 🌟 ৬. ইউজার সার্চ মোডাল 🌟 -->
 <div class="modal-popup-overlay" id="userSearchModal">
   <div class="modal-popup-card">
     <div class="card-title">
@@ -598,7 +630,6 @@ body{
   </div>
 </div>
 
-<!-- অন্যান্য প্রয়োজনীয় স্ক্রিনসমূহ -->
 <div class="screen" id="submitTab">
   <div class="glass-panel">
     <div class="card-title">
@@ -645,7 +676,6 @@ body{
   </div>
 </div>
 
-<!-- মোডালসমূহ -->
 <div class="modal-popup-overlay" id="referModal">
   <div class="modal-popup-card">
     <div class="card-title"><span><i class="fa-solid fa-users" style="color:#10b981;"></i> রেফার ও ইনকাম</span><span onclick="closeReferModal()" style="cursor:pointer; font-size:18px;">&times;</span></div>
@@ -663,32 +693,38 @@ body{
   </div>
 </div>
 
-<!-- ইন্টারস্টিশিয়াল অ্যাড মোডাল -->
+<!-- 🌟 ইন্টারস্টিশিয়াল বিজ্ঞাপন পপআপ মোডাল (মাত্র ৫ সেকেন্ড কাউন্টডাউন) 🌟 -->
 <div class="ad-interstitial-modal" id="adInterstitialModal">
   <div class="modal-popup-card">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-      <span style="font-size:10px; font-weight:bold; background:rgba(245, 158, 11, 0.25); color:var(--vip-gold); border:1px solid var(--vip-gold); padding:2px 8px; border-radius:6px;">
-        <i class="fa-solid fa-rectangle-ad"></i> Sponsored Ad
+      <span style="font-size:11px; font-weight:bold; background:rgba(245, 158, 11, 0.25); color:var(--vip-gold); border:1px solid var(--vip-gold); padding:4px 10px; border-radius:8px;">
+        <i class="fa-solid fa-rectangle-ad"></i> Sponsored Promotion
       </span>
-      <div id="adTimerText" style="font-size:12px; font-weight:bold; color:var(--vip-gold);">৩ সেকেন্ড...</div>
+      <div id="adTimerText" style="font-size:13px; font-weight:900; color:#ef4444;">৫ সেকেন্ড...</div>
     </div>
     
-    <img id="interstitialAdImg" src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" style="width:100%; height:140px; object-fit:cover; border-radius:14px; margin-bottom:10px;">
-    <h4 id="interstitialAdTitle" style="color:var(--text-main); font-size:14px; font-weight:800; margin-bottom:4px;">Account Bazar VIP Offer</h4>
-    <p id="interstitialAdDesc" style="color:var(--text-muted); font-size:11px; margin-bottom:12px;">অফারটি ভিজিট করে বোনাস পয়েন্ট জিতে নিন।</p>
+    <div style="position:relative; cursor:pointer;" onclick="openAdLinkDirectly()">
+      <img id="interstitialAdImg" src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" style="width:100%; height:150px; object-fit:cover; border-radius:16px; margin-bottom:10px; border:2px solid var(--vip-gold);">
+      <span style="position:absolute; bottom:16px; right:8px; background:rgba(0,0,0,0.85); color:var(--vip-gold); font-size:10px; padding:3px 8px; border-radius:6px; font-weight:bold;">
+        বিজ্ঞাপনে ট্যাপ করুন <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </span>
+    </div>
+    
+    <h4 id="interstitialAdTitle" style="color:var(--text-main); font-size:15px; font-weight:900; margin-bottom:4px;">Account Bazar VIP Offer</h4>
+    <p id="interstitialAdDesc" style="color:var(--text-muted); font-size:11px; margin-bottom:12px;">অফারটি ভিজিট করে ৫ সেকেন্ড অপেক্ষা করুন ও বোনাস গ্রহণ করুন।</p>
     
     <div style="display:flex; gap:8px;">
-      <a id="interstitialAdLink" href="https://t.me/yourchannel" target="_blank" class="auth-btn" style="flex:1; height:40px; text-decoration:none;">
+      <a id="interstitialAdLink" href="https://auctionr.org/4/00aaf0b8553ecb24a5cf58a118505042" target="_blank" class="auth-btn" style="flex:1; height:42px; text-decoration:none;" onclick="handleAdClickAndOpen()">
         <i class="fa-solid fa-arrow-up-right-from-square"></i> অফার দেখুন
       </a>
-      <button id="interstitialCloseBtn" class="auth-btn" style="flex:1; height:40px; background:rgba(255,255,255,0.12); color:var(--text-main); display:none;" onclick="closeAdModal()">
+      <button id="interstitialCloseBtn" class="auth-btn" style="flex:1; height:42px; background:rgba(255,255,255,0.12); color:var(--text-main); display:none;" onclick="closeAdModal()">
         <i class="fa-solid fa-xmark"></i> বন্ধ করুন
       </button>
     </div>
   </div>
 </div>
 
-<!-- WebRTC কল ও স্ক্রিন শেয়ার ওভারলে -->
+<!-- WebRTC কল ওভারলে -->
 <div id="callOverlay">
   <video id="remoteVideo" autoplay playsinline></video>
   <video id="localVideo" autoplay playsinline muted></video>
@@ -703,7 +739,7 @@ body{
   </div>
 </div>
 
-<!-- বটম বার মেনু -->
+<!-- বটম বার -->
 <div class="bottom-nav">
   <div class="nav-item active" id="navHome" onclick="switchMainTab('home')"><i class="fa-solid fa-house"></i><span data-i18n="navHome">হোম</span></div>
   <div class="nav-item" id="navTgGroup" onclick="switchMainTab('telegramGroupTab')"><i class="fa-brands fa-telegram" style="color:var(--tg-blue); font-size:16px;"></i><span data-i18n="navChat">মেগা চ্যাট</span></div>
@@ -714,7 +750,14 @@ body{
 </div>
 
 <script>
-// 🌟 ফায়ারবেস কনফিগারেশন 🌟
+// =========================================================================
+// 🎯 বিজ্ঞাপন লিংক ও সময় নিয়ন্ত্রণ (৫ সেকেন্ড সেট করা হলো)
+// =========================================================================
+const MAIN_AD_URL = "https://auctionr.org/4/00aaf0b8553ecb24a5cf58a118505042"; // আপনার বিজ্ঞাপন লিংক
+let AD_COUNTDOWN_SECONDS = 5; // ৫ সেকেন্ড করা হলো
+let AUTO_AD_EVERY_MINUTES = 1; // প্রতি ১ মিনিট পর স্বয়ংক্রিয় বিজ্ঞাপন পপআপ হবে (বন্ধ করতে ০ দিন)
+
+// ফায়ারবেস কনফিগারেশন
 const firebaseConfig = {
   apiKey: "AIzaSyAf_5tTj4gDGW6_VCPhzlfhTvLFm2d-w8s",
   authDomain: "account-bazar-pro-52a00.firebaseapp.com",
@@ -738,22 +781,134 @@ let currentMaxWithdraw = 25000;
 let userTotalWithdrawnLifetime = 0;
 let isUserVerifiedSeller = false;
 
-// প্রাইভেট ও পাবলিক চ্যাট টার্গেট
+let detectedCountry = "Detecting...";
+let detectedRegionState = "Detecting...";
 let activeChatTargetUid = 'global';
 let activeChatTargetName = 'Public';
 
 let dynamicAdConfig = {
   enabled: true,
   title: "Account Bazar VIP Offer",
-  desc: "অফারটি ভিজিট করে বিশেষ বোনাস গ্রহণ করুন!",
+  desc: "অফারটি ভিজিট করে ৫ সেকেন্ড অপেক্ষা করুন ও বিশেষ বোনাস গ্রহণ করুন!",
   imgUrl: "https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png",
-  targetUrl: "https://t.me/yourchannel"
+  targetUrl: MAIN_AD_URL,
+  adminSheetUrl: "https://docs.google.com/spreadsheets/"
 };
+
 let adminUidGlobal = null;
 let currentTheme = localStorage.getItem('abp_theme') || 'dark';
 let currentLanguage = localStorage.getItem('abp_lang') || 'bn';
 
-// ভাষা ডিকশনারি
+function openAdLinkDirectly() {
+  window.open(MAIN_AD_URL, "_blank");
+}
+
+function handleAdClickAndOpen() {
+  window.open(MAIN_AD_URL, "_blank");
+}
+
+function startAutoAdTimer() {
+  if (AUTO_AD_EVERY_MINUTES > 0) {
+    setInterval(() => {
+      const isCallOn = document.getElementById('callOverlay').style.display === 'flex';
+      const isAdAlreadyOpen = document.getElementById('adInterstitialModal').style.display === 'flex';
+      if (!isCallOn && !isAdAlreadyOpen) {
+        showInterstitialAd();
+      }
+    }, AUTO_AD_EVERY_MINUTES * 60 * 1000);
+  }
+}
+
+// 🌟 ৫ সেকেন্ড কাউন্টডাউন ইন্টারস্টিশিয়াল বিজ্ঞাপন ফাংশন 🌟
+let adTimerInterval = null;
+
+function showInterstitialAd(callback) {
+  const modal = document.getElementById('adInterstitialModal');
+  const timerText = document.getElementById('adTimerText');
+  const closeBtn = document.getElementById('interstitialCloseBtn');
+  const adLink = document.getElementById('interstitialAdLink');
+  
+  if (adLink) adLink.href = MAIN_AD_URL;
+
+  modal.style.display = 'flex';
+  closeBtn.style.display = 'none';
+
+  let left = AD_COUNTDOWN_SECONDS; // ৫ সেকেন্ড
+  timerText.innerText = `${left} সেকেন্ড বাকি...`;
+
+  if (adTimerInterval) clearInterval(adTimerInterval);
+
+  adTimerInterval = setInterval(() => {
+    left--;
+    if (left > 0) {
+      timerText.innerText = `${left} সেকেন্ড বাকি...`;
+    } else { 
+      clearInterval(adTimerInterval); 
+      timerText.innerText = 'বিজ্ঞাপন শেষ হয়েছে ✅'; 
+      closeBtn.style.display = 'block'; // ৫ সেকেন্ড পর বন্ধ বাটন দৃশ্যমান হবে
+    }
+  }, 1000);
+
+  window.adCallback = callback;
+}
+
+function closeAdModal() {
+  if (adTimerInterval) clearInterval(adTimerInterval);
+  document.getElementById('adInterstitialModal').style.display = 'none';
+  if (typeof window.adCallback === 'function') { 
+    window.adCallback(); 
+    window.adCallback = null; 
+  }
+}
+
+function triggerActionWithAd(targetAction) {
+  if (window.Android && typeof window.Android.showInterstitialAd === 'function') {
+    try { window.Android.showInterstitialAd("ca-app-pub-4106175056412377/5079074384"); } catch(e){}
+    if (typeof targetAction === 'string') switchMainTab(targetAction);
+    else if (typeof targetAction === 'function') targetAction();
+    return;
+  }
+
+  showInterstitialAd(() => {
+    if (typeof targetAction === 'string') switchMainTab(targetAction);
+    else if (typeof targetAction === 'function') targetAction();
+  });
+}
+
+async function detectUserCountryAndRegion() {
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    if (res.ok) {
+      const data = await res.json();
+      detectedCountry = data.country_name || "Bangladesh";
+      detectedRegionState = data.region || data.city || "Dhaka";
+      
+      const geoText = `${detectedCountry} (${detectedRegionState})`;
+      document.getElementById('detectedGeoLocation').innerText = geoText;
+      const profGeo = document.getElementById('profileGeoBadge');
+      if (profGeo) profGeo.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${geoText}`;
+
+      if (auth.currentUser) {
+        databaseRef.ref('users/' + auth.currentUser.uid).update({
+          country: detectedCountry,
+          regionState: detectedRegionState,
+          ip: data.ip || 'Hidden'
+        });
+      }
+    } else {
+      fallbackGeo();
+    }
+  } catch (e) {
+    fallbackGeo();
+  }
+}
+
+function fallbackGeo() {
+  detectedCountry = "Bangladesh";
+  detectedRegionState = "Dhaka";
+  document.getElementById('detectedGeoLocation').innerText = `${detectedCountry} (${detectedRegionState})`;
+}
+
 const langDict = {
   bn: {
     vipMenu: "ভিআইপি মেনু",
@@ -884,10 +1039,10 @@ function toggleLanguage() {
 }
 
 function openAdminSheet() {
-  window.open("https://docs.google.com/spreadsheets/", "_blank");
+  const url = dynamicAdConfig.adminSheetUrl || "https://docs.google.com/spreadsheets/";
+  window.open(url, "_blank");
 }
 
-// থিম
 function initTheme() {
   if (currentTheme === 'light') {
     document.body.classList.add('light-theme');
@@ -906,6 +1061,9 @@ function toggleTheme() {
 window.addEventListener('load', () => {
   initTheme();
   applyLanguage(currentLanguage);
+  detectUserCountryAndRegion();
+  startAutoAdTimer();
+  
   let p = 1;
   const pEl = document.getElementById('loaderPercentage');
   const iv = setInterval(() => {
@@ -964,7 +1122,6 @@ function switchMainTab(id) {
   if (id === 'profileTab') document.getElementById('navProfile').classList.add('active');
 }
 
-// পাসওয়ার্ড রিসেট বাটন হ্যান্ডলার
 function handleForgotPassword() {
   const email = document.getElementById('loginEmail').value.trim();
   if (!email) {
@@ -976,56 +1133,6 @@ function handleForgotPassword() {
   }).catch(e => showToast(e.message, 'error'));
 }
 
-// বিজ্ঞাপন হ্যান্ডলার
-function triggerActionWithAd(targetAction) {
-  if (window.Android && typeof window.Android.showInterstitialAd === 'function') {
-    try { window.Android.showInterstitialAd("ca-app-pub-4106175056412377/5079074384"); } catch(e){}
-    if (typeof targetAction === 'string') switchMainTab(targetAction);
-    else if (typeof targetAction === 'function') targetAction();
-    return;
-  }
-  if (dynamicAdConfig && dynamicAdConfig.enabled) {
-    showInterstitialAd(() => {
-      if (typeof targetAction === 'string') switchMainTab(targetAction);
-      else if (typeof targetAction === 'function') targetAction();
-    });
-  } else {
-    if (typeof targetAction === 'string') switchMainTab(targetAction);
-    else if (typeof targetAction === 'function') targetAction();
-  }
-}
-
-function showInterstitialAd(callback) {
-  const modal = document.getElementById('adInterstitialModal');
-  const timerText = document.getElementById('adTimerText');
-  const closeBtn = document.getElementById('interstitialCloseBtn');
-  modal.style.display = 'flex';
-  closeBtn.style.display = 'none';
-  let left = 3;
-  timerText.innerText = `${left} সেকেন্ড...`;
-
-  const timer = setInterval(() => {
-    left--;
-    if (left > 0) {
-      timerText.innerText = `${left} সেকেন্ড...`;
-    } else { 
-      clearInterval(timer); 
-      timerText.innerText = 'বিজ্ঞাপন সমাপ্ত'; 
-      closeBtn.style.display = 'block'; 
-    }
-  }, 1000);
-  window.adCallback = callback;
-}
-
-function closeAdModal() {
-  document.getElementById('adInterstitialModal').style.display = 'none';
-  if (typeof window.adCallback === 'function') { 
-    window.adCallback(); 
-    window.adCallback = null; 
-  }
-}
-
-// অথেন্টিকেশন
 function toggleAuth(type) {
   document.getElementById('loginCard').style.display = type === 'login' ? 'block' : 'none';
   document.getElementById('signupCard').style.display = type === 'signup' ? 'block' : 'none';
@@ -1046,6 +1153,8 @@ function handleSignUp() {
       uid: uid, userId: customId, displayName: name, email: email,
       photoURL: "https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png",
       referralCode: refCode, referredBy: ref || '',
+      country: detectedCountry,
+      regionState: detectedRegionState,
       availableBalance: 0, withdrawableBalance: 0, totalWithdrawn: 0,
       createdAt: Date.now()
     }).then(() => {
@@ -1075,6 +1184,8 @@ function handleGoogleLogin() {
           uid: user.uid, userId: "ABP-" + Math.floor(100000 + Math.random() * 900000),
           displayName: user.displayName || 'Google User', email: user.email,
           photoURL: user.photoURL || "https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png",
+          country: detectedCountry,
+          regionState: detectedRegionState,
           referralCode: refCode, availableBalance: 0, withdrawableBalance: 0, totalWithdrawn: 0, createdAt: Date.now()
         });
       }
@@ -1094,12 +1205,12 @@ auth.onAuthStateChanged(user => {
     initUserData(user.uid);
     listenTelegramGroupMessages();
     findAdminUid();
+    detectUserCountryAndRegion();
   } else {
     document.getElementById('authContainer').style.display = 'flex';
   }
 });
 
-// ইউজার ডেটা
 function initUserData(uid) {
   databaseRef.ref('users/' + uid).on('value', snap => {
     currentUserData = snap.val() || {};
@@ -1170,7 +1281,6 @@ function checkAndUpdateUserVerification(uid) {
   });
 }
 
-// প্রোফাইল এডিট
 function openProfileEditModal() {
   if (currentUserData) {
     document.getElementById('editProfileNameInput').value = currentUserData.displayName || '';
@@ -1213,7 +1323,6 @@ function applyProfileUpdates(uid, updates) {
   }).catch(e => showToast(e.message, 'error'));
 }
 
-// উইথড্র
 function calculateWithdrawFee() {
   const amtInput = parseFloat(document.getElementById('withdrawAmountInput').value) || 0;
   document.getElementById('lblWithdrawInputAmt').innerText = amtInput.toFixed(2);
@@ -1312,7 +1421,6 @@ function listenWithdrawals(uid) {
   });
 }
 
-// 🌟 টেলিগ্রাম মেগা পাবলিক ও প্রাইভেট চ্যাট সিস্টেম 🌟
 function sendTelegramGroupMessage(customMedia = null) {
   const txtInp = document.getElementById('tgTextInput');
   const text = txtInp ? txtInp.value.trim() : '';
@@ -1329,10 +1437,12 @@ function sendTelegramGroupMessage(customMedia = null) {
     userId: currentUserData.userId || "ABP-" + auth.currentUser.uid.slice(0,6),
     senderName: currentUserData.displayName || 'ABP Member',
     avatar: currentUserData.photoURL || 'https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png',
-    targetUid: activeChatTargetUid, // 'global' অথবা কাঙ্ক্ষিত ইউজারের uid
+    targetUid: activeChatTargetUid,
     isVerified: isUserVerifiedSeller,
     currentBalance: curBal,
     totalWithdrawn: userTotalWithdrawnLifetime,
+    country: detectedCountry,
+    regionState: detectedRegionState,
     text: text || '',
     media: customMedia || null,
     timestamp: Date.now()
@@ -1348,22 +1458,19 @@ function listenTelegramGroupMessages() {
     const msgs = snap.val() || {};
 
     Object.values(msgs).forEach(m => {
-      // মেসেজ ফিল্টারিং: পাবলিক রুম অথবা নির্দিষ্ট ইউজারের সাথে প্রাইভেট
       const myUid = auth.currentUser ? auth.currentUser.uid : '';
       const isPublic = (!m.targetUid || m.targetUid === 'global');
-      const isForMe = (m.targetUid === myUid);
-      const isSentByMeToTarget = (m.uid === myUid && m.targetUid === activeChatTargetUid);
 
       if (activeChatTargetUid === 'global') {
-        if (!isPublic) return; // গ্লোবাল রুমে শুধু পাবলিক দেখাবে
+        if (!isPublic) return;
       } else {
-        // প্রাইভেট রুমে শুধু আমি এবং ওই ইউজারের মেসেজ দেখাবে
         if (!((m.uid === activeChatTargetUid && m.targetUid === myUid) || (m.uid === myUid && m.targetUid === activeChatTargetUid))) return;
       }
 
       const isMe = m.uid === myUid;
       const timeStr = getRelativeOrDateTime(m.timestamp);
       const verifiedMark = m.isVerified ? `<span style="color:#10b981; font-size:11px;" title="Verified VIP Seller">✅</span>` : '';
+      const locationBadge = m.country ? `<span class="tg-stat-chip" style="color:#60a5fa;"><i class="fa-solid fa-location-dot"></i> ${escapeHTML(m.country)}</span>` : '';
 
       let mediaHtml = '';
       if (m.media) {
@@ -1397,8 +1504,8 @@ function listenTelegramGroupMessages() {
             
             <div class="tg-meta-badge-row">
               <span class="tg-stat-chip">ID: ${escapeHTML(m.userId || 'ABP')}</span>
-              <span class="tg-stat-chip" style="color:#10b981;">ব্যালেন্স: ৳${(m.currentBalance || 0).toFixed(1)}</span>
-              <span class="tg-stat-chip" style="color:#38bdf8;">উত্তোলন: ৳${(m.totalWithdrawn || 0).toFixed(0)}</span>
+              ${locationBadge}
+              <span class="tg-stat-chip" style="color:#10b981;">৳${(m.currentBalance || 0).toFixed(1)}</span>
             </div>
 
             ${m.text ? `<div style="font-size:12px; color:var(--text-main); margin-top:4px; word-break:break-word;">${escapeHTML(m.text)}</div>` : ''}
@@ -1411,7 +1518,6 @@ function listenTelegramGroupMessages() {
   });
 }
 
-// ছবি আপলোড
 function handleGroupImageUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -1424,7 +1530,6 @@ function handleGroupImageUpload(event) {
   reader.readAsDataURL(file);
 }
 
-// ফাইল/ডকুমেন্ট আপলোড
 function handleGroupDocumentUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -1441,7 +1546,6 @@ function handleGroupDocumentUpload(event) {
   reader.readAsDataURL(file);
 }
 
-// ভয়েস রেকর্ড হ্যান্ডলার
 let mediaRecorder = null;
 let audioChunks = [];
 let isRecording = false;
@@ -1482,7 +1586,6 @@ async function toggleVoiceRecord() {
   }
 }
 
-// ইউজার সার্চ ও ডিরেক্ট প্রাইভেট চ্যাট
 function openUserSearchModal() {
   document.getElementById('userSearchModal').style.display = 'flex';
   handleSearchMemberLive();
@@ -1510,7 +1613,7 @@ function handleSearchMemberLive() {
           <div style="background:rgba(255,255,255,0.04); border:1px solid var(--glass-border); padding:8px 12px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
             <div style="text-align:left;">
               <b style="color:var(--vip-gold); font-size:12px;">${escapeHTML(u.displayName||'User')}</b>
-              <div style="font-size:10px; color:var(--text-muted);">${escapeHTML(u.userId||'ABP')}</div>
+              <div style="font-size:10px; color:var(--text-muted);">${escapeHTML(u.userId||'ABP')} • ${escapeHTML(u.country || 'BD')}</div>
             </div>
             <div style="display:flex; gap:6px;">
               <button class="top-btn" style="height:28px;" onclick="startPrivateChatWith('${u.uid}', '${escapeHTML(u.displayName||'User')}'); closeUserSearchModal();"><i class="fa-solid fa-comment-dots"></i> চ্যাট</button>
@@ -1543,7 +1646,6 @@ function resetToPublicChat() {
   listenTelegramGroupMessages();
 }
 
-// 🌟 অ্যাকাউন্ট বা ইউজার রিপোর্ট সিস্টেম 🌟
 function openReportModal(targetInfo = '') {
   document.getElementById('reportTargetUserInput').value = targetInfo;
   document.getElementById('reportModal').style.display = 'flex';
@@ -1580,7 +1682,6 @@ function submitUserReport() {
   }).catch(e => showToast(e.message, 'error'));
 }
 
-// রিলেটিভ সময়
 function getRelativeOrDateTime(timestamp) {
   if (!timestamp) return '';
   const now = Date.now();
@@ -1593,8 +1694,7 @@ function getRelativeOrDateTime(timestamp) {
   return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
 }
 
-// 🌟 WebRTC লাইভ ভিডিও ও অডিও কল 🌟
-let pc, localStream, currentCallPeer = null;
+let pc, localStream;
 
 async function startCall(type, peerName = "ABP Call") {
   document.getElementById('callPeerName').innerText = peerName;
@@ -1652,7 +1752,6 @@ function endWebRTCCall() {
   document.getElementById('callOverlay').style.display = 'none';
 }
 
-// অ্যাডমিন সাপোর্ট
 function findAdminUid() {
   databaseRef.ref('users').orderByChild('email').equalTo('hihi7822132@gmail.com').once('value', snap => {
     const val = snap.val();
@@ -1668,7 +1767,6 @@ function callAdminSupport(type) {
   startCall(type, "Admin Support");
 }
 
-// ২FA জেনারেটর
 function cleanBase32Key(rawKey) { return rawKey.replace(/[\s\-_=]/g, '').toUpperCase(); }
 function base32ToUint8Array(base32Str) {
   const clean = cleanBase32Key(base32Str);
@@ -1724,7 +1822,6 @@ function copy2FACode() {
   showToast(`✅ কোড ${raw} কপি হয়েছে!`, 'success');
 }
 
-// ক্যাটাগরি ও নোটিশ সিঙ্ক
 function listenWithdrawMethods() {
   databaseRef.ref('withdrawMethods').on('value', snap => {
     const select = document.getElementById('withdrawMethodSelect');
@@ -1753,8 +1850,8 @@ function listenDynamicCategories() {
     const data = snap.val() || {};
     const keys = Object.keys(data);
     if (!keys.length) {
-      renderCat({ name: "Facebook ID (সেল দিন)", rate: "৳১০০-১৫০", formUrl: "https://forms.google.com" }, homeGrid);
-      renderCat({ name: "Gmail ID (সেল দিন)", rate: "৳২০-৩০", formUrl: "https://forms.google.com" }, submitGrid);
+      renderCat({ name: "Facebook ID (সেল দিন)", rate: "৳১০০-১৫০", formUrl: MAIN_AD_URL }, homeGrid);
+      renderCat({ name: "Gmail ID (সেল দিন)", rate: "৳২০-৩০", formUrl: MAIN_AD_URL }, submitGrid);
       return;
     }
     keys.forEach(k => { renderCat(data[k], homeGrid); renderCat(data[k], submitGrid); });
@@ -1776,7 +1873,7 @@ function renderCat(c, cont) {
   el.onclick = () => {
     triggerActionWithAd(() => {
       if (c.formUrl) window.open(c.formUrl, '_blank');
-      else showToast('ফর্ম লিংক দেওয়া নেই!', 'error');
+      else window.open(MAIN_AD_URL, '_blank');
     });
   };
   cont.appendChild(el);
@@ -1799,7 +1896,7 @@ function listenSubmissionsAndSold(uid) {
       if (item.status === 'Pending') pending++;
 
       fullList.innerHTML += `
-        <div style="background:rgba(255,255,255,0.03); padding:12px; border-radius:14px; border:1px solid var(--glass-border); display:flex; justify-content:space-between; align-items:center;">
+        <div style="background:rgba(255,255,20,0.03); padding:12px; border-radius:14px; border:1px solid var(--glass-border); display:flex; justify-content:space-between; align-items:center;">
           <div><b style="color:var(--text-main); font-size:13px;">${escapeHTML(item.categoryName)}</b><div style="font-size:11px; color:var(--vip-gold);">আইডি: ${item.submissionId}</div></div>
           <span class="status-pill ${isApproved ? 'st-approved' : (item.status==='Rejected'?'st-rejected':'st-pending')}">${isApproved ? 'Sold সম্পন্ন' : item.status}</span>
         </div>`;
@@ -1841,14 +1938,23 @@ function listenAdminConfig() {
   databaseRef.ref('adminNotice/pinned').on('value', snap => {
     if (snap.val()) document.getElementById('tgPinnedMsgText').innerText = snap.val();
   });
-  databaseRef.ref('adSettings/interstitialAd').on('value', snap => {
+  
+  databaseRef.ref('adSettings').on('value', snap => {
     const adData = snap.val();
     if (adData) {
       dynamicAdConfig = { ...dynamicAdConfig, ...adData };
-      if (dynamicAdConfig.imgUrl) document.getElementById('interstitialAdImg').src = dynamicAdConfig.imgUrl;
-      if (dynamicAdConfig.title) document.getElementById('interstitialAdTitle').innerText = dynamicAdConfig.title;
-      if (dynamicAdConfig.desc) document.getElementById('interstitialAdDesc').innerText = dynamicAdConfig.desc;
-      if (dynamicAdConfig.targetUrl) document.getElementById('interstitialAdLink').href = dynamicAdConfig.targetUrl;
+      if (dynamicAdConfig.imgUrl) {
+        document.getElementById('interstitialAdImg').src = dynamicAdConfig.imgUrl;
+        document.getElementById('homeFeedAdImg').src = dynamicAdConfig.imgUrl;
+      }
+      if (dynamicAdConfig.title) {
+        document.getElementById('interstitialAdTitle').innerText = dynamicAdConfig.title;
+        document.getElementById('homeFeedAdTitle').innerText = dynamicAdConfig.title;
+      }
+      if (dynamicAdConfig.desc) {
+        document.getElementById('interstitialAdDesc').innerText = dynamicAdConfig.desc;
+        document.getElementById('homeFeedAdDesc').innerText = dynamicAdConfig.desc;
+      }
     }
   });
 }
