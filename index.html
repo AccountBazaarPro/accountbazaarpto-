@@ -177,7 +177,7 @@ body{
 .st-pending { background: rgba(245, 158, 11, 0.2); color: #fde047; border: 1px solid #f59e0b; }
 .st-rejected { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
 
-/* 🌟 লাইভ অ্যাডেস্টেরা বিজ্ঞাপন কার্ড (কোনো অ্যাপ লোগো নেই) 🌟 */
+/* 🌟 অ্যাডমিন নিয়ন্ত্রিত ডাইনামিক লাইভ কার্ড 🌟 */
 .vip-ad-card {
   background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(16, 11, 29, 0.95) 100%);
   border: 2px dashed var(--vip-gold); border-radius: 20px; padding: 14px;
@@ -195,7 +195,7 @@ body{
   border: 1px solid var(--vip-gold); color: var(--vip-gold);
 }
 
-/* 🌟 চ্যাট ও কমিউনিটি ডিজাইন 🌟 */
+/* চ্যাট ও কমিউনিটি ডিজাইন */
 .tg-group-card {
   display: flex; flex-direction: column; height: calc(100vh - 165px);
   background: var(--glass-card); border: 2px solid var(--glass-border);
@@ -251,7 +251,6 @@ body{
 .tg-action-icon-btn:active { transform: scale(0.9); }
 .tg-mic-recording { color: #ef4444 !important; animation: pulseGlow 0.8s infinite; }
 
-/* ভয়েস রেকর্ডিং স্ট্যাটাস বার */
 .recording-bar {
   display: none; align-items: center; gap: 8px; background: rgba(239, 68, 68, 0.2);
   border: 1px solid #ef4444; border-radius: 12px; padding: 4px 10px; margin: 4px 10px; font-size: 11px; color: #ef4444;
@@ -270,7 +269,6 @@ body{
 }
 .nav-item.active { color: var(--vip-gold); }
 
-/* কল ওভারলে */
 #callOverlay {
   position: fixed; inset: 0; background: radial-gradient(circle at center, #1e1302 0%, #080310 100%);
   z-index: 100060; display: none; flex-direction: column; justify-content: space-between; padding: 25px 20px;
@@ -291,7 +289,9 @@ body{
 
 <!-- লোডার স্ক্রীন -->
 <div class="splash-screen" id="splashScreen">  
-  <img src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" class="splash-logo-img">
+  <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg, #fde047, #f59e0b); display:flex; align-items:center; justify-content:center; box-shadow:0 0 30px var(--vip-gold-glow); animation:pulseGlow 2s infinite;">
+    <i class="fa-solid fa-crown" style="font-size:36px; color:#000;"></i>
+  </div>
   <div style="font-size:20px; font-weight:900; color:var(--vip-gold); margin-top:12px;">Account Bazar Pro</div>  
   <div class="percentage-badge" id="loaderPercentage">১%</div>  
 </div>  
@@ -340,11 +340,13 @@ body{
   <div class="side-item" onclick="handleLogout()" style="color:#ef4444;"><i class="fa-solid fa-right-from-bracket"></i> <span>লগআউট</span></div>
 </div>
 
-<!-- অথেনটিকেশন ও বাধ্যতামূলক জিমেইল ভেরিফিকেশন মোডাল -->
+<!-- অথেনটিকেশন স্ক্রিন (Google Login সহ) -->
 <div class="auth-container" id="authContainer" style="display:none; position:fixed; inset:0; z-index:100000; background:rgba(7,4,14,0.96); backdrop-filter:blur(30px); align-items:center; justify-content:center; padding:20px;">    
   <!-- ১. লগইন কার্ড -->
   <div class="modal-popup-card" id="loginCard">    
-    <img src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" class="topbar-logo" style="width:65px; height:65px; margin:0 auto 12px;">
+    <div style="width:65px; height:65px; border-radius:50%; background:linear-gradient(135deg, #fde047, #f59e0b); display:flex; align-items:center; justify-content:center; margin:0 auto 12px; box-shadow:0 0 20px var(--vip-gold-glow);">
+      <i class="fa-solid fa-user-shield" style="font-size:30px; color:#000;"></i>
+    </div>
     <div style="font-size:20px; font-weight:900; color:var(--vip-gold); margin-bottom:12px;">Account Bazar Pro</div>    
     <input type="email" id="loginEmail" class="input-field" placeholder="আপনার সঠিক জিমেইল">
     <div style="position:relative;">
@@ -357,14 +359,22 @@ body{
     </div>
 
     <button class="auth-btn" onclick="handleLogin()"><i class="fa-solid fa-right-to-bracket"></i> লগইন করুন</button>
+    
+    <!-- গুগল লগইন বাটন -->
+    <button class="auth-btn" style="background:rgba(255,255,255,0.08); color:var(--text-main); border:1.5px solid var(--vip-gold); margin-top:8px;" onclick="handleGoogleLogin()">
+      <i class="fa-brands fa-google" style="color:#ea4335; font-size:16px;"></i> Google দিয়ে লগইন করুন
+    </button>
+
     <div style="font-size:11px; color:var(--text-muted); margin-top:14px;">
       নতুন ইউজার? <span style="color:var(--vip-gold); cursor:pointer; font-weight:bold;" onclick="toggleAuth('signup')">রেজিস্ট্রেশন করুন</span>
     </div>
   </div>
 
-  <!-- ২. সাইন আপ কার্ড (বাধ্যতামূলক রেফার কোড ও জিমেইল ভেরিফাই) -->
+  <!-- ২. সাইন আপ কার্ড -->
   <div class="modal-popup-card" id="signupCard" style="display:none;">    
-    <img src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" class="topbar-logo" style="width:65px; height:65px; margin:0 auto 12px;">
+    <div style="width:65px; height:65px; border-radius:50%; background:linear-gradient(135deg, #fde047, #f59e0b); display:flex; align-items:center; justify-content:center; margin:0 auto 12px;">
+      <i class="fa-solid fa-user-plus" style="font-size:30px; color:#000;"></i>
+    </div>
     <div style="font-size:18px; font-weight:900; color:var(--vip-gold); margin-bottom:12px;">নতুন একাউন্ট নিবন্ধন</div>    
     <input type="text" id="signupName" class="input-field" placeholder="আপনার পুরো নাম">
     <input type="email" id="signupEmail" class="input-field" placeholder="আপনার আসল জিমেইল">
@@ -379,13 +389,19 @@ body{
       <span class="eye-toggle-btn" style="top:12px;" onclick="togglePassView('signupPass', this)">👁️</span>
     </div>
     
-    <button class="auth-btn" onclick="handleSignUp()"><i class="fa-solid fa-user-plus"></i> একাউন্ট খুলুন ও কোড পাঠান</button>
+    <button class="auth-btn" onclick="handleSignUp()"><i class="fa-solid fa-user-plus"></i> একাউন্ট খুলুন</button>
+    
+    <!-- গুগল লগইন বাটন (রেজিস্ট্রেশন কার্ডেও) -->
+    <button class="auth-btn" style="background:rgba(255,255,255,0.08); color:var(--text-main); border:1.5px solid var(--vip-gold); margin-top:8px;" onclick="handleGoogleLogin()">
+      <i class="fa-brands fa-google" style="color:#ea4335; font-size:16px;"></i> Google দিয়ে সাইন আপ
+    </button>
+
     <div style="font-size:11px; color:var(--text-muted); margin-top:14px;">
       ইতিমধ্যে একাউন্ট আছে? <span style="color:var(--vip-gold); cursor:pointer;" onclick="toggleAuth('login')">লগইন</span>
     </div>
   </div>
 
-  <!-- ৩. ফরগেট পাসওয়ার্ড আলাদা কার্ড -->
+  <!-- ৩. ফরগেট পাসওয়ার্ড মোডাল -->
   <div class="modal-popup-card" id="forgotPassCard" style="display:none;">
     <i class="fa-solid fa-key" style="font-size:48px; color:var(--vip-gold); margin-bottom:12px;"></i>
     <h3 style="color:var(--vip-gold); font-size:18px; font-weight:900; margin-bottom:6px;">পাসওয়ার্ড রিসেট করুন</h3>
@@ -394,30 +410,15 @@ body{
     <button class="auth-btn" onclick="submitForgotPasswordAction()"><i class="fa-solid fa-paper-plane"></i> রিসেট লিংক পাঠান</button>
     <button class="auth-btn" style="background:rgba(255,255,255,0.08); color:var(--text-main); margin-top:8px;" onclick="closeForgotPasswordModal()"><i class="fa-solid fa-arrow-left"></i> লগইনে ফিরে যান</button>
   </div>
-
-  <!-- ৪. জিমেইল ভেরিফিকেশন পেন্ডিং কার্ড -->
-  <div class="modal-popup-card" id="verifyPendingCard" style="display:none;">
-    <i class="fa-solid fa-envelope-circle-check" style="font-size:55px; color:var(--vip-gold); margin-bottom:12px;"></i>
-    <h3 style="color:var(--vip-gold); font-size:17px; font-weight:900; margin-bottom:8px;">জিমেইল ভেরিফাই করুন</h3>
-    <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px; line-height:1.5;">
-      আপনার জিমেইলে একটি কনফার্মেশন লিংক পাঠানো হয়েছে। ইনবক্স অথবা স্প্যাম (Spam) ফোল্ডার চেক করে লিংকে ক্লিক করুন।
-    </p>
-    <div style="font-size:11px; color:var(--vip-gold); font-weight:bold; margin-bottom:12px;" id="verifyEmailAddressDisplay">user@example.com</div>
-    <button class="auth-btn" onclick="checkIfUserVerified()"><i class="fa-solid fa-arrows-rotate"></i> আমি ভেরিফাই করেছি (লগইন)</button>
-    <button class="auth-btn" style="background:rgba(255,255,255,0.06); color:var(--text-main); border:1px solid var(--vip-gold); margin-top:8px;" onclick="resendVerificationMail()">
-      <i class="fa-solid fa-paper-plane"></i> আবার ভেরিফিকেশন লিংক পাঠান
-    </button>
-    <div style="font-size:11px; color:#ef4444; margin-top:14px; cursor:pointer;" onclick="cancelVerificationAndLogout()">
-      <i class="fa-solid fa-arrow-left"></i> অন্য ইমেইল দিয়ে চেষ্টা করুন
-    </div>
-  </div>
 </div>
 
 <!-- টপবার -->
 <div class="topbar">    
   <div class="brand-wrap">
     <button class="top-btn" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
-    <img src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" class="topbar-logo">
+    <div style="width:34px; height:34px; border-radius:50%; background:linear-gradient(135deg, #fde047, #f59e0b); display:flex; align-items:center; justify-content:center;">
+      <i class="fa-solid fa-crown" style="font-size:18px; color:#000;"></i>
+    </div>
     <div class="logo">Account Bazar Pro</div>    
   </div>
   <div style="display:flex; gap:5px; align-items:center;">
@@ -491,19 +492,20 @@ body{
     </div>
   </div>
 
-  <!-- সরাসরি অ্যাডেস্টেরা ব্যানার (কোনো অ্যাপ লোগো নেই) -->
+  <!-- অ্যাডমিন-নিয়ন্ত্রিত লাইভ বিজ্ঞাপন ব্যানার (কোনো স্ট্যাটিক ছবি নেই) -->
   <div class="vip-ad-card" onclick="openAdLinkDirectly()">
     <div style="display:flex; justify-content:space-between; align-items:center;">
-      <span class="vip-ad-badge"><i class="fa-solid fa-rectangle-ad"></i> Sponsored Bonus</span>
+      <span class="vip-ad-badge"><i class="fa-solid fa-rectangle-ad"></i> Sponsored Promotion</span>
       <span style="font-size:11px; color:var(--vip-gold); font-weight:bold;">অফারটি দেখুন <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
     </div>
     <div style="display:flex; gap:12px; align-items:center; margin-top:10px;">
-      <div style="width:65px; height:65px; border-radius:14px; background:linear-gradient(135deg, #f59e0b, #ef4444); display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 0 15px rgba(245,158,11,0.5);">
-        <i class="fa-solid fa-gift" style="font-size:32px; color:#fff;"></i>
+      <div id="homeFeedAdVisualBox" style="width:65px; height:65px; border-radius:14px; background:linear-gradient(135deg, #f59e0b, #ef4444); display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 0 15px rgba(245,158,11,0.5); overflow:hidden;">
+        <i class="fa-solid fa-fire" id="homeFeedAdIcon" style="font-size:32px; color:#fff;"></i>
+        <img id="homeFeedAdDynamicImg" src="" style="width:100%; height:100%; object-fit:cover; display:none;">
       </div>
       <div>
-        <h4 style="color:var(--text-main); font-size:14px; font-weight:900;">🔥 স্পেশাল ক্যাশ ও লাইভ রিওয়ার্ড অফার</h4>
-        <p style="color:var(--text-muted); font-size:11px; margin-top:3px;">এখানে ক্লিক করে সরাসরি লাইভ অফার সাইট ভিজিট করুন ও পয়েন্ট সংগ্রহ করুন।</p>
+        <h4 id="homeFeedAdTitle" style="color:var(--text-main); font-size:14px; font-weight:900;">🔥 লাইভ স্পেশাল রিওয়ার্ড অফার</h4>
+        <p id="homeFeedAdDesc" style="color:var(--text-muted); font-size:11px; margin-top:3px;">এখানে ক্লিক করে সরাসরি লাইভ অফার সাইট ভিজিট করুন ও বোনাস সংগ্রহ করুন।</p>
       </div>
     </div>
   </div>
@@ -597,7 +599,7 @@ body{
   </div>
 </div>
 
-<!-- 🌟 ৩. গুগল শিট হাব স্ক্রিন (সার্চ বার ও ডাটা ভিউয়ার) 🌟 -->
+<!-- 🌟 ৩. গুগল শিট হাব স্ক্রিন 🌟 -->
 <div class="screen" id="googleSheetScreen">
   <div class="glass-panel" style="border:2px solid var(--vip-gold);">
     <div class="card-title">
@@ -609,13 +611,11 @@ body{
       তারিখ বা অ্যাকাউন্ট আইডি দিয়ে সরাসরি রেকর্ড খুঁজুন:
     </p>
 
-    <!-- শিট সার্চ বার -->
     <div style="position:relative; margin-bottom:12px;">
       <input type="text" id="sheetSearchInput" class="input-field" placeholder="তারিখ (DD/MM/YYYY) বা অ্যাকাউন্ট আইডি দিয়ে সার্চ..." oninput="handleSearchSheetData()" style="padding-left:38px;">
       <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:14px; top:15px; color:var(--vip-gold);"></i>
     </div>
 
-    <!-- শিট ওপেন বাটন -->
     <div style="display:flex; gap:8px; margin-bottom:14px;">
       <button class="auth-btn" style="flex:1; height:38px; font-size:11px; background:#10b981; color:#000;" onclick="openAdminSheet()">
         <i class="fa-solid fa-arrow-up-right-from-square"></i> সরাসরি গুগল শিট ফাইল খুলুন
@@ -625,7 +625,6 @@ body{
       </button>
     </div>
 
-    <!-- শিট ডাটা লিস্ট -->
     <div id="googleSheetResultsList" style="display:flex; flex-direction:column; gap:8px; max-height:480px; overflow-y:auto;">
       <div style="text-align:center; color:var(--text-muted); font-size:12px; padding:20px;">ডাটা লোড হচ্ছে...</div>
     </div>
@@ -685,7 +684,7 @@ body{
 <div class="screen" id="profileTab">
   <div class="glass-panel" style="text-align:center;">
     <div style="position:relative; width:86px; height:86px; margin:0 auto 10px;">
-      <img id="userDisplayAvatar" src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" style="width:100%; height:100%; border-radius:50%; border:2.5px solid var(--vip-gold); object-fit:cover;">
+      <img id="userDisplayAvatar" src="https://ui-avatars.com/api/?name=User&background=f59e0b&color=000&bold=true" style="width:100%; height:100%; border-radius:50%; border:2.5px solid var(--vip-gold); object-fit:cover;">
       <span onclick="openProfileEditModal()" style="position:absolute; bottom:0; right:0; background:var(--primary); color:#000; width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:11px; border:1px solid #fff;"><i class="fa-solid fa-camera"></i></span>
     </div>
 
@@ -815,32 +814,33 @@ body{
   </div>
 </div>
 
-<!-- 🌟 ৫ সেকেন্ড কাউন্টডাউনের স্বয়ংক্রিয় বিজ্ঞাপন পপআপ (কোনো অ্যাপ লোগো নেই) 🌟 -->
+<!-- 🌟 ৫ সেকেন্ড কাউন্টডাউনের বিজ্ঞাপন পপআপ (অ্যাডমিন-নিয়ন্ত্রিত লাইভ স্ক্রিন) 🌟 -->
 <div class="ad-interstitial-modal" id="adInterstitialModal">
   <div class="modal-popup-card">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <span style="font-size:11px; font-weight:bold; background:rgba(245, 158, 11, 0.25); color:var(--vip-gold); border:1px solid var(--vip-gold); padding:4px 10px; border-radius:8px;">
         <i class="fa-solid fa-rectangle-ad"></i> Sponsored Promotion
       </span>
-      <div id="adTimerText" style="font-size:13px; font-weight:900; color:#ef4444;">৫ সেকেন্ড...</div>
+      <div id="adTimerText" style="font-size:13px; font-weight:900; color:#ef4444;">৫ সেকেন্ড বাকি...</div>
     </div>
     
-    <!-- সম্পূর্ণ আকর্ষণীয় অফার ডিজাইন -->
+    <!-- সম্পূর্ণ অ্যাডমিন নিয়ন্ত্রিত অফার প্রিভিউ -->
     <div style="position:relative; cursor:pointer;" onclick="openAdLinkDirectly()">
-      <div style="width:100%; height:160px; border-radius:16px; background:linear-gradient(135deg, #b45309 0%, #1e1b4b 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; border:2px solid var(--vip-gold); box-shadow:0 0 25px rgba(245,158,11,0.4); margin-bottom:10px;">
-        <i class="fa-solid fa-fire" style="font-size:42px; color:var(--vip-gold); margin-bottom:8px; animation:pulseGlow 1.5s infinite;"></i>
-        <b style="color:#fff; font-size:16px; text-transform:uppercase; letter-spacing:1px;">VIP Live Ad Offer</b>
+      <div id="adPopupVisualBox" style="width:100%; height:160px; border-radius:16px; background:linear-gradient(135deg, #b45309 0%, #1e1b4b 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; border:2px solid var(--vip-gold); box-shadow:0 0 25px rgba(245,158,11,0.4); margin-bottom:10px; overflow:hidden;">
+        <i class="fa-solid fa-fire" id="adPopupFireIcon" style="font-size:42px; color:var(--vip-gold); margin-bottom:8px; animation:pulseGlow 1.5s infinite;"></i>
+        <img id="adPopupDynamicImg" src="" style="width:100%; height:100%; object-fit:cover; display:none;">
+        <b id="adPopupVisualTitle" style="color:#fff; font-size:16px; text-transform:uppercase; letter-spacing:1px;">VIP Live Ad Offer</b>
         <span style="font-size:11px; color:#fde047; margin-top:4px;">ট্যাপ করে অফার ভিজিট করুন</span>
       </div>
     </div>
     
-    <h4 style="color:var(--text-main); font-size:15px; font-weight:900; margin-bottom:4px;">Golden Reward Portal</h4>
-    <p style="color:var(--text-muted); font-size:11px; margin-bottom:14px;">অফারটি ভিজিট করুন ও বিশেষ বোনাস সংগ্রহ করুন।</p>
+    <h4 id="adPopupHeading" style="color:var(--text-main); font-size:15px; font-weight:900; margin-bottom:4px;">Golden Reward Portal</h4>
+    <p id="adPopupSubtext" style="color:var(--text-muted); font-size:11px; margin-bottom:14px;">অফারটি ভিজিট করুন ও বিশেষ বোনাস সংগ্রহ করুন।</p>
     
     <div style="display:flex; gap:8px;">
-      <a href="https://auctionr.org/4/00aaf0b8553ecb24a5cf58a118505042" target="_blank" class="auth-btn" style="flex:1; height:42px; text-decoration:none;" onclick="handleAdClickAndOpen()">
+      <button class="auth-btn" style="flex:1; height:42px;" onclick="openAdLinkDirectly()">
         <i class="fa-solid fa-arrow-up-right-from-square"></i> অফারটি দেখুন
-      </a>
+      </button>
       <button id="interstitialCloseBtn" class="auth-btn" style="flex:1; height:42px; background:rgba(255,255,255,0.12); color:var(--text-main); display:none;" onclick="closeAdModal()">
         <i class="fa-solid fa-xmark"></i> বন্ধ করুন
       </button>
@@ -853,7 +853,9 @@ body{
   <video id="remoteVideo" autoplay playsinline></video>
   <video id="localVideo" autoplay playsinline muted></video>
   <div style="position:relative; z-index:3; margin:auto; text-align:center;">
-    <img id="callPeerAvatar" src="https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png" style="width:90px; height:90px; border-radius:50%; margin-bottom:12px; border:2px solid var(--vip-gold); object-fit:cover;">
+    <div style="width:90px; height:90px; border-radius:50%; margin:0 auto 12px; border:2px solid var(--vip-gold); background:linear-gradient(135deg, #fde047, #f59e0b); display:flex; align-items:center; justify-content:center;">
+      <i class="fa-solid fa-phone" style="font-size:36px; color:#000;"></i>
+    </div>
     <h3 id="callPeerName" style="color:#fff; font-size:18px; font-weight:800;">লাইভ কল</h3>
     <div id="callStatusText" style="font-size:13px; color:var(--vip-gold); margin-top:6px;">কল কানেক্ট হচ্ছে...</div>
   </div>
@@ -875,11 +877,11 @@ body{
 
 <script>
 // =========================================================================
-// 🎯 কনফিগারেশন ও বিজ্ঞাপন নিয়ন্ত্রণ
+// 🎯 কনফিগারেশন ও অ্যাডমিন সেটিংস (১০০% ডাইনামিক)
 // =========================================================================
-const MAIN_AD_URL = "https://auctionr.org/4/00aaf0b8553ecb24a5cf58a118505042"; 
+let MAIN_AD_URL = "https://auctionr.org/4/00aaf0b8553ecb24a5cf58a118505042"; 
 let AD_COUNTDOWN_SECONDS = 5; 
-let AUTO_AD_EVERY_SECONDS = 45; // প্রতি ৪৫ সেকেন্ড পর পর স্বয়ংক্রিয় বিজ্ঞাপন আসবে
+let AUTO_AD_EVERY_SECONDS = 45; 
 
 const firebaseConfig = {
   apiKey: "AIzaSyAf_5tTj4gDGW6_VCPhzlfhTvLFm2d-w8s",
@@ -915,7 +917,38 @@ let adminSheetLink = "https://docs.google.com/spreadsheets/";
 let currentTheme = localStorage.getItem('abp_theme') || 'dark';
 let currentLanguage = localStorage.getItem('abp_lang') || 'bn';
 
-// 🌟 ১. ফরগেট পাসওয়ার্ড হ্যান্ডলার (১০০% কার্যকর) 🌟
+// 🌟 ১. গুগল লগইন (Google Login Provider) 🌟
+function handleGoogleLogin() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider).then(async (res) => {
+    const user = res.user;
+    const snap = await databaseRef.ref('users/' + user.uid).once('value');
+    if (!snap.exists()) {
+      const refCode = "ABP" + Math.floor(1000 + Math.random() * 9000);
+      const customId = "ABP-" + Math.floor(100000 + Math.random() * 900000);
+      await databaseRef.ref('users/' + user.uid).set({
+        uid: user.uid,
+        userId: customId,
+        displayName: user.displayName || 'Google User',
+        email: user.email,
+        photoURL: user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName||'User')}&background=f59e0b&color=000&bold=true`,
+        referralCode: refCode,
+        referredBy: 'ABP1000',
+        country: detectedCountry,
+        regionState: detectedRegionState,
+        availableBalance: 0,
+        withdrawableBalance: 0,
+        totalWithdrawn: 0,
+        emailVerified: true,
+        createdAt: Date.now()
+      });
+    }
+    document.getElementById('authContainer').style.display = 'none';
+    showToast('গুগল লগইন সফল! স্বাগতম। ✅', 'success');
+  }).catch(e => showToast(e.message, 'error'));
+}
+
+// 🌟 ২. পাসওয়ার্ড ভুলে গেছেন হ্যান্ডলার 🌟
 function openForgotPasswordModal() {
   document.getElementById('loginCard').style.display = 'none';
   document.getElementById('signupCard').style.display = 'none';
@@ -946,12 +979,8 @@ function submitForgotPasswordAction() {
   });
 }
 
-// 🌟 ২. স্বয়ংক্রিয় বিজ্ঞাপন টাইমার 🌟
+// 🌟 ৩. সরাসরি অ্যাড ওপেন ও অটো টাইমার 🌟
 function openAdLinkDirectly() {
-  window.open(MAIN_AD_URL, "_blank");
-}
-
-function handleAdClickAndOpen() {
   window.open(MAIN_AD_URL, "_blank");
 }
 
@@ -1010,7 +1039,52 @@ function triggerActionWithAd(targetAction) {
   });
 }
 
-// 🌟 ৩. লাইভ WebRTC অডিও ও ভিডিও কল সিস্টেম 🌟
+// 🌟 ৪. অ্যাডমিন সিঙ্ক (Firebase Database Listener) 🌟
+function listenAdminConfig() {
+  databaseRef.ref('adminNotice/text').on('value', snap => {
+    document.getElementById('scrollingNoticeText').innerText = snap.val() || 'স্বাগতম Account Bazar Pro-তে!';
+  });
+  databaseRef.ref('adminNotice/pinned').on('value', snap => {
+    if (snap.val()) document.getElementById('tgPinnedMsgText').innerText = snap.val();
+  });
+  databaseRef.ref('adSettings/adminSheetUrl').on('value', snap => {
+    if (snap.val()) adminSheetLink = snap.val();
+  });
+
+  // সম্পূর্ণ অ্যাডমিন নিয়ন্ত্রিত বিজ্ঞাপন সিঙ্ক
+  databaseRef.ref('adSettings').on('value', snap => {
+    const val = snap.val() || {};
+    if (val.targetUrl) MAIN_AD_URL = val.targetUrl;
+    if (val.countdownSeconds) AD_COUNTDOWN_SECONDS = parseInt(val.countdownSeconds);
+    if (val.autoAdInterval) AUTO_AD_EVERY_SECONDS = parseInt(val.autoAdInterval);
+
+    // টাইটেল ও বিবরণী সিঙ্ক
+    if (val.title) {
+      document.getElementById('homeFeedAdTitle').innerText = val.title;
+      document.getElementById('adPopupHeading').innerText = val.title;
+    }
+    if (val.desc) {
+      document.getElementById('homeFeedAdDesc').innerText = val.desc;
+      document.getElementById('adPopupSubtext').innerText = val.desc;
+    }
+
+    // ছবি সিঙ্ক (যদি অ্যাডমিন কোনো ফটো লিংক দেয় তবে সেটাই শো হবে)
+    if (val.imgUrl) {
+      const feedImg = document.getElementById('homeFeedAdDynamicImg');
+      feedImg.src = val.imgUrl;
+      feedImg.style.display = 'block';
+      document.getElementById('homeFeedAdIcon').style.display = 'none';
+
+      const popImg = document.getElementById('adPopupDynamicImg');
+      popImg.src = val.imgUrl;
+      popImg.style.display = 'block';
+      document.getElementById('adPopupFireIcon').style.display = 'none';
+      document.getElementById('adPopupVisualTitle').style.display = 'none';
+    }
+  });
+}
+
+// 🌟 ৫. লাইভ WebRTC অডিও ও ভিডিও কল সিস্টেম 🌟
 let pc = null;
 let localStream = null;
 let currentCallSessionId = null;
@@ -1147,7 +1221,7 @@ function callAdminDirect(type) {
   initiateLiveCall(type, 'admin');
 }
 
-// 🌟 ৪. মেসেজ ও এসএমএস পাঠানোর নিশ্চিতকরণ 🌟
+// 🌟 ৬. কমিউনিটি চ্যাট ও পোস্ট সিস্টেম 🌟
 function sendTelegramGroupMessage(customMedia = null) {
   const txtInp = document.getElementById('tgTextInput');
   const text = txtInp ? txtInp.value.trim() : '';
@@ -1163,7 +1237,7 @@ function sendTelegramGroupMessage(customMedia = null) {
     uid: auth.currentUser.uid,
     userId: currentUserData?.userId || "ABP-" + auth.currentUser.uid.slice(0,6),
     senderName: currentUserData?.displayName || 'ABP Member',
-    avatar: currentUserData?.photoURL || 'https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png',
+    avatar: currentUserData?.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUserData?.displayName||'User')}&background=f59e0b&color=000&bold=true`,
     targetUid: activeChatTargetUid,
     isVerified: isUserVerifiedSeller,
     currentBalance: curBal,
@@ -1233,7 +1307,7 @@ function listenTelegramGroupMessages() {
 
       stream.innerHTML += `
         <div class="tg-message-item ${isMe ? 'me' : ''}">
-          <img src="${m.avatar || 'https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png'}" class="tg-avatar" style="cursor:pointer;" onclick="startPrivateChatWith('${m.uid}', '${escapeHTML(m.senderName)}')">
+          <img src="${m.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(m.senderName||'U')}&background=f59e0b&color=000&bold=true`}" class="tg-avatar" style="cursor:pointer;" onclick="startPrivateChatWith('${m.uid}', '${escapeHTML(m.senderName)}')">
           <div style="flex:1; min-width:0;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <b style="font-size:12px; color:var(--vip-gold); cursor:pointer;" onclick="startPrivateChatWith('${m.uid}', '${escapeHTML(m.senderName)}')">${escapeHTML(m.senderName)} ${verifiedMark}</b>
@@ -1261,7 +1335,7 @@ function listenTelegramGroupMessages() {
   });
 }
 
-// 🌟 ৫. ভয়েস রেকর্ডার (Voice Record Fix) 🌟
+// 🌟 ৭. ভয়েস রেকর্ডার 🌟
 let mediaRecorder = null;
 let audioChunks = [];
 let isRecording = false;
@@ -1366,7 +1440,7 @@ function deleteGroupMessage(msgId) {
   }
 }
 
-// 🌟 সাইন আপ ও লগইন প্রসেস 🌟
+// 🌟 ইমেল/পাসওয়ার্ড দিয়ে সাইন আপ ও লগইন 🌟
 async function handleSignUp() {
   const name = document.getElementById('signupName').value.trim();
   const email = document.getElementById('signupEmail').value.trim();
@@ -1397,7 +1471,6 @@ async function handleSignUp() {
   try {
     const cred = await auth.createUserWithEmailAndPassword(email, pass);
     const user = cred.user;
-    await user.sendEmailVerification();
 
     const uid = user.uid;
     const refCode = "ABP" + Math.floor(1000 + Math.random() * 9000);
@@ -1405,19 +1478,15 @@ async function handleSignUp() {
     
     await databaseRef.ref('users/' + uid).set({
       uid: uid, userId: customId, displayName: name, email: email,
-      photoURL: "https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png",
+      photoURL: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=f59e0b&color=000&bold=true`,
       referralCode: refCode, referredBy: ref,
       country: detectedCountry, regionState: detectedRegionState,
       availableBalance: 0, withdrawableBalance: 0, totalWithdrawn: 0,
-      emailVerified: false, createdAt: Date.now()
+      createdAt: Date.now()
     });
 
-    document.getElementById('signupCard').style.display = 'none';
-    document.getElementById('loginCard').style.display = 'none';
-    document.getElementById('verifyEmailAddressDisplay').innerText = email;
-    document.getElementById('verifyPendingCard').style.display = 'block';
-
-    showToast('✅ জিমেইলে ভেরিফিকেশন লিংক পাঠানো হয়েছে! অনুগ্রহ করে চেক করুন।', 'success');
+    document.getElementById('authContainer').style.display = 'none';
+    showToast('✅ অ্যাকাউন্ট তৈরি সফল হয়েছে! স্বাগতম।', 'success');
   } catch (e) {
     showToast(e.message, 'error');
   }
@@ -1432,75 +1501,27 @@ function handleLogin() {
     return;
   }
 
-  auth.signInWithEmailAndPassword(email, pass).then(cred => {
-    const user = cred.user;
-    if (!user.emailVerified) {
-      document.getElementById('loginCard').style.display = 'none';
-      document.getElementById('signupCard').style.display = 'none';
-      document.getElementById('verifyEmailAddressDisplay').innerText = user.email;
-      document.getElementById('verifyPendingCard').style.display = 'block';
-      showToast('❌ জিমেইল ভেরিফাই করা হয়নি! লিংকে ক্লিক করুন।', 'error');
-    } else {
-      databaseRef.ref('users/' + user.uid).update({ emailVerified: true });
-      document.getElementById('authContainer').style.display = 'none';
-      showToast('লগইন সফল!', 'success');
-    }
+  auth.signInWithEmailAndPassword(email, pass).then(() => {
+    document.getElementById('authContainer').style.display = 'none';
+    showToast('লগইন সফল!', 'success');
   }).catch(e => showToast(e.message, 'error'));
-}
-
-async function checkIfUserVerified() {
-  if (auth.currentUser) {
-    await auth.currentUser.reload();
-    if (auth.currentUser.emailVerified) {
-      await databaseRef.ref('users/' + auth.currentUser.uid).update({ emailVerified: true });
-      document.getElementById('authContainer').style.display = 'none';
-      showToast('জিমেইল সফলভাবে ভেরিফাইড হয়েছে! স্বাগতম। ✅', 'success');
-    } else {
-      showToast('❌ এখনো ভেরিফাই হয়নি! ইনবক্সের লিংকে ক্লিক করুন।', 'error');
-    }
-  }
-}
-
-function resendVerificationMail() {
-  if (auth.currentUser) {
-    auth.currentUser.sendEmailVerification().then(() => {
-      showToast('✅ ভেরিফিকেশন লিংক পুনরায় আপনার জিমেইলে পাঠানো হয়েছে!', 'success');
-    }).catch(e => showToast(e.message, 'error'));
-  }
-}
-
-function cancelVerificationAndLogout() {
-  auth.signOut().then(() => {
-    document.getElementById('verifyPendingCard').style.display = 'none';
-    document.getElementById('loginCard').style.display = 'block';
-  });
 }
 
 function handleLogout() {
   if (confirm("লগআউট করতে চান?")) auth.signOut().then(() => location.reload());
 }
 
-// 🌟 অথ স্টেট চেকার 🌟
 auth.onAuthStateChanged(user => {
   if (user) {
-    if (!user.emailVerified) {
-      document.getElementById('authContainer').style.display = 'flex';
-      document.getElementById('loginCard').style.display = 'none';
-      document.getElementById('signupCard').style.display = 'none';
-      document.getElementById('verifyEmailAddressDisplay').innerText = user.email;
-      document.getElementById('verifyPendingCard').style.display = 'block';
-    } else {
-      document.getElementById('authContainer').style.display = 'none';
-      initUserData(user.uid);
-      listenTelegramGroupMessages();
-      setupCallSignalingListener(user.uid);
-      detectUserCountryAndRegion();
-    }
+    document.getElementById('authContainer').style.display = 'none';
+    initUserData(user.uid);
+    listenTelegramGroupMessages();
+    setupCallSignalingListener(user.uid);
+    detectUserCountryAndRegion();
   } else {
     document.getElementById('authContainer').style.display = 'flex';
     document.getElementById('loginCard').style.display = 'block';
     document.getElementById('signupCard').style.display = 'none';
-    document.getElementById('verifyPendingCard').style.display = 'none';
     document.getElementById('forgotPassCard').style.display = 'none';
   }
 });
@@ -1521,6 +1542,8 @@ function initUserData(uid) {
     
     if (currentUserData.photoURL) {
       document.getElementById('userDisplayAvatar').src = currentUserData.photoURL;
+    } else {
+      document.getElementById('userDisplayAvatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUserData.displayName||'User')}&background=f59e0b&color=000&bold=true`;
     }
     checkAndUpdateUserVerification(uid);
   });
@@ -1567,7 +1590,6 @@ function checkAndUpdateUserVerification(uid) {
   });
 }
 
-// অন্যান্য ফাংশনসমূহ
 function showToast(text, type = 'success') {
   const toast = document.getElementById('customToast');
   document.getElementById('toastText').innerText = text;
@@ -2040,18 +2062,6 @@ function listenYouTubeTutorials() {
   });
 }
 
-function listenAdminConfig() {
-  databaseRef.ref('adminNotice/text').on('value', snap => {
-    document.getElementById('scrollingNoticeText').innerText = snap.val() || 'স্বাগতম Account Bazar Pro-তে!';
-  });
-  databaseRef.ref('adminNotice/pinned').on('value', snap => {
-    if (snap.val()) document.getElementById('tgPinnedMsgText').innerText = snap.val();
-  });
-  databaseRef.ref('adSettings/adminSheetUrl').on('value', snap => {
-    if (snap.val()) adminSheetLink = snap.val();
-  });
-}
-
 function claimGiftCode() {
   const code = document.getElementById('giftCodeRedeemInput').value.trim().toUpperCase();
   if (!code) return;
@@ -2126,3 +2136,4 @@ window.addEventListener('load', () => {
 </script>
 </body>    
 </html>
+ 
