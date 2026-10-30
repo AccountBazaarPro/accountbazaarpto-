@@ -1,4 +1,3 @@
-html
 <!DOCTYPE html>
 <html lang="bn">    
 <head>    
@@ -23,7 +22,7 @@ html
   --success: #10b981; 
   --error: #ef4444;  
   --bg-gradient: radial-gradient(circle at 15% 15%, #231604 0%, #100b1d 45%, #05020c 100%);  
-  --glass-card: rgba(26, 20, 36, 0.95);
+  --glass-card: rgba(26, 20, 36, 0.94);
   --glass-card-hover: rgba(35, 27, 48, 0.98);
   --glass-border: rgba(253, 224, 71, 0.35);
   --glass-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.75);
@@ -32,12 +31,11 @@ html
   --topbar-bg: rgba(14, 10, 24, 0.96); 
   --input-bg: rgba(255, 255, 255, 0.07);
   --tg-blue: #229ED9;
-  --wa-green: #25D366;
 }  
 
 body.light-theme {
   --bg-gradient: linear-gradient(135deg, #fffbeb 0%, #fef3c7 40%, #fde68a 100%);
-  --glass-card: rgba(255, 255, 255, 0.96);
+  --glass-card: rgba(255, 255, 255, 0.95);
   --glass-card-hover: rgba(255, 255, 255, 0.99);
   --glass-border: rgba(217, 119, 6, 0.4);
   --glass-shadow: 0 10px 35px 0 rgba(217, 119, 6, 0.22);
@@ -46,30 +44,30 @@ body.light-theme {
   --topbar-bg: rgba(254, 243, 199, 0.98); 
   --input-bg: rgba(255, 255, 255, 0.9);
   --tg-blue: #0088cc;
-  --wa-green: #128C7E;
 }
 
 *{ margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; -webkit-tap-highlight-color: transparent; }
 body{
   background: var(--bg-gradient); background-size: 300% 300%;
   animation: gradientFlow 14s ease infinite; min-height: 100vh;
-  color: var(--text-main); padding-top: 115px; padding-bottom: 95px; overflow-x: hidden;
+  color: var(--text-main); padding-top: 138px; padding-bottom: 95px; overflow-x: hidden;
   transition: background 0.3s ease, color 0.3s ease;
 }
 @keyframes gradientFlow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-thumb { background: var(--vip-gold); border-radius: 10px; }
 
-/* 🌟 সার্বক্ষণিক ফিক্সড টপ Adsterra ব্যানার স্লট 🌟 */
+/* 🌟 বড় সাইজের অপ্টিমাইজড টপ অ্যাডবার (Adsterra Banner Container) 🌟 */
 .top-fixed-ad-container {
-  position: fixed; top: 0; left: 0; width: 100%; height: 55px;
-  background: #090511; border-bottom: 1.5px solid var(--vip-gold);
-  z-index: 99999; display: flex; align-items: center; justify-content: center;
-  overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  position: fixed; top: 0; left: 0; width: 100%; height: 78px;
+  background: linear-gradient(90deg, #180901 0%, #291201 50%, #0d0614 100%);
+  border-bottom: 2px solid var(--vip-gold); z-index: 99999;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 4px 10px; box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
 }
 .adsterra-banner-wrapper {
-  width: 100%; max-width: 468px; height: 50px; display: flex;
-  align-items: center; justify-content: center; position: relative;
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; background: rgba(0,0,0,0.35); border-radius: 10px; border: 1px dashed rgba(253, 224, 71, 0.45);
 }
 
 .glass-panel {
@@ -95,7 +93,7 @@ body{
 }
 
 .toast-container {
-  position: fixed; top: 65px; left: 50%; transform: translateX(-50%) translateY(-100px);
+  position: fixed; top: 88px; left: 50%; transform: translateX(-50%) translateY(-100px);
   z-index: 1100000; display: flex; align-items: center; gap: 10px;
   background: rgba(20, 15, 30, 0.98); backdrop-filter: blur(20px);
   border: 1.5px solid var(--vip-gold); padding: 12px 20px; border-radius: 18px;
@@ -121,6 +119,48 @@ body{
   position: relative; animation: zoomModal 0.25s ease-out;
 }
 @keyframes zoomModal { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+
+/* 🌟 ফ্লোটিং বাবল ও মেনু উইজেট (Floating Bubble Widget) 🌟 */
+#floatingAssistantBubble {
+  position: fixed; bottom: 120px; right: 18px; width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, #fde047 0%, #f59e0b 60%, #b45309 100%);
+  border: 2.5px solid #fff; box-shadow: 0 8px 25px rgba(245, 158, 11, 0.65);
+  display: flex; align-items: center; justify-content: center; z-index: 999990;
+  cursor: grab; user-select: none; touch-action: none; transition: transform 0.15s;
+}
+#floatingAssistantBubble:active { cursor: grabbing; transform: scale(1.08); }
+.floating-assistant-icon { font-size: 24px; color: #000; pointer-events: none; }
+.floating-badge {
+  position: absolute; top: -3px; right: -3px; background: #ef4444; color: #fff;
+  font-size: 9px; font-weight: 900; padding: 2px 6px; border-radius: 10px; border: 1.5px solid #fff;
+}
+
+#floatingAssistantMenu {
+  position: fixed; bottom: 185px; right: 18px; width: 315px; max-width: 90vw;
+  background: var(--glass-card); backdrop-filter: blur(35px);
+  border: 2px solid var(--vip-gold); border-radius: 22px; padding: 16px;
+  z-index: 999995; display: none; flex-direction: column; gap: 10px;
+  box-shadow: 0 15px 45px rgba(0,0,0,0.85); animation: zoomModal 0.2s ease-out;
+}
+.float-menu-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 8px; }
+.float-action-btn {
+  background: rgba(255,255,255,0.06); border: 1px solid var(--glass-border); border-radius: 14px;
+  padding: 10px; color: var(--text-main); font-size: 12px; font-weight: 700; cursor: pointer;
+  display: flex; align-items: center; gap: 10px; transition: all 0.2s;
+}
+.float-action-btn:hover, .float-action-btn:active { background: rgba(245, 158, 11, 0.2); border-color: var(--vip-gold); }
+
+/* মাল্টি-বক্স সুইচ প্যানেল */
+.multi-box-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; }
+.box-tab-pill {
+  padding: 5px 12px; background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border);
+  border-radius: 10px; font-size: 11px; font-weight: 800; cursor: pointer; color: var(--text-muted); white-space: nowrap;
+}
+.box-tab-pill.active { background: var(--vip-gold); color: #000; border-color: var(--vip-gold); }
+.box-text-area {
+  width: 100%; height: 75px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border);
+  border-radius: 10px; padding: 8px; color: #fff; font-size: 11px; resize: none; outline: none;
+}
 
 .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); z-index: 100020; display: none; }
 .sidebar-overlay.show { display: block; }
@@ -166,7 +206,7 @@ body{
   backdrop-filter: blur(28px) saturate(190%);
   -webkit-backdrop-filter: blur(28px) saturate(190%);
   display:flex; align-items:center; justify-content:space-between; padding:0 14px;
-  border-bottom: 1.5px solid var(--glass-border); position:fixed; top:55px; left:0; width:100%; z-index:999;
+  border-bottom: 1.5px solid var(--glass-border); position:fixed; top:78px; left:0; width:100%; z-index:999;
 }
 .brand-wrap { display: flex; align-items: center; gap: 8px; }
 .topbar-logo { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--vip-gold); }
@@ -203,9 +243,9 @@ body{
   border: 1px solid var(--vip-gold); color: var(--vip-gold);
 }
 
-/* 🌟 চ্যাট ও মেগা কমিউনিটি 🌟 */
+/* চ্যাট ও মেগা কমিউনিটি */
 .tg-group-card {
-  display: flex; flex-direction: column; height: calc(100vh - 225px);
+  display: flex; flex-direction: column; height: calc(100vh - 240px);
   background: var(--glass-card); border: 2px solid var(--glass-border);
   border-radius: 24px; overflow: hidden; position: relative;
 }
@@ -217,14 +257,14 @@ body{
   background: rgba(245, 158, 11, 0.16); border-bottom: 1px solid var(--vip-gold);
   padding: 6px 12px; font-size: 11px; display: flex; align-items: center; justify-content: space-between;
 }
-.tg-chat-stream { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth; }
+.tg-chat-stream { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
 .tg-message-item {
   display: flex; gap: 10px; background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--glass-border); border-radius: 18px; padding: 10px 12px;
-  max-width: 92%; position: relative; word-break: break-word;
+  max-width: 95%; position: relative;
 }
 .tg-message-item.me { align-self: flex-end; background: rgba(16, 185, 129, 0.16); border-color: rgba(16, 185, 129, 0.45); }
-.tg-avatar { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--vip-gold); object-fit: cover; flex-shrink: 0; }
+.tg-avatar { width: 42px; height: 42px; border-radius: 50%; border: 1.5px solid var(--vip-gold); object-fit: cover; flex-shrink: 0; }
 .tg-meta-badge-row { display: flex; flex-wrap: wrap; gap: 4px; font-size: 9px; margin: 3px 0; }
 .tg-stat-chip { background: rgba(0,0,0,0.45); padding: 2px 6px; border-radius: 6px; color: var(--vip-gold); border: 0.5px solid var(--glass-border); font-weight: bold; }
 .tg-reply-box-bar {
@@ -241,17 +281,17 @@ body{
   border: 1px solid #ef4444; border-radius: 12px; padding: 4px 10px; margin: 4px 10px; font-size: 11px; color: #ef4444;
 }
 
-/* 🌟 স্পিন হুইল মডিউল 🌟 */
-.spin-container { position: relative; width: 240px; height: 240px; margin: 15px auto; }
-.spin-wheel {
+/* 🌟 পারফেক্ট ক্যানভাস স্পিন হুইল ডিজাইন (টাকা দেখা যাবে) 🌟 */
+.spin-container { position: relative; width: 250px; height: 250px; margin: 15px auto; }
+#mainSpinCanvas {
   width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--vip-gold);
-  box-shadow: 0 0 25px rgba(245, 158, 11, 0.5); transition: transform 4s cubic-bezier(0.17, 0.67, 0.12, 0.99);
-  background: conic-gradient(#f59e0b 0% 16.6%, #10b981 16.6% 33.3%, #ec4899 33.3% 50%, #3b82f6 50% 66.6%, #8b5cf6 66.6% 83.3%, #fde047 83.3% 100%);
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
+  transition: transform 4.5s cubic-bezier(0.12, 0.85, 0.2, 1);
 }
 .spin-arrow {
-  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-  width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent;
-  border-top: 22px solid #ef4444; z-index: 10; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8));
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  width: 0; height: 0; border-left: 14px solid transparent; border-right: 14px solid transparent;
+  border-top: 24px solid #ef4444; z-index: 10; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8));
 }
 
 .bottom-nav {
@@ -286,21 +326,55 @@ body{
 </head>    
 <body>
 
-<!-- 🌟 ১. সার্বক্ষণিক ফিক্সড টপ Adsterra ব্যানার স্লট (468x60 / Social Bar Slot) 🌟 -->
+<!-- 🌟 ১. লাইভ Adsterra ব্যানার কন্টেইনার 🌟 -->
 <div class="top-fixed-ad-container" id="topFixedAdContainer">
-  <div class="adsterra-banner-wrapper" id="topAdsterraBannerSlot">
-    <!-- Adsterra Banner Script: আপনার ব্যানার কী থাকলে নিচের atOptions কী পরিবর্তন করতে পারেন -->
-    <script type="text/javascript">
-      atOptions = {
-        'key' : 'b4129b139587a8bbf4e2ecf2dcf35a90',
-        'format' : 'iframe',
-        'height' : 50,
-        'width' : 468,
-        'params' : {}
-      };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/b4129b139587a8bbf4e2ecf2dcf35a90/invoke.js"></script>
+  <div class="adsterra-banner-wrapper" id="adsterraTopBannerSlot"></div>
+</div>
+
+<!-- 🌟 ২. ফ্লোটিং অ্যাসিস্ট্যান্ট বাবল ও উইজেট 🌟 -->
+<div id="floatingAssistantBubble" title="ABP Floating Assistant">
+  <i class="fa-solid fa-wand-magic-sparkles floating-assistant-icon"></i>
+  <span class="floating-badge">VIP</span>
+</div>
+
+<!-- ফ্লোটিং পপআপ মেনু -->
+<div id="floatingAssistantMenu">
+  <div class="float-menu-header">
+    <b style="color:var(--vip-gold); font-size:13px;"><i class="fa-solid fa-bolt"></i> কুইক অ্যাসিস্ট্যান্ট</b>
+    <span onclick="toggleFloatingAssistantMenu()" style="cursor:pointer; color:#ef4444; font-size:18px; font-weight:bold;">&times;</span>
   </div>
+
+  <!-- চাবি (2FA Auto-Paste & Generate) -->
+  <button class="float-action-btn" onclick="executeQuick2FA()">
+    <i class="fa-solid fa-key" style="color:var(--vip-gold); font-size:18px;"></i>
+    <div style="text-align:left;">
+      <div style="color:var(--vip-gold); font-weight:bold;">চাবি (2FA Auto-Generate)</div>
+      <div style="font-size:10px; color:var(--text-muted);">ক্লিপবোর্ড থেকে কী রিড করে কোড কপি হবে</div>
+    </div>
+  </button>
+
+  <!-- মাল্টিপল ঘর (A, B, C, D Switcher) -->
+  <div style="background:rgba(255,255,255,0.03); border:1px solid var(--glass-border); border-radius:14px; padding:10px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+      <span style="font-size:11px; color:var(--vip-gold); font-weight:bold;"><i class="fa-solid fa-layer-group"></i> মাল্টি-ঘর সুইচ (A, B, C, D)</span>
+      <span onclick="addNewCustomSlot()" style="cursor:pointer; font-size:11px; color:#10b981; font-weight:bold;">+ ঘর বাড়ান</span>
+    </div>
+    <div class="multi-box-tabs" id="multiBoxTabList"></div>
+    <textarea class="box-text-area" id="multiBoxCurrentData" placeholder="এই ঘরে টেক্সট বা অ্যাকাউন্ট ডাটা সেভ রাখুন..." oninput="saveCurrentSlotData()"></textarea>
+    <div style="display:flex; justify-content:space-between; margin-top:6px;">
+      <button class="top-btn" style="height:26px; font-size:10px;" onclick="copyCurrentSlotData()"><i class="fa-solid fa-copy"></i> কপি</button>
+      <button class="top-btn" style="height:26px; font-size:10px; color:#ef4444;" onclick="clearCurrentSlotData()"><i class="fa-solid fa-trash"></i> মুছুন</button>
+    </div>
+  </div>
+
+  <!-- কুইক শিট বাটন -->
+  <button class="float-action-btn" onclick="quickOpenGoogleSheetHub()">
+    <i class="fa-solid fa-table" style="color:#10b981; font-size:18px;"></i>
+    <div style="text-align:left;">
+      <div style="color:#10b981; font-weight:bold;">কুইক গুগল শিট হাব</div>
+      <div style="font-size:10px; color:var(--text-muted);">এক ক্লিকে সেল ও আইডি ভেরিফিকেশন ডাটা</div>
+    </div>
+  </button>
 </div>
 
 <!-- লোডার স্ক্রীন -->
@@ -315,77 +389,44 @@ body{
   <div class="toast-text" id="toastText">বিজ্ঞপ্তি</div>  
 </div>  
 
+<!-- 🌟 ১৫ সেকেন্ড রিওয়ার্ডেড অ্যাড মোডাল (Adsterra Live Rewarded Ad) 🌟 -->
+<div class="modal-popup-overlay" id="spinRewardedAdModal">
+  <div class="modal-popup-card" style="border-color:#ef4444; max-width:390px;">
+    <div style="font-size:38px; color:#ef4444; margin-bottom:6px;"><i class="fa-solid fa-gift"></i></div>
+    <h3 style="color:var(--vip-gold); font-size:17px; font-weight:900;">স্পনসর বিজ্ঞাপন দেখুন</h3>
+    <p style="color:var(--text-muted); font-size:12px; margin:4px 0 12px;">স্পিন আনলক করতে বিজ্ঞাপনটি সম্পূর্ণ দেখুন</p>
+    
+    <div id="adsterraRewardedContainer" style="width:100%; height:180px; background:rgba(0,0,0,0.5); border:1px dashed var(--vip-gold); border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"></div>
+
+    <div style="font-size:16px; font-weight:900; color:#ef4444; margin-bottom:12px;" id="adCountdownText">
+      বিজ্ঞাপন বাকি: <span id="adTimerSeconds">15</span> সেকেন্ড
+    </div>
+    <button class="auth-btn" id="claimSpinRewardBtn" style="background:gray; color:#fff; cursor:not-allowed;" disabled onclick="finishRewardedAdAndSpin()">
+      অপেক্ষা করুন...
+    </button>
+  </div>
+</div>
+
+<!-- 🌟 উইথড্র ইন্টারস্টিশিয়াল অ্যাড মোডাল (Adsterra Interstitial Live Slot) 🌟 -->
+<div class="modal-popup-overlay" id="withdrawInterstitialModal">
+  <div class="modal-popup-card" style="border-color:var(--vip-gold);">
+    <h3 style="color:var(--vip-gold); font-size:16px; font-weight:900; margin-bottom:6px;">নিরাপদ উত্তোলন ভেরিফিকেশন</h3>
+    <p style="color:var(--text-muted); font-size:11px; margin-bottom:12px;">উইথড্র রিকোয়েস্ট নিশ্চিত করতে বিজ্ঞাপনটি দেখুন...</p>
+    <div id="adsterraWithdrawAdSlot" style="width:100%; height:190px; background:rgba(0,0,0,0.4); border:1px dashed var(--vip-gold); border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:14px; overflow:hidden;"></div>
+    <button class="auth-btn" onclick="executeActualWithdrawal()"><i class="fa-solid fa-check-circle"></i> বিজ্ঞাপন শেষ করে টাকা তুলুন</button>
+  </div>
+</div>
+
 <!-- ইনকামিং কল মোডাল -->
 <div class="modal-popup-overlay" id="incomingCallModal">
   <div class="modal-popup-card" style="border-color:#10b981;">
     <div style="font-size:45px; color:#10b981; animation:pulseGlow 1s infinite; margin-bottom:10px;"><i class="fa-solid fa-phone-volume"></i></div>
-    <h3 style="color:#fff; font-size:18px; font-weight:800;" id="incomingCallerName">লাইভ কল আসছে...</h3>
+    <h3 style="color:#fff; font-size:18px; font-weight:800;" id="incomingCallerName">অ্যাডমিন কল করছেন...</h3>
     <p style="color:var(--text-muted); font-size:12px; margin-bottom:18px;" id="incomingCallType">ইনকামিং লাইভ কল</p>
     <div style="display:flex; gap:12px; justify-content:center;">
       <button class="auth-btn" style="background:#10b981; color:#000; flex:1;" onclick="acceptIncomingCall()"><i class="fa-solid fa-phone"></i> রিসিভ করুন</button>
       <button class="auth-btn" style="background:#ef4444; color:#fff; flex:1;" onclick="rejectIncomingCall()"><i class="fa-solid fa-phone-slash"></i> কেটে দিন</button>
     </div>
-  </div>
-</div>
-
-<!-- 🌟 ডেডিকেটেড সাপোর্ট ও কন্টাক্ট হাব মোডাল 🌟 -->
-<div class="modal-popup-overlay" id="supportContactModal">
-  <div class="modal-popup-card" style="border-color:#10b981;">
-    <div class="card-title">
-      <span><i class="fa-solid fa-headset" style="color:#10b981;"></i> সাপোর্ট ও যোগাযোগ কেন্দ্র</span>
-      <span onclick="closeSupportModal()" style="cursor:pointer; font-size:20px;">&times;</span>
-    </div>
-    <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px;">যেকোনো লেনদেন বা সমস্যার জন্য নিচের মাধ্যমগুলোতে সরাসরি আমাদের সাপোর্ট টিমের সাথে কথা বলুন:</p>
-    
-    <div style="display:flex; flex-direction:column; gap:10px;">
-      <a id="supportWhatsAppBtn" href="#" target="_blank" class="auth-btn" style="background:#25D366; color:#fff; text-decoration:none;">
-        <i class="fa-brands fa-whatsapp" style="font-size:18px;"></i> WhatsApp-এ সরাসরি চ্যাট করুন
-      </a>
-      <a id="supportTelegramBtn" href="#" target="_blank" class="auth-btn" style="background:#229ED9; color:#fff; text-decoration:none;">
-        <i class="fa-brands fa-telegram" style="font-size:18px;"></i> Telegram অফিশিয়াল সাপোর্ট
-      </a>
-      <div style="background:rgba(255,255,255,0.05); padding:10px 14px; border-radius:14px; border:1px solid var(--glass-border); display:flex; align-items:center; justify-content:space-between;">
-        <div style="text-align:left; overflow:hidden;">
-          <div style="font-size:10px; color:var(--text-muted);">অফিশিয়াল ইমেইল সাপোর্ট:</div>
-          <b style="font-size:12px; color:var(--vip-gold);" id="supportEmailText">support@accountbazarpro.com</b>
-        </div>
-        <div style="display:flex; gap:6px;">
-          <button class="top-btn" onclick="copySupportEmail()" title="ইমেইল কপি করুন"><i class="fa-solid fa-copy"></i></button>
-          <a id="supportMailToBtn" href="#" class="top-btn" title="মেইল পাঠান"><i class="fa-solid fa-envelope"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 🌟 ১৫ সেকেন্ড বিজ্ঞাপন রিওয়ার্ড স্ক্রিন (Adsterra Responsive Reward Slot) 🌟 -->
-<div class="modal-popup-overlay" id="spinAdWatchModal">
-  <div class="modal-popup-card" style="border-color:var(--vip-gold); max-width:420px;">
-    <div style="font-size:36px; color:var(--vip-gold); margin-bottom:8px;"><i class="fa-solid fa-gift"></i></div>
-    <h3 style="color:var(--vip-gold); font-size:17px; font-weight:800;">বিজ্ঞাপনটি সম্পূর্ণ দেখুন</h3>
-    <p style="font-size:12px; color:var(--text-muted); margin:6px 0 12px;">লাকি স্পিন আনলক করতে ও নিশ্চিত ক্যাশ বোনাস পেতে মাত্র ১৫ সেকেন্ড অপেক্ষা করুন।</p>
-    
-    <!-- Adsterra Rewarded / Interactive Iframe Slot -->
-    <div id="adsterraRewardAdSlot" style="min-height:160px; background:rgba(0,0,0,0.5); border:1.5px dashed var(--vip-gold); border-radius:16px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px; margin-bottom:14px; overflow:hidden;">
-      <script type="text/javascript">
-        atOptions = {
-          'key' : 'c2834b7f80da28475c88b901b0f199b4',
-          'format' : 'iframe',
-          'height' : 250,
-          'width' : 300,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/c2834b7f80da28475c88b901b0f199b4/invoke.js"></script>
-    </div>
-
-    <!-- ১৫ সেকেন্ডের কাউন্টডাউন টাইমার -->
-    <div style="font-size:22px; font-weight:900; color:#10b981; margin-bottom:12px;" id="adTimerDisplay">বাকি: ১৫ সেকেন্ড</div>
-
-    <button class="auth-btn" id="unlockSpinAfterAdBtn" disabled style="opacity:0.5; background:var(--glass-card); color:var(--text-muted);" onclick="openActualSpinWheel()">
-      <i class="fa-solid fa-lock" id="unlockBtnIcon"></i> <span id="unlockBtnText">বিজ্ঞাপন দেখা শেষ হয়নি</span>
-    </button>
-    <button class="top-btn" style="width:100%; margin-top:8px; height:36px;" onclick="cancelAdWatch()"><i class="fa-solid fa-xmark"></i> বাতিল করুন</button>
   </div>
 </div>
 
@@ -396,11 +437,10 @@ body{
     <div style="font-size:16px; font-weight:900; color:var(--vip-gold);"><i class="fa-solid fa-crown"></i> <span>ভিআইপি মেনু</span></div>
     <button class="top-btn" onclick="toggleSidebar()"><i class="fa-solid fa-xmark"></i></button>
   </div>
-  <div class="side-item" onclick="startSpinAdFlow(); toggleSidebar();" style="border:1.5px dashed var(--vip-gold); background:rgba(245,158,11,0.15);">
+  <div class="side-item" onclick="openSpinModal(); toggleSidebar();" style="border:1.5px dashed var(--vip-gold); background:rgba(245,158,11,0.15);">
     <i class="fa-solid fa-dharmachakra" style="color:var(--vip-gold); font-size:18px;"></i> 
     <span style="color:var(--vip-gold); font-weight:900;">🎡 ডেইলি লাকি স্পিন ও বোনাস</span>
   </div>
-  <div class="side-item" onclick="openSupportModal(); toggleSidebar();" style="border:1px solid #10b981; background:rgba(16,185,129,0.15);"><i class="fa-solid fa-headset" style="color:#10b981; font-size:18px;"></i> <span style="color:#10b981; font-weight:bold;">সাপোর্ট ও যোগাযোগ কেন্দ্র</span></div>
   <div class="side-item" onclick="switchMainTab('telegramGroupTab'); toggleSidebar();"><i class="fa-solid fa-comments" style="color:var(--vip-gold); font-size:18px;"></i> <span>ABP মেগা কমিউনিটি (চ্যাট ও কল)</span></div>
   <div class="side-item" onclick="switchMainTab('googleSheetScreen'); toggleSidebar();"><i class="fa-solid fa-table" style="color:#10b981; font-size:18px;"></i> <span>গুগল শিট হাব (Google Sheet Data)</span></div>
   <div class="side-item" onclick="switchMainTab('referralLeaderboardScreen'); toggleSidebar();"><i class="fa-solid fa-ranking-star" style="color:#60a5fa;"></i> <span>উইকলি রেফারেল লিডারবোর্ড</span></div>
@@ -495,15 +535,16 @@ body{
     <div class="logo">Account Bazar Pro</div>    
   </div>
   <div style="display:flex; gap:5px; align-items:center;">
-    <button class="top-btn" onclick="startSpinAdFlow()" style="color:var(--vip-gold); border-color:var(--vip-gold); animation:pulseGlow 2s infinite;"><i class="fa-solid fa-dharmachakra"></i> স্পিন</button>
-    <button class="top-btn" onclick="openSupportModal()" style="color:#10b981; border-color:#10b981;" title="সাপোর্ট ও যোগাযোগ"><i class="fa-solid fa-headset"></i> সাপোর্ট</button>
+    <button class="top-btn" onclick="openSpinModal()" style="color:var(--vip-gold); border-color:var(--vip-gold); animation:pulseGlow 2s infinite;"><i class="fa-solid fa-dharmachakra"></i> স্পিন</button>
+    <button class="top-btn" onclick="toggleLanguage()" id="langToggleBtn" style="color:var(--vip-gold);"><i class="fa-solid fa-globe"></i> EN</button>
+    <button class="top-btn" onclick="switchMainTab('googleSheetScreen')" title="গুগল শিট হাব" style="color:#10b981;"><i class="fa-solid fa-table"></i> <span>শিট</span></button>
     <button class="top-btn" onclick="toggleTheme()" id="themeToggleBtn">🌙</button>
     <button class="top-btn" onclick="switchMainTab('telegramGroupTab')" title="মেগা কমিউনিটি"><i class="fa-solid fa-comments" style="color:var(--vip-gold);"></i></button>
     <button class="top-btn" onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket" style="color:#ef4444;"></i></button>
   </div>    
 </div>    
 
-<!-- 🌟 হোম স্ক্রিন 🌟 -->
+<!-- 🌟 ১. হোম স্ক্রিন 🌟 -->
 <div class="screen active" id="home">
   <div class="glass-panel" style="padding:10px 14px; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
     <span style="font-size:10px; font-weight:bold; background:var(--vip-gold); color:#000; padding:3px 8px; border-radius:8px; white-space:nowrap;"><i class="fa-solid fa-bullhorn"></i> <span>নোটিশ</span></span>
@@ -517,20 +558,19 @@ body{
     <span style="font-size:10px; color:#10b981; font-weight:bold;"><i class="fa-solid fa-signal"></i> লাইভ সিস্টেম এক্টিভ</span>
   </div>
 
-  <!-- লাইভ অ্যাডমিন সাপোর্ট হাব ব্যানার -->
-  <div class="glass-panel" style="border: 2px solid #10b981; padding:14px;">
+  <!-- লাইভ অ্যাডমিন সাপোর্ট বার -->
+  <div class="glass-panel" style="border: 2px solid var(--vip-gold); padding:14px;">
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
       <div style="display:flex; align-items:center; gap:8px;">
         <span style="width:12px; height:12px; border-radius:50%; background:#10b981; box-shadow:0 0 10px #10b981;"></span>
-        <b style="color:#10b981; font-size:14px;"><i class="fa-solid fa-headset"></i> <span>অফিশিয়াল হেল্প ও কন্টাক্ট সাপোর্ট</span></b>
+        <b style="color:var(--vip-gold); font-size:14px;"><i class="fa-solid fa-headset"></i> <span>সরাসরি অ্যাডমিন সাপোর্ট</span></b>
       </div>
-      <span class="status-pill st-approved">Online Support</span>
+      <span class="status-pill st-approved">Online</span>
     </div>
-    <p style="font-size:11px; color:var(--text-muted); margin-bottom:10px;">লেনদেনের যেকোনো সমস্যায় সরাসরি WhatsApp বা Telegram-এ আমাদের অ্যাডমিন টিমের সহায়তা নিন।</p>
     <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px;">
-      <button class="auth-btn" style="height:36px; font-size:11px; background:#25D366; color:#fff;" onclick="openSupportWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-      <button class="auth-btn" style="height:36px; font-size:11px; background:#229ED9; color:#fff;" onclick="openSupportTelegram()"><i class="fa-brands fa-telegram"></i> Telegram</button>
-      <button class="auth-btn" style="height:36px; font-size:11px; background:var(--primary); color:#000;" onclick="openSupportModal()"><i class="fa-solid fa-circle-info"></i> সাপোর্ট হাব</button>
+      <button class="auth-btn" style="height:36px; font-size:11px; background:#10b981; color:#000;" onclick="callAdminDirect('audio')"><i class="fa-solid fa-phone"></i> <span>অডিও কল</span></button>
+      <button class="auth-btn" style="height:36px; font-size:11px; background:#3b82f6; color:#fff;" onclick="callAdminDirect('video')"><i class="fa-solid fa-video"></i> <span>ভিডিও কল</span></button>
+      <button class="auth-btn" style="height:36px; font-size:11px; background:var(--primary); color:#000;" onclick="chatWithAdminSupport()"><i class="fa-solid fa-comment-dots"></i> <span>মেসেজ</span></button>
     </div>
   </div>
 
@@ -571,7 +611,7 @@ body{
   </div>
 </div>
 
-<!-- 🌟 মেগা কমিউনিটি চ্যাট হাব 🌟 -->
+<!-- 🌟 ২. ABP মেগা কমিউনিটি চ্যাট হাব 🌟 -->
 <div class="screen" id="telegramGroupTab">
   <div class="tg-group-card">
     <div class="tg-header-bar">
@@ -583,7 +623,7 @@ body{
         </div>
       </div>
       <div style="display:flex; gap:6px;">
-        <button class="top-btn" onclick="openUserSearchModal()" title="মেম্বার খুঁজুন"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button class="top-btn" onclick="openUserSearchModal()" title="Search User"><i class="fa-solid fa-magnifying-glass"></i></button>
         <button class="top-btn" onclick="initiateLiveCall('video')" title="ভিডিও কল"><i class="fa-solid fa-video" style="color:#3b82f6;"></i></button>
         <button class="top-btn" onclick="initiateLiveCall('audio')" title="অডিও কল"><i class="fa-solid fa-phone" style="color:#10b981;"></i></button>
         <button class="top-btn" onclick="resetToPublicChat()" title="পাবলিক রুমে ফিরুন" id="tgBackToPublicBtn" style="display:none;"><i class="fa-solid fa-users"></i></button>
@@ -618,13 +658,13 @@ body{
       <label for="tgImageFileInput" class="tg-action-icon-btn" title="ছবি পাঠান"><i class="fa-solid fa-image"></i></label>
       <input type="file" id="tgImageFileInput" accept="image/*" style="display:none;" onchange="handleGroupImageUpload(event)">
       
-      <label for="tgCameraCaptureInput" class="tg-action-icon-btn" title="ক্যামেরা"><i class="fa-solid fa-camera" style="color:#10b981;"></i></label>
+      <label for="tgCameraCaptureInput" class="tg-action-icon-btn" title="ক্যামেরা চালু করে ছবি তুলুন"><i class="fa-solid fa-camera" style="color:#10b981;"></i></label>
       <input type="file" id="tgCameraCaptureInput" accept="image/*" capture="environment" style="display:none;" onchange="handleGroupImageUpload(event)">
 
       <label for="tgDocumentFileInput" class="tg-action-icon-btn" title="ফাইল পাঠান"><i class="fa-solid fa-paperclip"></i></label>
       <input type="file" id="tgDocumentFileInput" style="display:none;" onchange="handleGroupDocumentUpload(event)">
 
-      <button class="tg-action-icon-btn" id="tgVoiceRecordBtn" onclick="toggleVoiceRecord()" title="ভয়েস রেকর্ড"><i class="fa-solid fa-microphone" id="tgMicIcon"></i></button>
+      <button class="tg-action-icon-btn" id="tgVoiceRecordBtn" onclick="toggleVoiceRecord()" title="ভয়েস রেকর্ড শুরু/বন্ধ"><i class="fa-solid fa-microphone" id="tgMicIcon"></i></button>
 
       <input type="text" id="tgTextInput" class="input-field" style="margin-bottom:0; flex:1; height:38px; border-radius:18px;" placeholder="মেসেজ লিখুন..." onkeydown="if(event.key==='Enter')sendTelegramGroupMessage()">
       
@@ -635,32 +675,7 @@ body{
   </div>
 </div>
 
-<!-- 🌟 ৩. গুগল শিট ডাটা ভেরিফিকেশন ও লাইভ হাব 🌟 -->
-<div class="screen" id="googleSheetScreen">
-  <div class="glass-panel" style="border:2px solid var(--vip-gold);">
-    <div class="card-title">
-      <span><i class="fa-solid fa-table"></i> গুগল শিট ভেরিফিকেশন হাব</span>
-      <button class="top-btn" onclick="switchMainTab('home')"><i class="fa-solid fa-arrow-left"></i></button>
-    </div>
-    <div style="position:relative; margin-bottom:12px;">
-      <input type="text" id="sheetSearchInput" class="input-field" placeholder="তারিখ, একাউন্ট আইডি বা ক্যাটাগরি দিয়ে খুঁজুন..." oninput="handleSearchSheetData()" style="padding-left:38px;">
-      <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:14px; top:15px; color:var(--vip-gold);"></i>
-    </div>
-    <div style="display:flex; gap:8px; margin-bottom:14px;">
-      <button class="auth-btn" style="flex:1; height:38px; font-size:11px; background:#10b981; color:#000;" onclick="openAdminSheet()">
-        <i class="fa-solid fa-arrow-up-right-from-square"></i> সরাসরি গুগল শিট লিঙ্ক খুলুন
-      </button>
-      <button class="top-btn" style="height:38px; padding:0 14px;" onclick="loadSheetSubmissionsData()" title="রিফ্রেশ করুন">
-        <i class="fa-solid fa-rotate"></i>
-      </button>
-    </div>
-    <div id="googleSheetResultsList" style="display:flex; flex-direction:column; gap:8px; max-height:480px; overflow-y:auto;">
-      <div style="text-align:center; color:var(--text-muted); font-size:12px; padding:20px;">ডাটা লোড হচ্ছে...</div>
-    </div>
-  </div>
-</div>
-
-<!-- 🌟 উইকলি রেফারেল লিডারবোর্ড স্ক্রিন 🌟 -->
+<!-- 🌟 ৩. উইকলি রেফারেল লিডারবোর্ড স্ক্রিন 🌟 -->
 <div class="screen" id="referralLeaderboardScreen">
   <div class="glass-panel" style="border:2px solid var(--vip-gold);">
     <div class="card-title">
@@ -672,7 +687,32 @@ body{
   </div>
 </div>
 
-<!-- 🌟 উইথড্র স্ক্রিন 🌟 -->
+<!-- 🌟 ৪. গুগল শিট হাব স্ক্রিন 🌟 -->
+<div class="screen" id="googleSheetScreen">
+  <div class="glass-panel" style="border:2px solid var(--vip-gold);">
+    <div class="card-title">
+      <span><i class="fa-solid fa-table"></i> গুগল শিট ভেরিফিকেশন হাব</span>
+      <button class="top-btn" onclick="switchMainTab('home')"><i class="fa-solid fa-arrow-left"></i></button>
+    </div>
+    <div style="position:relative; margin-bottom:12px;">
+      <input type="text" id="sheetSearchInput" class="input-field" placeholder="তারিখ বা অ্যাকাউন্ট আইডি দিয়ে সার্চ..." oninput="handleSearchSheetData()" style="padding-left:38px;">
+      <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:14px; top:15px; color:var(--vip-gold);"></i>
+    </div>
+    <div style="display:flex; gap:8px; margin-bottom:14px;">
+      <button class="auth-btn" style="flex:1; height:38px; font-size:11px; background:#10b981; color:#000;" onclick="openAdminSheet()">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> সরাসরি গুগল শিট ফাইল খুলুন
+      </button>
+      <button class="top-btn" style="height:38px; padding:0 12px;" onclick="loadSheetSubmissionsData()">
+        <i class="fa-solid fa-rotate"></i>
+      </button>
+    </div>
+    <div id="googleSheetResultsList" style="display:flex; flex-direction:column; gap:8px; max-height:480px; overflow-y:auto;">
+      <div style="text-align:center; color:var(--text-muted); font-size:12px; padding:20px;">ডাটা লোড হচ্ছে...</div>
+    </div>
+  </div>
+</div>
+
+<!-- 🌟 ৫. উইথড্র স্ক্রিন 🌟 -->
 <div class="screen" id="withdrawScreen">
   <div class="glass-panel" style="border: 2px solid var(--vip-gold);">
     <div class="card-title">
@@ -708,7 +748,7 @@ body{
         <b style="color:#10b981; font-size:15px;">৳ <span id="lblNetPayableAmt">0.00</span></b>
       </div>
     </div>
-    <button class="auth-btn" id="withdrawSubmitBtn" onclick="submitSecureWithdrawal()"><i class="fa-solid fa-paper-plane"></i> <span>উত্তোলন নিশ্চিত করুন</span></button>
+    <button class="auth-btn" id="withdrawSubmitBtn" onclick="handleWithdrawPreCheck()"><i class="fa-solid fa-paper-plane"></i> <span>উত্তোলন নিশ্চিত করুন</span></button>
   </div>
   <div class="glass-panel">
     <div class="card-title"><i class="fa-solid fa-receipt"></i> <span>আপনার উত্তোলন হিস্ট্রি</span></div>
@@ -716,7 +756,7 @@ body{
   </div>
 </div>
 
-<!-- 🌟 লাকি স্পিন মোডাল 🌟 -->
+<!-- 🌟 ৬. ডেইলি স্পিন ও লাকি বক্স মোডাল 🌟 -->
 <div class="modal-popup-overlay" id="spinWheelModal">
   <div class="modal-popup-card" style="border-color:var(--vip-gold);">
     <div class="card-title">
@@ -725,16 +765,16 @@ body{
     </div>
     <div class="spin-container">
       <div class="spin-arrow"></div>
-      <div class="spin-wheel" id="mainSpinWheel"></div>
+      <canvas id="mainSpinCanvas" width="250" height="250"></canvas>
     </div>
     <div id="spinRewardDisplayBox" style="font-size:14px; font-weight:900; color:var(--vip-gold); margin:10px 0;">
-      বিজ্ঞাপন সফলভাবে দেখা হয়েছে! স্পিন ঘুরিয়ে ক্যাশ বুঝে নিন।
+      ১৫ সেকেন্ডের স্পনসর বিজ্ঞাপন দেখে প্রতিদিন জিতে নিন ক্যাশ বোনাস!
     </div>
-    <button class="auth-btn" id="startSpinActionBtn" onclick="executeDailySpin()"><i class="fa-solid fa-play"></i> স্পিন ঘুরান</button>
+    <button class="auth-btn" id="startSpinActionBtn" onclick="triggerSpinWithRewardedAd()"><i class="fa-solid fa-play"></i> স্পিন ঘুরান (১৫ সে. অ্যাড)</button>
   </div>
 </div>
 
-<!-- অন্যান্য প্রয়োজনীয় স্ক্রিন ও মোডাল -->
+<!-- 🌟 ৭. অন্যান্য স্ক্রিন ও মোডাল 🌟 -->
 <div class="screen" id="profileTab">
   <div class="glass-panel" style="text-align:center;">
     <div style="position:relative; width:86px; height:86px; margin:0 auto 10px;">
@@ -842,7 +882,7 @@ body{
   </div>
 </div>
 
-<!-- 🌟 WebRTC কল ওভারলে 🌟 -->
+<!-- WebRTC কল ওভারলে -->
 <div id="callOverlay">
   <video id="remoteVideo" autoplay playsinline></video>
   <video id="localVideo" autoplay playsinline muted></video>
@@ -852,7 +892,6 @@ body{
     <div id="callStatusText" style="font-size:13px; color:var(--vip-gold); margin-top:6px;">কল কানেক্ট হচ্ছে...</div>
   </div>
   <div class="call-controls">
-    <button class="call-btn-circle" style="background:#10b981;" onclick="startScreenShare()" title="স্ক্রিন শেয়ার"><i class="fa-solid fa-desktop"></i></button>
     <button class="call-btn-circle" style="background:#ef4444;" onclick="endWebRTCCall()"><i class="fa-solid fa-phone-slash"></i></button>
   </div>
 </div>
@@ -869,16 +908,10 @@ body{
 
 <script>
 // =========================================================================
-// 🎯 ১. কনফিগারেশন ও সাউন্ড ইঞ্জিন
+// 🎯 ১. কনফিগারেশন, অডিও ও ফায়ারবেস ইঞ্জিন
 // =========================================================================
-const SUPPORT_CONFIG = {
-  whatsappNumber: "+8801800000000",
-  whatsappMessage: "Hello Account Bazar Pro Support, I need assistance.",
-  telegramUsername: "AccountBazarProAdmin",
-  officialEmail: "support@accountbazarpro.com"
-};
-
 const REFERRAL_BONUS_AMOUNT = 20; 
+const WITHDRAW_FEE_AMOUNT = 10; 
 
 const SoundFX = {
   ctx: null,
@@ -938,95 +971,323 @@ const firebaseConfig = {
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const databaseRef = firebase.database();
-const ICE = [{ urls: "stun:stun.l.google.com:19302" }, { urls: "stun:stun1.l.google.com:19302" }];
+const messaging = firebase.messaging.isSupported() ? firebase.messaging() : null;
 
-const WITHDRAW_FEE_AMOUNT = 10; 
+// 🌟 শক্তিশালী ও মাল্টিপল Google STUN সার্ভার কনফিগারেশন 🌟
+const ICE_CONFIG = {
+  iceServers: [
+    { urls: "stun:stun.l.google.com:19302" },
+    { urls: "stun:stun1.l.google.com:19302" },
+    { urls: "stun:stun2.l.google.com:19302" },
+    { urls: "stun:stun3.l.google.com:19302" },
+    { urls: "stun:stun4.l.google.com:19302" }
+  ]
+};
+
 let currentUserData = null;
 let currentMinWithdraw = 50;
 let currentMaxWithdraw = 25000;
 let userTotalWithdrawnLifetime = 0;
 let isUserVerifiedSeller = false;
 
-let detectedCountry = "Detecting...";
-let detectedRegionState = "Detecting...";
+let detectedCountry = "Bangladesh";
+let detectedRegionState = "Dhaka";
 let activeChatTargetUid = 'global';
 let activeChatTargetName = 'Public';
 
 let currentReplyingMessage = null;
 let allSheetSubmissionsCache = [];
-let adminSheetLink = "https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit?usp=sharing";
+let adminSheetLink = "https://docs.google.com/spreadsheets/";
 
 let currentTheme = localStorage.getItem('abp_theme') || 'dark';
+let currentLanguage = localStorage.getItem('abp_lang') || 'bn';
 
 // =========================================================================
-// 🌟 ২. ১৫ সেকেন্ড স্পিন অ্যাড কাউন্টডাউন ও রিওয়ার্ড সিস্টেম
+// 🌟 ২. ADSTERRA লাইভ অ্যাড রেন্ডারার ইঞ্জিন 🌟
 // =========================================================================
-let adTimerInterval = null;
-let adSecondsLeft = 15; // 💥 ১০-১৫ সেকেন্ডের কাউন্টডাউন
-let isSpinRewardUnlocked = false;
-
-function startSpinAdFlow() {
-  SoundFX.playClick();
-  if (!auth.currentUser) {
-    showToast('দয়া করে আগে লগইন করুন', 'error');
-    return;
+const AdsterraEngine = {
+  renderAd(containerId, adCodeOrHtml) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    el.innerHTML = '';
+    
+    // আইফ্রেম স্যান্ডবক্স তৈরি করে বিজ্ঞাপন নিরাপদ ও সরাসরি প্রদর্শন
+    const iframe = document.createElement('iframe');
+    iframe.style.width = "100%";
+    iframe.style.height = "100%";
+    iframe.style.border = "none";
+    iframe.sandbox = "allow-scripts allow-same-origin allow-popups";
+    
+    const defaultAd = `
+      <body style="margin:0; padding:0; display:flex; align-items:center; justify-content:center; background:#110b1a; color:#fde047; font-family:sans-serif; text-align:center;">
+        <div style="font-size:12px; font-weight:bold;">
+          <span style="background:#ef4444; color:#fff; padding:2px 6px; border-radius:4px; font-size:10px;">Ad</span>
+          <br>🔥 Adsterra High-CPM Live Ad Slot
+        </div>
+      </body>
+    `;
+    
+    iframe.srcdoc = adCodeOrHtml || defaultAd;
+    el.appendChild(iframe);
   }
-  
-  if (isSpinRewardUnlocked) {
-    openActualSpinWheel();
-    return;
-  }
+};
 
-  document.getElementById('spinAdWatchModal').style.display = 'flex';
-  const unlockBtn = document.getElementById('unlockSpinAfterAdBtn');
-  unlockBtn.disabled = true;
-  unlockBtn.style.opacity = '0.5';
-  document.getElementById('unlockBtnText').innerText = "বিজ্ঞাপন চলছে... অপেক্ষা করুন";
-  document.getElementById('unlockBtnIcon').className = "fa-solid fa-lock";
+// =========================================================================
+// 🌟 ৩. ফ্লোটিং অ্যাসিস্ট্যান্ট ও ড্র্যাগ লজিক 🌟
+// =========================================================================
+const floatingBubble = document.getElementById('floatingAssistantBubble');
+const floatingMenu = document.getElementById('floatingAssistantMenu');
+let isBubbleDragging = false;
+let bubbleStartX, bubbleStartY, bubbleInitialLeft, bubbleInitialTop;
+let hasBubbleMoved = false;
 
-  adSecondsLeft = 15; // ১৫ সেকেন্ড সেট করা হলো
-  document.getElementById('adTimerDisplay').innerText = `বাকি: ${adSecondsLeft} সেকেন্ড`;
+function initDraggableFloatingBubble() {
+  const onStart = (e) => {
+    isBubbleDragging = true;
+    hasBubbleMoved = false;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    bubbleStartX = clientX;
+    bubbleStartY = clientY;
+    const rect = floatingBubble.getBoundingClientRect();
+    bubbleInitialLeft = rect.left;
+    bubbleInitialTop = rect.top;
+  };
 
-  if (adTimerInterval) clearInterval(adTimerInterval);
-  adTimerInterval = setInterval(() => {
-    adSecondsLeft--;
-    if (adSecondsLeft > 0) {
-      document.getElementById('adTimerDisplay').innerText = `বাকি: ${adSecondsLeft} সেকেন্ড`;
-    } else {
-      clearInterval(adTimerInterval);
-      document.getElementById('adTimerDisplay').innerText = `✅ বিজ্ঞাপন দেখা সম্পন্ন হয়েছে!`;
-      unlockBtn.disabled = false;
-      unlockBtn.style.opacity = '1';
-      unlockBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-      unlockBtn.style.color = '#fff';
-      document.getElementById('unlockBtnText').innerText = "স্পিন আনলক করুন ও চাকা ঘুরান";
-      document.getElementById('unlockBtnIcon').className = "fa-solid fa-lock-open";
-      isSpinRewardUnlocked = true;
-      SoundFX.playWin();
-      showToast('🎉 স্পিন হুইল আনলক হয়েছে!', 'success');
+  const onMove = (e) => {
+    if (!isBubbleDragging) return;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    const deltaX = clientX - bubbleStartX;
+    const deltaY = clientY - bubbleStartY;
+
+    if (Math.hypot(deltaX, deltaY) > 6) hasBubbleMoved = true;
+
+    let newX = bubbleInitialLeft + deltaX;
+    let newY = bubbleInitialTop + deltaY;
+
+    newX = Math.max(10, Math.min(window.innerWidth - 66, newX));
+    newY = Math.max(80, Math.min(window.innerHeight - 120, newY));
+
+    floatingBubble.style.left = `${newX}px`;
+    floatingBubble.style.top = `${newY}px`;
+    floatingBubble.style.right = 'auto';
+    floatingBubble.style.bottom = 'auto';
+  };
+
+  const onEnd = () => {
+    if (!isBubbleDragging) return;
+    isBubbleDragging = false;
+    if (!hasBubbleMoved) {
+      toggleFloatingAssistantMenu();
     }
-  }, 1000);
+  };
+
+  floatingBubble.addEventListener('touchstart', onStart, { passive: true });
+  window.addEventListener('touchmove', onMove, { passive: true });
+  window.addEventListener('touchend', onEnd);
+
+  floatingBubble.addEventListener('mousedown', onStart);
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('mouseup', onEnd);
 }
 
-function cancelAdWatch() {
-  if (adTimerInterval) clearInterval(adTimerInterval);
-  document.getElementById('spinAdWatchModal').style.display = 'none';
+function toggleFloatingAssistantMenu() {
+  SoundFX.playClick();
+  const isShown = floatingMenu.style.display === 'flex';
+  if (isShown) {
+    floatingMenu.style.display = 'none';
+  } else {
+    floatingMenu.style.display = 'flex';
+    const rect = floatingBubble.getBoundingClientRect();
+    if (rect.left < window.innerWidth / 2) {
+      floatingMenu.style.left = `${Math.min(rect.left, window.innerWidth - 325)}px`;
+      floatingMenu.style.right = 'auto';
+    } else {
+      floatingMenu.style.right = `${Math.max(12, window.innerWidth - rect.right)}px`;
+      floatingMenu.style.left = 'auto';
+    }
+    floatingMenu.style.bottom = `${Math.min(window.innerHeight - rect.top + 10, window.innerHeight - 340)}px`;
+  }
 }
 
-function openActualSpinWheel() {
-  cancelAdWatch();
+async function executeQuick2FA() {
+  SoundFX.playClick();
+  try {
+    let keyText = "";
+    if (navigator.clipboard && navigator.clipboard.readText) {
+      try { keyText = await navigator.clipboard.readText(); } 
+      catch(err) { keyText = prompt("2FA Secret Key এখানে দিন:"); }
+    } else {
+      keyText = prompt("আপনার 2FA Secret Key টি এখানে দিন:");
+    }
+
+    if (!keyText) { showToast("ক্লিপবোর্ডে কোনো কি (Key) পাওয়া যায়নি!", "error"); return; }
+    const clean = cleanBase32Key(keyText);
+    if (!clean || clean.length < 10) { showToast("ভুল 2FA কি! সঠিক সিক্রেট কি কপি করুন।", "error"); return; }
+
+    const code = await getTOTPCode(clean);
+    if (code) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(code);
+      }
+      SoundFX.playWin();
+      showToast(`🔑 2FA কোড [ ${code} ] তৈরি ও ক্লিপবোর্ডে কপি হয়েছে!`, "success");
+      floatingMenu.style.display = 'none';
+    } else {
+      showToast("কোড জেনারেট ব্যর্থ হয়েছে!", "error");
+    }
+  } catch (err) {
+    showToast("ক্লিপবোর্ড এক্সেস ত্রুটি!", "error");
+  }
+}
+
+let customSlots = JSON.parse(localStorage.getItem('abp_multi_boxes')) || ['A', 'B', 'C', 'D'];
+let currentActiveSlot = localStorage.getItem('abp_active_slot') || 'A';
+
+function renderMultiBoxTabs() {
+  const container = document.getElementById('multiBoxTabList');
+  if (!container) return;
+  container.innerHTML = '';
+  customSlots.forEach(slot => {
+    const pill = document.createElement('div');
+    pill.className = `box-tab-pill ${slot === currentActiveSlot ? 'active' : ''}`;
+    pill.innerText = `${slot} ঘর`;
+    pill.onclick = () => switchCustomSlot(slot);
+    container.appendChild(pill);
+  });
+  loadCurrentSlotData();
+}
+
+function switchCustomSlot(slot) {
+  SoundFX.playClick();
+  currentActiveSlot = slot;
+  localStorage.setItem('abp_active_slot', slot);
+  renderMultiBoxTabs();
+}
+
+function loadCurrentSlotData() {
+  const val = localStorage.getItem(`abp_box_data_${currentActiveSlot}`) || '';
+  document.getElementById('multiBoxCurrentData').value = val;
+}
+
+function saveCurrentSlotData() {
+  const val = document.getElementById('multiBoxCurrentData').value;
+  localStorage.setItem(`abp_box_data_${currentActiveSlot}`, val);
+}
+
+function copyCurrentSlotData() {
+  SoundFX.playClick();
+  const val = document.getElementById('multiBoxCurrentData').value;
+  if (!val) { showToast("এই ঘরে কোনো ডাটা নেই!", "error"); return; }
+  navigator.clipboard.writeText(val);
+  showToast(`ঘর [${currentActiveSlot}] এর ডাটা কপি হয়েছে!`, "success");
+}
+
+function clearCurrentSlotData() {
+  SoundFX.playClick();
+  document.getElementById('multiBoxCurrentData').value = '';
+  saveCurrentSlotData();
+  showToast(`ঘর [${currentActiveSlot}] পরিষ্কার করা হয়েছে!`);
+}
+
+function addNewCustomSlot() {
+  SoundFX.playClick();
+  const nextChar = String.fromCharCode(65 + customSlots.length);
+  if (customSlots.length >= 10) { showToast("সর্বোচ্চ ১০টি ঘর রাখা সম্ভব!", "error"); return; }
+  customSlots.push(nextChar);
+  localStorage.setItem('abp_multi_boxes', JSON.stringify(customSlots));
+  switchCustomSlot(nextChar);
+  showToast(`নতুন ঘর [${nextChar}] যোগ করা হয়েছে!`);
+}
+
+function quickOpenGoogleSheetHub() {
+  floatingMenu.style.display = 'none';
+  switchMainTab('googleSheetScreen');
+}
+
+// =========================================================================
+// 🌟 ৪. অ্যাডমিন কন্ট্রোলড স্পিন চাকা (টাকা দেখা যাবে + ওয়েটেড র্যান্ডম) 🌟
+// =========================================================================
+// অ্যাডমিন যেকোনো সময় ফায়ারবেস থেকে এই আইটেম ও ওয়েট কন্ট্রোল করতে পারবে
+let spinItems = [
+  { amount: 2,  weight: 55, color: "#f59e0b" }, // ৫৫% সম্ভাবনা (২ টাকা)
+  { amount: 5,  weight: 25, color: "#10b981" }, // ২৫% সম্ভাবনা (৫ টাকা)
+  { amount: 10, weight: 14, color: "#ec4899" }, // ১৪% সম্ভাবনা (১০ টাকা)
+  { amount: 15, weight: 4,  color: "#3b82f6" }, // ৪% সম্ভাবনা (১৫ টাকা)
+  { amount: 20, weight: 1.8,color: "#8b5cf6" }, // ১.৮% সম্ভাবনা (২০ টাকা)
+  { amount: 50, weight: 0.2,color: "#fde047" }  // ০.২% সম্ভাবনা (৫০ টাকা - খুবই রেয়ার)
+];
+
+function drawSpinWheelCanvas() {
+  const canvas = document.getElementById('mainSpinCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const numSlices = spinItems.length;
+  const sliceAngle = (2 * Math.PI) / numSlices;
+  const radius = canvas.width / 2;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let i = 0; i < numSlices; i++) {
+    const angle = i * sliceAngle;
+    ctx.beginPath();
+    ctx.fillStyle = spinItems[i].color;
+    ctx.moveTo(radius, radius);
+    ctx.arc(radius, radius, radius, angle, angle + sliceAngle);
+    ctx.lineTo(radius, radius);
+    ctx.fill();
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = "rgba(0,0,0,0.3)";
+    ctx.stroke();
+
+    // স্লাইসের ভেতরে টাকার টেক্সট স্পষ্টভাবে আঁকা
+    ctx.save();
+    ctx.translate(radius, radius);
+    ctx.rotate(angle + sliceAngle / 2);
+    ctx.textAlign = "right";
+    ctx.fillStyle = (spinItems[i].amount === 50) ? "#000" : "#ffffff";
+    ctx.font = "bold 15px Segoe UI, sans-serif";
+    ctx.shadowColor = "rgba(0,0,0,0.6)";
+    ctx.shadowBlur = 4;
+    ctx.fillText(`৳${spinItems[i].amount}`, radius - 18, 5);
+    ctx.restore();
+  }
+}
+
+function getWeightedSpinReward() {
+  const totalWeight = spinItems.reduce((acc, it) => acc + it.weight, 0);
+  let randomVal = Math.random() * totalWeight;
+
+  for (let i = 0; i < spinItems.length; i++) {
+    if (randomVal < spinItems[i].weight) {
+      return { index: i, item: spinItems[i] };
+    }
+    randomVal -= spinItems[i].weight;
+  }
+  return { index: 0, item: spinItems[0] };
+}
+
+function listenAdminSpinConfig() {
+  databaseRef.ref('adminSpinConfig').on('value', snap => {
+    const val = snap.val();
+    if (val && Array.isArray(val.items)) {
+      spinItems = val.items;
+      drawSpinWheelCanvas();
+    }
+  });
+}
+
+function openSpinModal() {
+  SoundFX.playClick();
   document.getElementById('spinWheelModal').style.display = 'flex';
+  drawSpinWheelCanvas();
 }
 function closeSpinModal() {
   document.getElementById('spinWheelModal').style.display = 'none';
 }
 
-let isSpinning = false;
-let currentWheelRotation = 0;
-let adminSpinConfig = { rewards: [2, 5, 10, 15, 20, 50] };
-
-async function executeDailySpin() {
-  if (isSpinning) return;
+async function triggerSpinWithRewardedAd() {
   SoundFX.playClick();
   const uid = auth.currentUser.uid;
   const userRef = databaseRef.ref(`users/${uid}`);
@@ -1036,418 +1297,392 @@ async function executeDailySpin() {
 
   if (Date.now() - lastTime < oneDay) {
     const hoursLeft = Math.ceil((oneDay - (Date.now() - lastTime)) / (1000 * 60 * 60));
-    showToast(`আজকের স্পিন সম্পন্ন হয়েছে! আবার ${hoursLeft} ঘণ্টা পর ঘুরানো যাবে।`, 'error');
+    showToast(`আজকের স্পিন শেষ! আবার ${hoursLeft} ঘণ্টা পর স্পিন করতে পারবেন।`, 'error');
     return;
   }
+
+  // ১৫ সেকেন্ড রিওয়ার্ডেড বিজ্ঞাপন প্রদর্শন
+  document.getElementById('spinRewardedAdModal').style.display = 'flex';
+  AdsterraEngine.renderAd('adsterraRewardedContainer');
+  startRewardedAdCountdown();
+}
+
+let rewardedCountdownInterval = null;
+function startRewardedAdCountdown() {
+  let seconds = 15;
+  const timerText = document.getElementById('adTimerSeconds');
+  const claimBtn = document.getElementById('claimSpinRewardBtn');
+  timerText.innerText = seconds;
+  claimBtn.disabled = true;
+  claimBtn.style.background = 'gray';
+  claimBtn.style.cursor = 'not-allowed';
+  claimBtn.innerText = 'অপেক্ষা করুন...';
+
+  if (rewardedCountdownInterval) clearInterval(rewardedCountdownInterval);
+  rewardedCountdownInterval = setInterval(() => {
+    seconds--;
+    timerText.innerText = seconds;
+    if (seconds <= 0) {
+      clearInterval(rewardedCountdownInterval);
+      claimBtn.disabled = false;
+      claimBtn.style.background = 'linear-gradient(135deg, #fde047 0%, #f59e0b 100%)';
+      claimBtn.style.cursor = 'pointer';
+      claimBtn.style.color = '#000';
+      claimBtn.innerHTML = '<i class="fa-solid fa-play"></i> বিজ্ঞাপন সম্পন্ন! স্পিন শুরু করুন';
+      SoundFX.playWin();
+    }
+  }, 1000);
+}
+
+function finishRewardedAdAndSpin() {
+  document.getElementById('spinRewardedAdModal').style.display = 'none';
+  executeDailySpin();
+}
+
+let isSpinning = false;
+let currentWheelRotation = 0;
+async function executeDailySpin() {
+  if (isSpinning) return;
+  const uid = auth.currentUser.uid;
+  const userRef = databaseRef.ref(`users/${uid}`);
 
   isSpinning = true;
   document.getElementById('startSpinActionBtn').disabled = true;
 
-  const rewards = adminSpinConfig.rewards;
-  const selectedIndex = Math.floor(Math.random() * rewards.length);
-  const wonAmount = rewards[selectedIndex];
-
-  const degreesPerSlice = 360 / rewards.length;
+  const result = getWeightedSpinReward();
+  const wonAmount = Number(result.item.amount);
+  const numSlices = spinItems.length;
+  const sliceDegrees = 360 / numSlices;
+  
+  // পয়েন্টার রয়েছে ১২ টার কাঁটায় (টপ বা 270 ডিগ্রিতে)
+  const targetSliceDegree = (result.index * sliceDegrees) + (sliceDegrees / 2);
   const randomRounds = 360 * 5; 
-  currentWheelRotation += randomRounds + (360 - (selectedIndex * degreesPerSlice));
+  currentWheelRotation += randomRounds + (360 - targetSliceDegree) + 270;
 
-  const wheel = document.getElementById('mainSpinWheel');
-  wheel.style.transform = `rotate(${currentWheelRotation}deg)`;
+  const canvas = document.getElementById('mainSpinCanvas');
+  canvas.style.transform = `rotate(${currentWheelRotation}deg)`;
 
   setTimeout(async () => {
     isSpinning = false;
-    isSpinRewardUnlocked = false; 
     document.getElementById('startSpinActionBtn').disabled = false;
     SoundFX.playWin();
 
-    await userRef.child('withdrawableBalance').transaction(c => (c || 0) + wonAmount);
-    await userRef.child('availableBalance').transaction(c => (c || 0) + wonAmount);
-    await userRef.child('lastSpinTime').set(Date.now());
+    // ফায়ারবেস ব্যালেন্স সুরক্ষিত ট্রানজাকশন
+    if (!isNaN(wonAmount) && wonAmount > 0) {
+      await userRef.child('withdrawableBalance').transaction(c => Number((Number(c || 0) + wonAmount).toFixed(2)));
+      await userRef.child('availableBalance').transaction(c => Number((Number(c || 0) + wonAmount).toFixed(2)));
+      await userRef.child('lastSpinTime').set(Date.now());
+    }
 
     document.getElementById('spinRewardDisplayBox').innerText = `অভিনন্দন! আপনি জিতেছেন ৳${wonAmount} টাকা ক্যাশ বোনাস! 🎉`;
     showToast(`🎉 ৳${wonAmount} টাকা আপনার ব্যালেন্সে যুক্ত হয়েছে!`, 'success');
-  }, 4200);
+  }, 4600);
 }
 
 // =========================================================================
-// 🌟 ৩. গুগল শিট ডাটা সিঙ্ক ও সার্চ মেকানিজম
+// 🌟 ৫. উইথড্র ও ইন্টারস্টিশিয়াল অ্যাড হ্যান্ডলিং 🌟
 // =========================================================================
-function openAdminSheet() {
-  window.open(adminSheetLink, '_blank');
-}
+let pendingWithdrawPayload = null;
 
-async function loadSheetSubmissionsData() {
-  const container = document.getElementById('googleSheetResultsList');
-  container.innerHTML = '<div style="text-align:center; color:var(--text-muted); font-size:12px; padding:20px;"><i class="fa-solid fa-spinner fa-spin"></i> গুগল শিট থেকে ডাটা লোড হচ্ছে...</div>';
+function handleWithdrawPreCheck() {
+  SoundFX.playClick();
+  const method = document.getElementById('withdrawMethodSelect').value;
+  const accountNo = document.getElementById('withdrawAccountInput').value.trim();
+  const amt = parseFloat(document.getElementById('withdrawAmountInput').value);
+  const curBal = parseFloat(currentUserData ? (currentUserData.withdrawableBalance || currentUserData.availableBalance || 0) : 0);
+
+  if (!accountNo || isNaN(amt) || amt <= 0) { showToast('সঠিক ওয়ালেট নম্বর ও পরিমাণ দিন', 'error'); return; }
+  if (amt > curBal) { showToast(`অপর্যাপ্ত ব্যালেন্স! আপনার ব্যালেন্স: ৳${curBal.toFixed(2)}`, 'error'); return; }
+  if (amt < currentMinWithdraw || amt > currentMaxWithdraw) { showToast(`সীমা ৳${currentMinWithdraw} থেকে ৳${currentMaxWithdraw}`, 'error'); return; }
+
+  pendingWithdrawPayload = { method, accountNo, amt };
   
-  try {
-    // Firebase submissions থেকে লাইভ ক্যাশ তৈরি
-    const snap = await databaseRef.ref('submissions').once('value');
-    allSheetSubmissionsCache = [];
-    const val = snap.val() || {};
-    
-    Object.keys(val).forEach(userKey => {
-      const userSubmissions = val[userKey];
-      if (typeof userSubmissions === 'object') {
-        Object.keys(userSubmissions).forEach(subKey => {
-          allSheetSubmissionsCache.push({
-            ...userSubmissions[subKey],
-            submissionId: userSubmissions[subKey].submissionId || subKey
-          });
-        });
-      }
-    });
-
-    renderSheetList(allSheetSubmissionsCache);
-  } catch(e) {
-    container.innerHTML = '<div style="text-align:center; color:#ef4444; font-size:12px; padding:20px;">ডাটা লোড করতে সমস্যা হয়েছে!</div>';
-  }
+  // উইথড্র ইন্টারস্টিশিয়াল বিজ্ঞাপন প্রদর্শন
+  document.getElementById('withdrawInterstitialModal').style.display = 'flex';
+  AdsterraEngine.renderAd('adsterraWithdrawAdSlot');
 }
 
-function renderSheetList(dataList) {
-  const container = document.getElementById('googleSheetResultsList');
-  container.innerHTML = '';
-  if (!dataList || dataList.length === 0) {
-    container.innerHTML = '<div style="text-align:center; color:var(--text-muted); font-size:12px; padding:20px;">কোনো ডাটা খুঁজে পাওয়া যায়নি!</div>';
-    return;
-  }
+function executeActualWithdrawal() {
+  document.getElementById('withdrawInterstitialModal').style.display = 'none';
+  if (!pendingWithdrawPayload) return;
 
-  dataList.slice(0, 50).forEach(item => {
-    const isApproved = item.status === 'Approved' || item.status === 'Sold';
-    const pillClass = isApproved ? 'st-approved' : (item.status === 'Rejected' ? 'st-rejected' : 'st-pending');
-    
-    const div = document.createElement('div');
-    div.className = 'glass-panel';
-    div.style.padding = '10px 14px';
-    div.style.marginBottom = '6px';
-    div.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <div>
-          <b style="color:var(--vip-gold); font-size:13px;">${escapeHTML(item.categoryName || 'Account')}</b>
-          <div style="font-size:10px; color:var(--text-muted);">আইডি: ${escapeHTML(item.submissionId)} | তারিখ: ${getRelativeOrDateTime(item.timestamp)}</div>
-        </div>
-        <span class="status-pill ${pillClass}">${escapeHTML(item.status || 'Pending')}</span>
-      </div>
-    `;
-    container.appendChild(div);
+  const { method, accountNo, amt } = pendingWithdrawPayload;
+  const netPayable = amt - WITHDRAW_FEE_AMOUNT;
+  const userRef = databaseRef.ref(`users/${auth.currentUser.uid}`);
+
+  userRef.transaction(cur => {
+    if (!cur) return cur;
+    const wBal = parseFloat(cur.withdrawableBalance || cur.availableBalance || 0);
+    if (wBal < amt) return;
+    cur.withdrawableBalance = Number((wBal - amt).toFixed(2));
+    cur.availableBalance = cur.withdrawableBalance;
+    return cur;
+  }, (err, comm) => {
+    if (err || !comm) { showToast('ব্যালেন্স অপর্যাপ্ত!', 'error'); return; }
+    const reqId = "WD-" + Date.now().toString().slice(-6);
+    databaseRef.ref(`withdrawRequests/${auth.currentUser.uid}/${reqId}`).set({
+      requestId: reqId, method: method, accountNo: accountNo, requestedAmount: amt,
+      systemFee: WITHDRAW_FEE_AMOUNT, amount: netPayable, status: 'Pending', timestamp: Date.now()
+    }).then(() => {
+      document.getElementById('withdrawAccountInput').value = '';
+      document.getElementById('withdrawAmountInput').value = '';
+      calculateWithdrawFee();
+      SoundFX.playWin();
+      pendingWithdrawPayload = null;
+      showToast(`উইথড্র রিকোয়েস্ট সফল! আপনি পাবেন ৳${netPayable.toFixed(2)}`, 'success');
+    });
   });
 }
 
-function handleSearchSheetData() {
-  const q = document.getElementById('sheetSearchInput').value.trim().toLowerCase();
-  if (!q) {
-    renderSheetList(allSheetSubmissionsCache);
-    return;
+function calculateWithdrawFee() {
+  const amtInput = parseFloat(document.getElementById('withdrawAmountInput').value) || 0;
+  document.getElementById('lblWithdrawInputAmt').innerText = amtInput.toFixed(2);
+  const net = amtInput > WITHDRAW_FEE_AMOUNT ? (amtInput - WITHDRAW_FEE_AMOUNT) : 0;
+  document.getElementById('lblNetPayableAmt').innerText = net.toFixed(2);
+}
+
+// 🌟 পুশ নোটিফিকেশন সেটআপ (FCM) 🌟
+async function initPushNotification(uid) {
+  if (!messaging) return;
+  try {
+    const permission = await Notification.requestPermission();
+    if (permission === 'granted') {
+      const token = await messaging.getToken();
+      if (token) {
+        databaseRef.ref(`users/${uid}/fcmToken`).set(token);
+      }
+    }
+  } catch (err) {
+    console.log("FCM Setup:", err);
   }
-  const filtered = allSheetSubmissionsCache.filter(it => 
-    (it.submissionId && it.submissionId.toLowerCase().includes(q)) ||
-    (it.categoryName && it.categoryName.toLowerCase().includes(q)) ||
-    (it.status && it.status.toLowerCase().includes(q))
-  );
-  renderSheetList(filtered);
+}
+
+// 🌟 উইকলি রেফারেল লিডারবোর্ড 🌟
+function listenWeeklyReferralLeaderboard() {
+  databaseRef.ref('users').on('value', snap => {
+    const users = snap.val() || {};
+    const refCounts = {};
+
+    Object.values(users).forEach(u => {
+      const by = u.referredBy;
+      if (by && by !== 'ABP1000' && by !== 'VIP100') {
+        refCounts[by] = (refCounts[by] || 0) + 1;
+      }
+    });
+
+    const rankList = [];
+    Object.values(users).forEach(u => {
+      const code = u.referralCode;
+      if (code && refCounts[code]) {
+        rankList.push({ name: u.displayName || 'Member', count: refCounts[code], code: code });
+      }
+    });
+
+    rankList.sort((a,b) => b.count - a.count);
+    const cont = document.getElementById('weeklyReferralListContainer');
+    cont.innerHTML = '';
+
+    if (!rankList.length) {
+      cont.innerHTML = '<div style="text-align:center; color:var(--text-muted); font-size:12px; padding:15px;">এই সপ্তাহে এখনও কোনো রেফারেল হয়নি!</div>';
+      return;
+    }
+
+    rankList.slice(0, 10).forEach((item, idx) => {
+      cont.innerHTML += `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.04); padding:10px 14px; border-radius:14px; border:1px solid var(--glass-border);">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-weight:900; color:var(--vip-gold); font-size:14px;">#${idx+1}</span>
+            <b style="color:var(--text-main); font-size:13px;">${escapeHTML(item.name)} (${item.code})</b>
+          </div>
+          <span class="status-pill st-approved">${item.count} টি রেফার</span>
+        </div>`;
+    });
+  });
+}
+
+function openForgotPasswordModal() {
+  SoundFX.playClick();
+  document.getElementById('loginCard').style.display = 'none';
+  document.getElementById('signupCard').style.display = 'none';
+  document.getElementById('forgotPassCard').style.display = 'block';
+  const loginMail = document.getElementById('loginEmail').value.trim();
+  if (loginMail) document.getElementById('forgotPassEmailInput').value = loginMail;
+}
+
+function closeForgotPasswordModal() {
+  document.getElementById('forgotPassCard').style.display = 'none';
+  document.getElementById('loginCard').style.display = 'block';
+}
+
+function submitForgotPasswordAction() {
+  SoundFX.playClick();
+  const email = document.getElementById('forgotPassEmailInput').value.trim();
+  if (!email) { showToast('দয়া করে আপনার জিমেইলটি লিখুন!', 'error'); return; }
+  auth.sendPasswordResetEmail(email).then(() => {
+    showToast('✅ পাসওয়ার্ড রিসেট লিংক আপনার জিমেইলে পাঠানো হয়েছে!', 'success');
+    closeForgotPasswordModal();
+  }).catch(e => showToast(e.message, 'error'));
 }
 
 // =========================================================================
-// 🌟 ৪. পূর্ণাঙ্গ WebRTC অডিও ও ভিডিও কল সিগন্যালিং সিস্টেম
+// 🌟 ৬. শক্তিশালী WebRTC লাইভ কল সংযোগ 🌟
 // =========================================================================
-let peerConnection = null;
+let pc = null;
 let localStream = null;
-let currentCallRoomId = null;
-let activeCallType = 'video';
-let callSignalingUnsub = null;
+let currentCallSessionId = null;
 
-function setupCallSignalingListener(myUid) {
-  databaseRef.ref(`calls/${myUid}/incoming`).on('value', snap => {
-    const callData = snap.val();
-    if (callData && callData.status === 'calling') {
-      document.getElementById('incomingCallerName').innerText = `${callData.callerName} কল করছেন...`;
-      document.getElementById('incomingCallType').innerText = callData.type === 'video' ? 'ইনকামিং লাইভ ভিডিও কল' : 'ইনকামিং লাইভ অডিও কল';
+function setupCallSignalingListener(uid) {
+  databaseRef.ref('liveCalls/' + uid).on('value', async snap => {
+    const data = snap.val();
+    if (!data) return;
+
+    if (data.type === 'offer' && data.status === 'ringing') {
+      currentCallSessionId = data.callerUid;
+      document.getElementById('incomingCallerName').innerText = (data.callerName || 'অ্যাডমিন সাপোর্ট') + " কল করছেন...";
+      document.getElementById('incomingCallType').innerText = (data.callType === 'video' ? 'ভিডিও কল' : 'অডিও কল');
       document.getElementById('incomingCallModal').style.display = 'flex';
-      window.activeIncomingCallData = callData;
-      SoundFX.playWin();
-    } else {
-      document.getElementById('incomingCallModal').style.display = 'none';
+      window.pendingIncomingCallData = data;
+    } else if (data.type === 'answer' && pc) {
+      await pc.setRemoteDescription(new RTCSessionDescription(data.sdp));
+    } else if (data.candidate && pc) {
+      try { await pc.addIceCandidate(new RTCIceCandidate(data.candidate)); } catch(e){}
+    } else if (data.status === 'ended') {
+      endWebRTCCall(false);
     }
   });
 }
 
-async function initiateLiveCall(type = 'video') {
-  if (activeChatTargetUid === 'global' || !activeChatTargetUid) {
-    showToast('কল করার জন্য কমিউনিটি থেকে যেকোনো মেম্বারের প্রোফাইল সিলেক্ট করুন', 'error');
-    return;
-  }
-
-  activeCallType = type;
-  const myUid = auth.currentUser.uid;
-  const targetUid = activeChatTargetUid;
-  currentCallRoomId = `call_${Date.now()}`;
-
+async function initiateLiveCall(type, targetUid = 'admin') {
+  SoundFX.playClick();
+  document.getElementById('callPeerName').innerText = (targetUid === 'admin' ? "অ্যাডমিন সাপোর্ট" : targetUid);
   document.getElementById('callOverlay').style.display = 'flex';
-  document.getElementById('callPeerName').innerText = activeChatTargetName;
-  document.getElementById('callStatusText').innerText = "রিং হচ্ছে... অপেক্ষা করুন";
+  document.getElementById('callStatusText').innerText = "রিং হচ্ছে...";
 
   try {
-    localStream = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-      video: type === 'video'
+    localStream = await navigator.mediaDevices.getUserMedia({ 
+      audio: true, 
+      video: type === 'video' ? { facingMode: 'user' } : false 
     });
     document.getElementById('localVideo').srcObject = localStream;
+    document.getElementById('localVideo').style.display = type === 'video' ? 'block' : 'none';
 
-    peerConnection = new RTCPeerConnection({ iceServers: ICE });
-    localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+    pc = new RTCPeerConnection(ICE_CONFIG);
+    localStream.getTracks().forEach(t => pc.addTrack(t, localStream));
 
-    peerConnection.ontrack = e => {
-      document.getElementById('remoteVideo').srcObject = e.streams[0];
-      document.getElementById('callStatusText').innerText = "সংযুক্ত হয়েছে (Connected)";
+    pc.ontrack = e => { 
+      document.getElementById('remoteVideo').srcObject = e.streams[0]; 
+      document.getElementById('callStatusText').innerText = "কল কানেক্টেড ✅";
     };
 
-    peerConnection.onicecandidate = e => {
+    pc.onicecandidate = e => {
       if (e.candidate) {
-        databaseRef.ref(`callRooms/${currentCallRoomId}/callerCandidates`).push(e.candidate.toJSON());
+        databaseRef.ref('liveCalls/' + targetUid).update({ candidate: e.candidate.toJSON() });
       }
     };
 
-    const offer = await peerConnection.createOffer();
-    await peerConnection.setLocalDescription(offer);
+    pc.oniceconnectionstatechange = () => {
+      if (pc.iceConnectionState === 'disconnected' || pc.iceConnectionState === 'failed') {
+        endWebRTCCall();
+        showToast("কল ডিসকানেক্ট হয়েছে", "error");
+      }
+    };
 
-    await databaseRef.ref(`callRooms/${currentCallRoomId}`).set({
-      offer: { type: offer.type, sdp: offer.sdp },
-      status: 'ringing'
-    });
+    const offer = await pc.createOffer();
+    await pc.setLocalDescription(offer);
 
-    await databaseRef.ref(`calls/${targetUid}/incoming`).set({
-      roomId: currentCallRoomId,
-      callerUid: myUid,
-      callerName: currentUserData?.displayName || 'ABP Member',
-      type: type,
-      status: 'calling',
+    databaseRef.ref('liveCalls/' + targetUid).set({
+      callerUid: auth.currentUser.uid,
+      callerName: currentUserData?.displayName || 'User',
+      callType: type,
+      type: 'offer',
+      status: 'ringing',
+      sdp: offer,
       timestamp: Date.now()
     });
-
-    databaseRef.ref(`callRooms/${currentCallRoomId}/answer`).on('value', async snap => {
-      const answer = snap.val();
-      if (answer && !peerConnection.currentRemoteDescription) {
-        await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
-      }
-    });
-
-    databaseRef.ref(`callRooms/${currentCallRoomId}/calleeCandidates`).on('child_added', snap => {
-      if (snap.val()) {
-        peerConnection.addIceCandidate(new RTCIceCandidate(snap.val()));
-      }
-    });
-
-    databaseRef.ref(`callRooms/${currentCallRoomId}/status`).on('value', snap => {
-      if (snap.val() === 'ended') endWebRTCCall(false);
-    });
-
   } catch(e) {
-    showToast('ক্যামেরা অথবা মাইক্রোফোন পারমিশন প্রয়োজন!', 'error');
+    showToast('মাইক্রোফোন বা ক্যামেরা পারমিশন দিন!', 'error');
     endWebRTCCall();
   }
 }
 
 async function acceptIncomingCall() {
-  const callData = window.activeIncomingCallData;
-  if (!callData) return;
   document.getElementById('incomingCallModal').style.display = 'none';
+  const data = window.pendingIncomingCallData;
+  if (!data) return;
 
-  currentCallRoomId = callData.roomId;
-  activeCallType = callData.type;
-
+  document.getElementById('callPeerName').innerText = data.callerName || "সাপোর্ট";
   document.getElementById('callOverlay').style.display = 'flex';
-  document.getElementById('callPeerName').innerText = callData.callerName;
-  document.getElementById('callStatusText').innerText = "কানেক্ট হচ্ছে...";
 
   try {
-    localStream = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-      video: callData.type === 'video'
+    localStream = await navigator.mediaDevices.getUserMedia({ 
+      audio: true, 
+      video: data.callType === 'video' ? { facingMode: 'user' } : false 
     });
     document.getElementById('localVideo').srcObject = localStream;
+    document.getElementById('localVideo').style.display = data.callType === 'video' ? 'block' : 'none';
 
-    peerConnection = new RTCPeerConnection({ iceServers: ICE });
-    localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+    pc = new RTCPeerConnection(ICE_CONFIG);
+    localStream.getTracks().forEach(t => pc.addTrack(t, localStream));
 
-    peerConnection.ontrack = e => {
-      document.getElementById('remoteVideo').srcObject = e.streams[0];
-      document.getElementById('callStatusText').innerText = "সংযুক্ত হয়েছে (Connected)";
+    pc.ontrack = e => { 
+      document.getElementById('remoteVideo').srcObject = e.streams[0]; 
+      document.getElementById('callStatusText').innerText = "কল কানেক্টেড ✅";
     };
 
-    peerConnection.onicecandidate = e => {
+    pc.onicecandidate = e => {
       if (e.candidate) {
-        databaseRef.ref(`callRooms/${currentCallRoomId}/calleeCandidates`).push(e.candidate.toJSON());
+        databaseRef.ref('liveCalls/' + data.callerUid).update({ candidate: e.candidate.toJSON() });
       }
     };
 
-    const roomSnap = await databaseRef.ref(`callRooms/${currentCallRoomId}`).once('value');
-    const roomData = roomSnap.val();
-
-    if (roomData && roomData.offer) {
-      await peerConnection.setRemoteDescription(new RTCSessionDescription(roomData.offer));
-      const answer = await peerConnection.createAnswer();
-      await peerConnection.setLocalDescription(answer);
-
-      await databaseRef.ref(`callRooms/${currentCallRoomId}`).update({
-        answer: { type: answer.type, sdp: answer.sdp },
-        status: 'connected'
-      });
-    }
-
-    databaseRef.ref(`callRooms/${currentCallRoomId}/callerCandidates`).on('child_added', snap => {
-      if (snap.val()) {
-        peerConnection.addIceCandidate(new RTCIceCandidate(snap.val()));
+    pc.oniceconnectionstatechange = () => {
+      if (pc.iceConnectionState === 'disconnected' || pc.iceConnectionState === 'failed') {
+        endWebRTCCall();
+        showToast("কল ডিসকানেক্ট হয়েছে", "error");
       }
+    };
+
+    await pc.setRemoteDescription(new RTCSessionDescription(data.sdp));
+    const answer = await pc.createAnswer();
+    await pc.setLocalDescription(answer);
+
+    databaseRef.ref('liveCalls/' + data.callerUid).update({
+      type: 'answer',
+      status: 'connected',
+      sdp: answer
     });
-
-    databaseRef.ref(`callRooms/${currentCallRoomId}/status`).on('value', snap => {
-      if (snap.val() === 'ended') endWebRTCCall(false);
-    });
-
-    databaseRef.ref(`calls/${auth.currentUser.uid}/incoming`).remove();
-
   } catch(e) {
-    showToast('কল কানেক্ট করা সম্ভব হয়নি!', 'error');
-    rejectIncomingCall();
+    showToast('কল রিসিভ করা যায়নি!', 'error');
+    endWebRTCCall();
   }
 }
 
 function rejectIncomingCall() {
   document.getElementById('incomingCallModal').style.display = 'none';
-  if (window.activeIncomingCallData) {
-    databaseRef.ref(`callRooms/${window.activeIncomingCallData.roomId}/status`).set('ended');
-    databaseRef.ref(`calls/${auth.currentUser.uid}/incoming`).remove();
-    window.activeIncomingCallData = null;
+  if (window.pendingIncomingCallData) {
+    databaseRef.ref('liveCalls/' + window.pendingIncomingCallData.callerUid).update({ status: 'ended' });
   }
 }
 
-function endWebRTCCall(notifyPeer = true) {
-  if (notifyPeer && currentCallRoomId) {
-    databaseRef.ref(`callRooms/${currentCallRoomId}/status`).set('ended');
+function endWebRTCCall(notify = true) {
+  if (notify && auth.currentUser) {
+    databaseRef.ref('liveCalls/admin').update({ status: 'ended' });
+    if (currentCallSessionId) databaseRef.ref('liveCalls/' + currentCallSessionId).update({ status: 'ended' });
   }
-  if (localStream) {
-    localStream.getTracks().forEach(track => track.stop());
-    localStream = null;
-  }
-  if (peerConnection) {
-    peerConnection.close();
-    peerConnection = null;
-  }
+  if (pc) { pc.close(); pc = null; }
+  if (localStream) { localStream.getTracks().forEach(t => t.stop()); localStream = null; }
+  const lv = document.getElementById('localVideo');
+  const rv = document.getElementById('remoteVideo');
+  if (lv) lv.srcObject = null;
+  if (rv) rv.srcObject = null;
   document.getElementById('callOverlay').style.display = 'none';
-  document.getElementById('incomingCallModal').style.display = 'none';
-  showToast('কল সমাপ্ত হয়েছে!');
 }
 
-async function startScreenShare() {
-  try {
-    const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-    const screenTrack = screenStream.getVideoTracks()[0];
-    if (peerConnection) {
-      const sender = peerConnection.getSenders().find(s => s.track.kind === 'video');
-      if (sender) sender.replaceTrack(screenTrack);
-    }
-    document.getElementById('localVideo').srcObject = screenStream;
-    screenTrack.onended = () => {
-      if (localStream) {
-        const videoTrack = localStream.getVideoTracks()[0];
-        const sender = peerConnection.getSenders().find(s => s.track.kind === 'video');
-        if (sender && videoTrack) sender.replaceTrack(videoTrack);
-        document.getElementById('localVideo').srcObject = localStream;
-      }
-    };
-  } catch(e) {
-    showToast('স্ক্রিন শেয়ার বাতিল করা হয়েছে', 'error');
-  }
+function callAdminDirect(type) {
+  initiateLiveCall(type, 'admin');
 }
 
-// =========================================================================
-// 🌟 ৫. চ্যাট, মেসেজিং ও সোশ্যাল মেকানিজম
-// =========================================================================
-let renderedMessageIds = new Set();
-
-function listenTelegramGroupMessages() {
-  const stream = document.getElementById('tgChatStream');
-  renderedMessageIds.clear();
-  stream.innerHTML = '<div style="text-align:center; color:var(--text-muted); font-size:11px; padding:15px;"><i class="fa-solid fa-spinner fa-spin"></i> চ্যাট লোড হচ্ছে...</div>';
-
-  databaseRef.ref('telegramGroupChat').limitToLast(50).once('value', snap => {
-    stream.innerHTML = '';
-    const msgs = snap.val() || {};
-    Object.values(msgs).forEach(m => renderSingleMessage(m));
-    stream.scrollTop = stream.scrollHeight;
-
-    databaseRef.ref('telegramGroupChat').limitToLast(1).on('child_added', childSnap => {
-      const newMsg = childSnap.val();
-      if (newMsg && !renderedMessageIds.has(newMsg.id)) {
-        renderSingleMessage(newMsg);
-        stream.scrollTop = stream.scrollHeight;
-      }
-    });
-  });
-}
-
-function renderSingleMessage(m) {
-  if (!m || !m.id || renderedMessageIds.has(m.id)) return;
-
-  const myUid = auth.currentUser ? auth.currentUser.uid : '';
-  const isPublic = (!m.targetUid || m.targetUid === 'global');
-
-  if (activeChatTargetUid === 'global') {
-    if (!isPublic) return;
-  } else {
-    if (!((m.uid === activeChatTargetUid && m.targetUid === myUid) || (m.uid === myUid && m.targetUid === activeChatTargetUid))) return;
-  }
-
-  renderedMessageIds.add(m.id);
-  const stream = document.getElementById('tgChatStream');
-  const isMe = m.uid === myUid;
-  const timeStr = getRelativeOrDateTime(m.timestamp);
-  const verifiedMark = m.isVerified ? `<span style="color:#10b981; font-size:11px;" title="Verified VIP Seller">✅</span>` : '';
-  const locationBadge = m.country ? `<span class="tg-stat-chip" style="color:#60a5fa;"><i class="fa-solid fa-location-dot"></i> ${escapeHTML(m.country)}</span>` : '';
-
-  let replyQuoteHtml = '';
-  if (m.replyTo) {
-    replyQuoteHtml = `<div class="tg-quote-bubble"><b style="color:var(--vip-gold);">${escapeHTML(m.replyTo.senderName)}</b>: ${escapeHTML(m.replyTo.text)}</div>`;
-  }
-
-  let mediaHtml = '';
-  if (m.media) {
-    if (m.media.type === 'image') {
-      mediaHtml = `<img src="${m.media.url}" loading="lazy" style="width:100%; max-height:220px; object-fit:cover; border-radius:12px; margin-top:6px; border:1px solid var(--glass-border);">`;
-    } else if (m.media.type === 'audio') {
-      mediaHtml = `<div class="tg-voice-player" style="margin-top:6px;"><audio controls src="${m.media.url}" style="width:100%; height:34px; outline:none;"></audio></div>`;
-    } else if (m.media.type === 'file') {
-      mediaHtml = `<div style="margin-top:6px; background:rgba(0,0,0,0.3); padding:8px 10px; border-radius:10px; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-file-lines" style="color:var(--vip-gold); font-size:16px;"></i><a href="${m.media.url}" target="_blank" download="${m.media.fileName||'file'}" style="color:var(--text-main); font-size:11px; text-decoration:none;">${escapeHTML(m.media.fileName||'ফাইল')}</a></div>`;
-    }
-  }
-
-  const deleteActionBtn = isMe ? `<span onclick="deleteGroupMessage('${m.id}')" title="ডিলিট করুন" style="color:#ef4444; cursor:pointer; font-size:11px;"><i class="fa-solid fa-trash-can"></i></span>` : '';
-
-  const div = document.createElement('div');
-  div.className = `tg-message-item ${isMe ? 'me' : ''}`;
-  div.innerHTML = `
-    <img src="${m.avatar || 'https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png'}" class="tg-avatar" style="cursor:pointer;" onclick="startPrivateChatWith('${m.uid}', '${escapeHTML(m.senderName)}')">
-    <div style="flex:1; min-width:0;">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <b style="font-size:12px; color:var(--vip-gold); cursor:pointer;" onclick="startPrivateChatWith('${m.uid}', '${escapeHTML(m.senderName)}')">${escapeHTML(m.senderName)} ${verifiedMark}</b>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <span style="font-size:9px; color:var(--text-muted);">${timeStr}</span>
-          <span onclick="setReplyMessage('${m.id}', '${escapeHTML(m.senderName)}', '${escapeHTML(m.text||'')}')" title="রিপ্লাই" style="color:var(--vip-gold); cursor:pointer; font-size:11px;"><i class="fa-solid fa-reply"></i></span>
-          ${deleteActionBtn}
-        </div>
-      </div>
-      <div class="tg-meta-badge-row">
-        <span class="tg-stat-chip">ID: ${escapeHTML(m.userId || 'ABP')}</span>
-        ${locationBadge}
-        <span class="tg-stat-chip" style="color:#10b981;">৳${(m.currentBalance || 0).toFixed(1)}</span>
-      </div>
-      ${replyQuoteHtml}
-      ${m.text ? `<div style="font-size:12px; color:var(--text-main); margin-top:4px; word-break:break-word;">${escapeHTML(m.text)}</div>` : ''}
-      ${mediaHtml}
-    </div>`;
-  stream.appendChild(div);
-}
-
+// 🌟 চ্যাট ও ভয়েস মেসেজিং 🌟
 function sendTelegramGroupMessage(customMedia = null) {
   const txtInp = document.getElementById('tgTextInput');
   const text = txtInp ? txtInp.value.trim() : '';
@@ -1482,36 +1717,72 @@ function sendTelegramGroupMessage(customMedia = null) {
   }).catch(e => showToast(e.message, 'error'));
 }
 
-function deleteGroupMessage(msgId) {
-  if (confirm("আপনি কি এই মেসেজটি মুছে ফেলতে চান?")) {
-    databaseRef.ref('telegramGroupChat/' + msgId).remove().then(() => {
-      showToast('মুছে ফেলা হয়েছে!');
-      listenTelegramGroupMessages();
+function listenTelegramGroupMessages() {
+  databaseRef.ref('telegramGroupChat').limitToLast(60).on('value', snap => {
+    const stream = document.getElementById('tgChatStream');
+    stream.innerHTML = '';
+    const msgs = snap.val() || {};
+
+    Object.values(msgs).forEach(m => {
+      const myUid = auth.currentUser ? auth.currentUser.uid : '';
+      const isPublic = (!m.targetUid || m.targetUid === 'global');
+
+      if (activeChatTargetUid === 'global') {
+        if (!isPublic) return;
+      } else {
+        if (!((m.uid === activeChatTargetUid && m.targetUid === myUid) || (m.uid === myUid && m.targetUid === activeChatTargetUid))) return;
+      }
+
+      const isMe = m.uid === myUid;
+      const timeStr = getRelativeOrDateTime(m.timestamp);
+      const verifiedMark = m.isVerified ? `<span style="color:#10b981; font-size:11px;" title="Verified VIP Seller">✅</span>` : '';
+      const locationBadge = m.country ? `<span class="tg-stat-chip" style="color:#60a5fa;"><i class="fa-solid fa-location-dot"></i> ${escapeHTML(m.country)}</span>` : '';
+
+      let replyQuoteHtml = '';
+      if (m.replyTo) {
+        replyQuoteHtml = `<div class="tg-quote-bubble"><b style="color:var(--vip-gold);">${escapeHTML(m.replyTo.senderName)}</b>: ${escapeHTML(m.replyTo.text)}</div>`;
+      }
+
+      let mediaHtml = '';
+      if (m.media) {
+        if (m.media.type === 'image') {
+          mediaHtml = `<img src="${m.media.url}" style="width:100%; max-height:220px; object-fit:cover; border-radius:12px; margin-top:6px; border:1px solid var(--glass-border);">`;
+        } else if (m.media.type === 'audio') {
+          mediaHtml = `<div class="tg-voice-player" style="margin-top:6px;"><audio controls src="${m.media.url}" style="width:100%; height:34px; outline:none;"></audio></div>`;
+        } else if (m.media.type === 'file') {
+          mediaHtml = `<div style="margin-top:6px; background:rgba(0,0,0,0.3); padding:8px 10px; border-radius:10px; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-file-lines" style="color:var(--vip-gold); font-size:16px;"></i><a href="${m.media.url}" target="_blank" download="${m.media.fileName||'file'}" style="color:var(--text-main); font-size:11px; text-decoration:none;">${escapeHTML(m.media.fileName||'ফাইল')}</a></div>`;
+        }
+      }
+
+      const deleteActionBtn = isMe ? `<span onclick="deleteGroupMessage('${m.id}')" title="ডিলিট করুন" style="color:#ef4444; cursor:pointer; font-size:11px;"><i class="fa-solid fa-trash-can"></i></span>` : '';
+
+      stream.innerHTML += `
+        <div class="tg-message-item ${isMe ? 'me' : ''}">
+          <img src="${m.avatar || 'https://i.postimg.cc/Zqs1kN4L/file-00000000e9388206a48900a556a98466.png'}" class="tg-avatar" style="cursor:pointer;" onclick="startPrivateChatWith('${m.uid}', '${escapeHTML(m.senderName)}')">
+          <div style="flex:1; min-width:0;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <b style="font-size:12px; color:var(--vip-gold); cursor:pointer;" onclick="startPrivateChatWith('${m.uid}', '${escapeHTML(m.senderName)}')">${escapeHTML(m.senderName)} ${verifiedMark}</b>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-size:9px; color:var(--text-muted);">${timeStr}</span>
+                <span onclick="setReplyMessage('${m.id}', '${escapeHTML(m.senderName)}', '${escapeHTML(m.text||'')}')" title="রিপ্লাই" style="color:var(--vip-gold); cursor:pointer; font-size:11px;"><i class="fa-solid fa-reply"></i></span>
+                ${deleteActionBtn}
+              </div>
+            </div>
+            <div class="tg-meta-badge-row">
+              <span class="tg-stat-chip">ID: ${escapeHTML(m.userId || 'ABP')}</span>
+              ${locationBadge}
+              <span class="tg-stat-chip" style="color:#10b981;">৳${(m.currentBalance || 0).toFixed(1)}</span>
+            </div>
+            ${replyQuoteHtml}
+            ${m.text ? `<div style="font-size:12px; color:var(--text-main); margin-top:4px; word-break:break-word;">${escapeHTML(m.text)}</div>` : ''}
+            ${mediaHtml}
+          </div>
+        </div>`;
     });
-  }
+    stream.scrollTop = stream.scrollHeight;
+  });
 }
 
-function startPrivateChatWith(targetUid, name) {
-  if (!targetUid || targetUid === auth.currentUser.uid) return;
-  activeChatTargetUid = targetUid;
-  activeChatTargetName = name;
-  document.getElementById('tgChatRoomTitle').innerText = name;
-  document.getElementById('tgChatTargetStatus').innerText = "ব্যক্তিগত ১-অন-১ চ্যাট";
-  document.getElementById('tgBackToPublicBtn').style.display = 'block';
-  listenTelegramGroupMessages();
-  showToast(`${name}-এর সাথে চ্যাট চালু হয়েছে!`);
-}
-
-function resetToPublicChat() {
-  activeChatTargetUid = 'global';
-  activeChatTargetName = 'Public';
-  document.getElementById('tgChatRoomTitle').innerText = "Account Bazar Pro মেগা কমিউনিটি";
-  document.getElementById('tgChatTargetStatus').innerText = "পাবলিক কমিউনিটি গ্রুপ";
-  document.getElementById('tgBackToPublicBtn').style.display = 'none';
-  listenTelegramGroupMessages();
-}
-
-// ভয়েস রেকর্ডার
 let mediaRecorder = null;
 let audioChunks = [];
 let isRecording = false;
@@ -1606,9 +1877,13 @@ function cancelMessageReply() {
   document.getElementById('tgReplyBoxBar').style.display = 'none';
 }
 
-// =========================================================================
-// 🌟 ৬. অথেনটিকেশন ও অ্যাকাউন্ট ম্যানেজমেন্ট
-// =========================================================================
+function deleteGroupMessage(msgId) {
+  if (confirm("আপনি কি এই মেসেজ বা পোস্টটি ডিলিট করতে চান?")) {
+    databaseRef.ref('telegramGroupChat/' + msgId).remove().then(() => showToast('মুছে ফেলা হয়েছে!'));
+  }
+}
+
+// 🌟 সাইন-আপ ও গুগল লগইন 🌟
 async function awardReferralBonus(refCode) {
   if (!refCode || refCode === 'ABP1000' || refCode === 'VIP100') return;
   try {
@@ -1617,8 +1892,8 @@ async function awardReferralBonus(refCode) {
       const refUserData = snap.val();
       const refUid = Object.keys(refUserData)[0];
       if (refUid) {
-        databaseRef.ref(`users/${refUid}/withdrawableBalance`).transaction(cur => (cur || 0) + REFERRAL_BONUS_AMOUNT);
-        databaseRef.ref(`users/${refUid}/availableBalance`).transaction(cur => (cur || 0) + REFERRAL_BONUS_AMOUNT);
+        databaseRef.ref(`users/${refUid}/withdrawableBalance`).transaction(cur => Number((Number(cur || 0) + REFERRAL_BONUS_AMOUNT).toFixed(2)));
+        databaseRef.ref(`users/${refUid}/availableBalance`).transaction(cur => Number((Number(cur || 0) + REFERRAL_BONUS_AMOUNT).toFixed(2)));
       }
     }
   } catch (err) {}
@@ -1739,23 +2014,11 @@ function resendVerificationMail() {
   }
 }
 
-function openForgotPasswordModal() {
-  document.getElementById('loginCard').style.display = 'none';
-  document.getElementById('forgotPassCard').style.display = 'block';
-}
-
-function closeForgotPasswordModal() {
-  document.getElementById('forgotPassCard').style.display = 'none';
-  document.getElementById('loginCard').style.display = 'block';
-}
-
-function submitForgotPasswordAction() {
-  const email = document.getElementById('forgotPassEmailInput').value.trim();
-  if (!email) { showToast('ইমেইল অ্যাড্রেস লিখুন', 'error'); return; }
-  auth.sendPasswordResetEmail(email).then(() => {
-    showToast('পাসওয়ার্ড রিসেট লিংক আপনার জিমেইলে পাঠানো হয়েছে!', 'success');
-    closeForgotPasswordModal();
-  }).catch(e => showToast(e.message, 'error'));
+function cancelVerificationAndLogout() {
+  auth.signOut().then(() => {
+    document.getElementById('verifyPendingCard').style.display = 'none';
+    document.getElementById('loginCard').style.display = 'block';
+  });
 }
 
 function handleLogout() {
@@ -1776,6 +2039,7 @@ auth.onAuthStateChanged(user => {
       listenTelegramGroupMessages();
       setupCallSignalingListener(user.uid);
       detectUserCountryAndRegion();
+      initPushNotification(user.uid);
     }
   } else {
     document.getElementById('authContainer').style.display = 'flex';
@@ -1799,7 +2063,6 @@ function initUserData(uid) {
     document.getElementById('profileEmail').innerText = currentUserData.email || '';
     document.getElementById('profileUserId').innerText = "ID: " + (currentUserData.userId || uid.slice(0,8));
     document.getElementById('profileRefCode').innerText = currentUserData.referralCode || 'ABP1000';
-    document.getElementById('displayMyRefCode').innerText = currentUserData.referralCode || 'ABP1000';
     
     if (currentUserData.photoURL) {
       document.getElementById('userDisplayAvatar').src = currentUserData.photoURL;
@@ -1815,6 +2078,7 @@ function initUserData(uid) {
   listenWeeklyReferralLeaderboard();
   listenWithdrawals(uid);
   listenAdminConfig();
+  listenAdminSpinConfig();
 }
 
 function checkAndUpdateUserVerification(uid) {
@@ -1848,51 +2112,196 @@ function checkAndUpdateUserVerification(uid) {
   });
 }
 
-// =========================================================================
-// 🌟 ৭. উইথড্র ও ব্যালেন্স হ্যান্ডলিং
-// =========================================================================
-function calculateWithdrawFee() {
-  const amtInput = parseFloat(document.getElementById('withdrawAmountInput').value) || 0;
-  document.getElementById('lblWithdrawInputAmt').innerText = amtInput.toFixed(2);
-  const net = amtInput > WITHDRAW_FEE_AMOUNT ? (amtInput - WITHDRAW_FEE_AMOUNT) : 0;
-  document.getElementById('lblNetPayableAmt').innerText = net.toFixed(2);
+function showToast(text, type = 'success') {
+  const toast = document.getElementById('customToast');
+  document.getElementById('toastText').innerText = text;
+  toast.className = `toast-container show toast-${type}`;
+  setTimeout(() => toast.classList.remove('show'), 3500);
 }
 
-function submitSecureWithdrawal() {
+function toggleAuth(type) {
   SoundFX.playClick();
-  const method = document.getElementById('withdrawMethodSelect').value;
-  const accountNo = document.getElementById('withdrawAccountInput').value.trim();
-  const amt = parseFloat(document.getElementById('withdrawAmountInput').value);
-  const curBal = parseFloat(currentUserData ? (currentUserData.withdrawableBalance || currentUserData.availableBalance || 0) : 0);
+  document.getElementById('loginCard').style.display = type === 'login' ? 'block' : 'none';
+  document.getElementById('signupCard').style.display = type === 'signup' ? 'block' : 'none';
+  document.getElementById('forgotPassCard').style.display = 'none';
+}
 
-  if (!accountNo || isNaN(amt) || amt <= 0) { showToast('সঠিক ওয়ালেট নম্বর ও পরিমাণ দিন', 'error'); return; }
-  if (amt > curBal) { showToast(`অপর্যাপ্ত ব্যালেন্স! আপনার ব্যালেন্স: ৳${curBal.toFixed(2)}`, 'error'); return; }
-  if (amt < currentMinWithdraw || amt > currentMaxWithdraw) { showToast(`সীমা ৳${currentMinWithdraw} থেকে ৳${currentMaxWithdraw}`, 'error'); return; }
+function toggleSidebar() {
+  SoundFX.playClick();
+  document.getElementById('sidebarDrawer').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+}
 
-  const netPayable = amt - WITHDRAW_FEE_AMOUNT;
-  const userRef = databaseRef.ref(`users/${auth.currentUser.uid}`);
+function togglePassView(id, btn) {
+  const f = document.getElementById(id);
+  f.type = f.type === "password" ? "text" : "password";
+  btn.innerText = f.type === "password" ? "👁️" : "🙈";
+}
 
-  userRef.transaction(cur => {
-    if (!cur) return cur;
-    const wBal = parseFloat(cur.withdrawableBalance || cur.availableBalance || 0);
-    if (wBal < amt) return;
-    cur.withdrawableBalance = wBal - amt;
-    cur.availableBalance = cur.withdrawableBalance;
-    return cur;
-  }, (err, comm) => {
-    if (err || !comm) { showToast('ব্যালেন্স অপর্যাপ্ত!', 'error'); return; }
-    const reqId = "WD-" + Date.now().toString().slice(-6);
-    databaseRef.ref(`withdrawRequests/${auth.currentUser.uid}/${reqId}`).set({
-      requestId: reqId, method: method, accountNo: accountNo, requestedAmount: amt,
-      systemFee: WITHDRAW_FEE_AMOUNT, amount: netPayable, status: 'Pending', timestamp: Date.now()
-    }).then(() => {
-      document.getElementById('withdrawAccountInput').value = '';
-      document.getElementById('withdrawAmountInput').value = '';
-      calculateWithdrawFee();
-      SoundFX.playWin();
-      showToast(`উইথড্র রিকোয়েস্ট সফল! আপনি পাবেন ৳${netPayable.toFixed(2)}`, 'success');
+function switchMainTab(id) {
+  SoundFX.playClick();
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const target = document.getElementById(id);
+  if (target) target.classList.add('active');
+
+  if (id === 'home') document.getElementById('navHome').classList.add('active');
+  if (id === 'telegramGroupTab') document.getElementById('navTgGroup').classList.add('active');
+  if (id === 'submitTab') document.getElementById('navSubmit').classList.add('active');
+  if (id === 'twofaTab') document.getElementById('nav2fa').classList.add('active');
+  if (id === 'withdrawScreen') document.getElementById('navWithdraw').classList.add('active');
+  if (id === 'profileTab') document.getElementById('navProfile').classList.add('active');
+  if (id === 'googleSheetScreen') loadSheetSubmissionsData();
+}
+
+function openAdminSheet() { window.open(adminSheetLink, "_blank"); }
+function chatWithAdminSupport() {
+  switchMainTab('telegramGroupTab');
+  document.getElementById('tgTextInput').value = "@Admin ";
+  document.getElementById('tgTextInput').focus();
+}
+
+function getRelativeOrDateTime(timestamp) {
+  if (!timestamp) return '';
+  const now = Date.now();
+  const diff = Math.floor((now - timestamp) / 1000);
+  if (diff < 60) return "এইমাত্র";
+  if (diff < 3600) return `${Math.floor(diff / 60)} মিনিট আগে`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)} ঘণ্টা আগে`;
+  const d = new Date(timestamp);
+  return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
+}
+
+async function detectUserCountryAndRegion() {
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    if (res.ok) {
+      const data = await res.json();
+      detectedCountry = data.country_name || "Bangladesh";
+      detectedRegionState = data.region || data.city || "Dhaka";
+      const geoText = `${detectedCountry} (${detectedRegionState})`;
+      document.getElementById('detectedGeoLocation').innerText = geoText;
+      const profGeo = document.getElementById('profileGeoBadge');
+      if (profGeo) profGeo.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${geoText}`;
+    }
+  } catch (e) {
+    detectedCountry = "Bangladesh";
+    detectedRegionState = "Dhaka";
+    document.getElementById('detectedGeoLocation').innerText = `${detectedCountry} (${detectedRegionState})`;
+  }
+}
+
+function openGiftModal() { SoundFX.playClick(); document.getElementById('giftRedeemModal').style.display = 'flex'; }
+function closeGiftModal() { document.getElementById('giftRedeemModal').style.display = 'none'; }
+function openReferModal() {
+  SoundFX.playClick();
+  if (currentUserData) document.getElementById('displayMyRefCode').innerText = currentUserData.referralCode || 'ABP1000';
+  document.getElementById('referModal').style.display = 'flex';
+}
+function closeReferModal() { document.getElementById('referModal').style.display = 'none'; }
+function copyReferralLink() {
+  SoundFX.playClick();
+  const code = currentUserData ? (currentUserData.referralCode || 'ABP1000') : 'ABP1000';
+  navigator.clipboard.writeText(code);
+  showToast(`রেফার কোড ${code} কপি হয়েছে!`, 'success');
+}
+
+function openProfileEditModal() {
+  if (currentUserData) document.getElementById('editProfileNameInput').value = currentUserData.displayName || '';
+  document.getElementById('profileEditModal').style.display = 'flex';
+}
+function closeProfileEditModal() { document.getElementById('profileEditModal').style.display = 'none'; }
+
+function saveProfileChanges() {
+  SoundFX.playClick();
+  const newName = document.getElementById('editProfileNameInput').value.trim();
+  const fileInput = document.getElementById('editProfileFileInput');
+  if (!newName) { showToast('দয়া করে আপনার নাম লিখুন', 'error'); return; }
+  const uid = auth.currentUser.uid;
+  const updates = { displayName: newName };
+
+  if (fileInput.files && fileInput.files[0]) {
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      updates.photoURL = e.target.result;
+      databaseRef.ref('users/' + uid).update(updates).then(() => {
+        closeProfileEditModal();
+        showToast('প্রোফাইল আপডেট হয়েছে! ✅', 'success');
+      });
+    };
+    reader.readAsDataURL(file);
+  } else {
+    databaseRef.ref('users/' + uid).update(updates).then(() => {
+      closeProfileEditModal();
+      showToast('নাম আপডেট হয়েছে! ✅', 'success');
     });
+  }
+}
+
+function banglaToEnglishDigits(str) {
+  const bn = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+  return str.replace(/[০-৯]/g, d => bn.indexOf(d));
+}
+
+function loadSheetSubmissionsData() {
+  const cont = document.getElementById('googleSheetResultsList');
+  cont.innerHTML = '<div style="text-align:center; color:var(--text-muted); font-size:12px; padding:20px;">শিট ডাটা রিফ্রেশ হচ্ছে...</div>';
+  databaseRef.ref('submissions').once('value', snap => {
+    allSheetSubmissionsCache = [];
+    const allUsersSub = snap.val() || {};
+    Object.keys(allUsersSub).forEach(uid => {
+      const userSubs = allUsersSub[uid];
+      if (userSubs && typeof userSubs === 'object') {
+        Object.values(userSubs).forEach(sub => allSheetSubmissionsCache.push({ ...sub, uid: uid }));
+      }
+    });
+    allSheetSubmissionsCache.sort((a,b) => (b.timestamp || 0) - (a.timestamp || 0));
+    renderSheetData(allSheetSubmissionsCache);
   });
+}
+
+function renderSheetData(list) {
+  const cont = document.getElementById('googleSheetResultsList');
+  cont.innerHTML = '';
+  if (!list.length) {
+    cont.innerHTML = '<div style="text-align:center; color:var(--text-muted); font-size:12px; padding:20px;">কোনো রেকর্ড পাওয়া যায়নি</div>';
+    return;
+  }
+  list.forEach(item => {
+    const dateFormatted = item.timestamp ? new Date(item.timestamp).toLocaleDateString('bn-BD') : 'অজানা';
+    const isApproved = (item.status === 'Approved' || item.status === 'Sold');
+    cont.innerHTML += `
+      <div style="background:rgba(255,255,255,0.04); border:1px solid var(--glass-border); border-radius:14px; padding:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <b style="color:var(--vip-gold); font-size:13px;">আইডি: ${escapeHTML(item.submissionId || item.id || 'N/A')}</b>
+          <span class="status-pill ${isApproved ? 'st-approved' : (item.status==='Rejected'?'st-rejected':'st-pending')}">${escapeHTML(item.status || 'Pending')}</span>
+        </div>
+        <div style="font-size:11px; color:var(--text-main); margin-top:4px;">
+          <i class="fa-solid fa-layer-group" style="color:var(--vip-gold);"></i> ${escapeHTML(item.categoryName || 'Account')}
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--text-muted); margin-top:6px;">
+          <span><i class="fa-regular fa-calendar"></i> ${dateFormatted}</span>
+          <span style="color:#10b981; font-weight:bold;">রেট: ${escapeHTML(item.rate || '৳০')}</span>
+        </div>
+      </div>`;
+  });
+}
+
+function handleSearchSheetData() {
+  const rawQ = (document.getElementById('sheetSearchInput').value || '').trim().toLowerCase();
+  if (!rawQ) { renderSheetData(allSheetSubmissionsCache); return; }
+  
+  const qEng = banglaToEnglishDigits(rawQ);
+  const filtered = allSheetSubmissionsCache.filter(item => {
+    const id = (item.submissionId || item.id || '').toLowerCase();
+    const cat = (item.categoryName || '').toLowerCase();
+    const ts = item.timestamp ? new Date(item.timestamp) : null;
+    const dEng = ts ? ts.toLocaleDateString('en-GB') : '';
+    const dBn = ts ? ts.toLocaleDateString('bn-BD') : '';
+    return id.includes(rawQ) || id.includes(qEng) || cat.includes(rawQ) || dBn.includes(rawQ) || dEng.includes(qEng);
+  });
+  renderSheetData(filtered);
 }
 
 function listenWithdrawals(uid) {
@@ -1917,6 +2326,132 @@ function listenWithdrawals(uid) {
         </div>`;
     });
   });
+}
+
+function openUserSearchModal() { document.getElementById('userSearchModal').style.display = 'flex'; handleSearchMemberLive(); }
+function closeUserSearchModal() { document.getElementById('userSearchModal').style.display = 'none'; }
+function handleSearchMemberLive() {
+  const query = (document.getElementById('userSearchQueryInput').value || '').trim().toLowerCase();
+  const cont = document.getElementById('userSearchResultsContainer');
+  cont.innerHTML = '';
+  databaseRef.ref('users').limitToLast(50).once('value', snap => {
+    const data = snap.val() || {};
+    let count = 0;
+    Object.values(data).forEach(u => {
+      if (u.uid === auth.currentUser.uid) return;
+      const name = (u.displayName || '').toLowerCase();
+      const uId = (u.userId || '').toLowerCase();
+      if (!query || name.includes(query) || uId.includes(query)) {
+        count++;
+        cont.innerHTML += `
+          <div style="background:rgba(255,255,255,0.04); border:1px solid var(--glass-border); padding:8px 12px; border-radius:12px; display:flex; justify-content:space-between; align-items:center;">
+            <div style="text-align:left;">
+              <b style="color:var(--vip-gold); font-size:12px;">${escapeHTML(u.displayName||'User')}</b>
+              <div style="font-size:10px; color:var(--text-muted);">${escapeHTML(u.userId||'ABP')}</div>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <button class="top-btn" style="height:28px;" onclick="startPrivateChatWith('${u.uid}', '${escapeHTML(u.displayName||'User')}'); closeUserSearchModal();"><i class="fa-solid fa-comment-dots"></i> চ্যাট</button>
+              <button class="top-btn" style="height:28px;" onclick="initiateLiveCall('video', '${u.uid}'); closeUserSearchModal();"><i class="fa-solid fa-video" style="color:#38bdf8;"></i></button>
+            </div>
+          </div>`;
+      }
+    });
+    if (count === 0) cont.innerHTML = '<div style="font-size:11px; color:var(--text-muted); padding:10px;">কোনো মেম্বার পাওয়া যায়নি</div>';
+  });
+}
+
+function startPrivateChatWith(targetUid, name) {
+  if (targetUid === auth.currentUser.uid) return;
+  activeChatTargetUid = targetUid;
+  activeChatTargetName = name;
+  document.getElementById('tgChatRoomTitle').innerText = name;
+  document.getElementById('tgChatTargetStatus').innerText = "ব্যক্তিগত ১-অন-১ চ্যাট";
+  document.getElementById('tgBackToPublicBtn').style.display = 'block';
+  listenTelegramGroupMessages();
+  showToast(`${name}-এর সাথে চ্যাট চালু হয়েছে!`);
+}
+
+function resetToPublicChat() {
+  activeChatTargetUid = 'global';
+  activeChatTargetName = 'Public';
+  document.getElementById('tgChatRoomTitle').innerText = "Account Bazar Pro মেগা কমিউনিটি";
+  document.getElementById('tgChatTargetStatus').innerText = "পাবলিক কমিউনিটি গ্রুপ";
+  document.getElementById('tgBackToPublicBtn').style.display = 'none';
+  listenTelegramGroupMessages();
+}
+
+function openReportModal(targetInfo = '') {
+  document.getElementById('reportTargetUserInput').value = targetInfo;
+  document.getElementById('reportModal').style.display = 'flex';
+}
+function closeReportModal() { document.getElementById('reportModal').style.display = 'none'; }
+function submitUserReport() {
+  SoundFX.playClick();
+  const target = document.getElementById('reportTargetUserInput').value.trim();
+  const reason = document.getElementById('reportReasonInput').value.trim();
+  if (!target || !reason) { showToast('আইডি ও অভিযোগের কারণ লিখুন', 'error'); return; }
+  const repId = "REP-" + Date.now().toString().slice(-6);
+  databaseRef.ref('adminReports/' + repId).set({
+    reportId: repId, reportedByUid: auth.currentUser.uid, targetInfo: target, reason: reason, timestamp: Date.now()
+  }).then(() => {
+    closeReportModal();
+    showToast('রিপোর্ট অ্যাডমিনের কাছে পাঠানো হয়েছে! ✅', 'success');
+  });
+}
+
+function cleanBase32Key(rawKey) { return rawKey.replace(/[\s\-_=]/g, '').toUpperCase(); }
+function base32ToUint8Array(base32Str) {
+  const clean = cleanBase32Key(base32Str);
+  if (!clean || !/^[A-Z2-7]+$/.test(clean)) return null;
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+  let bits = 0, value = 0, output = [];
+  for (let i = 0; i < clean.length; i++) {
+    const idx = alphabet.indexOf(clean[i]);
+    if (idx === -1) return null;
+    value = (value << 5) | idx; bits += 5;
+    if (bits >= 8) { output.push((value >>> (bits - 8)) & 0xFF); bits -= 8; }
+  }
+  return new Uint8Array(output);
+}
+async function getTOTPCode(secretKey) {
+  const keyBytes = base32ToUint8Array(secretKey);
+  if (!keyBytes || keyBytes.length === 0) return null;
+  const epoch = Math.floor(Date.now() / 1000);
+  const counter = Math.floor(epoch / 30);
+  const buffer = new ArrayBuffer(8);
+  const view = new DataView(buffer);
+  view.setUint32(0, 0, false); view.setUint32(4, counter, false);
+  const cryptoKey = await window.crypto.subtle.importKey('raw', keyBytes, { name: 'HMAC', hash: { name: 'SHA-1' } }, false, ['sign']);
+  const signature = await window.crypto.subtle.sign('HMAC', cryptoKey, buffer);
+  const hmac = new Uint8Array(signature);
+  const offset = hmac[hmac.length - 1] & 0x0F;
+  const binary = ((hmac[offset] & 0x7F) << 24) | ((hmac[offset + 1] & 0xFF) << 16) | ((hmac[offset + 2] & 0xFF) << 8) | (hmac[offset + 3] & 0xFF);
+  return (binary % 1000000).toString().padStart(6, '0');
+}
+async function update2FACode() {
+  const input = document.getElementById('twofaKeyInput').value;
+  const cd = document.getElementById('twofaResultCode');
+  const epoch = Math.floor(Date.now() / 1000);
+  document.getElementById('twofaTimerText').innerText = `বাকি: ${30 - (epoch % 30)} সেকেন্ড`;
+  const clean = cleanBase32Key(input);
+  if (!clean) { cd.innerText = "------"; return; }
+  try {
+    const code = await getTOTPCode(clean);
+    cd.innerText = code ? (code.slice(0, 3) + " " + code.slice(3, 6)) : "ভুল কী!";
+  } catch(e) { cd.innerText = "ত্রুটি!"; }
+}
+let totpInterval = null;
+function generateLiveTOTP() {
+  if (totpInterval) clearInterval(totpInterval);
+  update2FACode();
+  totpInterval = setInterval(update2FACode, 1000);
+}
+function copy2FACode() {
+  SoundFX.playClick();
+  const raw = document.getElementById('twofaResultCode').innerText.replace(/\s/g, '');
+  if (!raw || raw.includes('-') || raw.includes('ভুল')) return;
+  navigator.clipboard.writeText(raw);
+  showToast(`✅ কোড ${raw} কপি হয়েছে!`, 'success');
 }
 
 function listenWithdrawMethods() {
@@ -2004,7 +2539,7 @@ function listenYouTubeTutorials() {
     container.innerHTML = '';
     const items = Object.values(snap.val() || {});
     if (!items.length) {
-      container.innerHTML = '<div style="text-align:center; color:var(--text-muted); font-size:12px; padding:15px;">টিউটোরিয়াল লোড হচ্ছে...</div>';
+      container.innerHTML = '<div style="text-align:center; color:var(--text-muted); font-size:12px; padding:15px;">ভিডিও লোড হচ্ছে...</div>';
       return;
     }
     items.forEach(v => {
@@ -2031,6 +2566,30 @@ function listenAdminConfig() {
   databaseRef.ref('adSettings/adminSheetUrl').on('value', snap => {
     if (snap.val()) adminSheetLink = snap.val();
   });
+  
+  // অ্যাডমিন প্যানেল থেকে Adsterra ব্যানার বা অ্যাড কোড লোড
+  databaseRef.ref('adSettings/topBannerCode').on('value', snap => {
+    if (snap.val()) AdsterraEngine.renderAd('adsterraTopBannerSlot', snap.val());
+  });
+}
+
+function claimGiftCode() {
+  SoundFX.playClick();
+  const code = document.getElementById('giftCodeRedeemInput').value.trim().toUpperCase();
+  if (!code) return;
+  const uid = auth.currentUser.uid;
+  databaseRef.ref('giftCodes/' + code).once('value', snap => {
+    const gift = snap.val();
+    if (!gift || !gift.active) { showToast('ভুল কোড!', 'error'); return; }
+    if (gift.claimedUsers && gift.claimedUsers[uid]) { showToast('ইতিমধ্যে ক্লেইম করেছেন!', 'error'); return; }
+    const amt = parseFloat(gift.amount);
+    databaseRef.ref(`users/${uid}/withdrawableBalance`).transaction(cur => Number((Number(cur || 0) + amt).toFixed(2)));
+    databaseRef.ref(`users/${uid}/availableBalance`).transaction(cur => Number((Number(cur || 0) + amt).toFixed(2)));
+    databaseRef.ref(`giftCodes/${code}/claimedUsers/${uid}`).set(Date.now());
+    closeGiftModal();
+    SoundFX.playWin();
+    showToast(`🎉 ৳ ${amt} টাকা যোগ হয়েছে!`, 'success');
+  });
 }
 
 function listenLeaderboard() {
@@ -2049,253 +2608,12 @@ function listenLeaderboard() {
   });
 }
 
-function listenWeeklyReferralLeaderboard() {
-  databaseRef.ref('users').limitToLast(30).on('value', snap => {
-    const container = document.getElementById('weeklyReferralListContainer');
-    container.innerHTML = '';
-    const list = Object.values(snap.val() || {});
-    list.sort((a, b) => ((b.referredCount || 0) - (a.referredCount || 0)));
-    list.slice(0, 10).forEach((u, i) => {
-      container.innerHTML += `
-        <div style="display:flex; justify-content:space-between; align-items:center; background:var(--glass-card); padding:10px 14px; border-radius:14px; border:1.5px solid var(--glass-border);">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <span style="font-weight:900; color:var(--vip-gold);">#${i+1}</span>
-            <b style="color:var(--text-main); font-size:13px;">${escapeHTML(u.displayName || 'Member')}</b>
-          </div>
-          <span class="status-pill st-approved">${u.referredCount || 0} রেফারেল</span>
-        </div>`;
-    });
-  });
-}
-
-// =========================================================================
-// 🌟 ৮. ইউজার মোডাল ও অতিরিক্ত ইউটিলিটি
-// =========================================================================
-function openProfileEditModal() {
-  document.getElementById('editProfileNameInput').value = currentUserData?.displayName || '';
-  document.getElementById('profileEditModal').style.display = 'flex';
-}
-function closeProfileEditModal() {
-  document.getElementById('profileEditModal').style.display = 'none';
-}
-function saveProfileChanges() {
-  const name = document.getElementById('editProfileNameInput').value.trim();
-  const file = document.getElementById('editProfileFileInput').files[0];
-  if (!name) return;
-
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = e => {
-      databaseRef.ref(`users/${auth.currentUser.uid}`).update({
-        displayName: name,
-        photoURL: e.target.result
-      });
-      closeProfileEditModal();
-      showToast('প্রোফাইল আপডেট সফল!', 'success');
-    };
-    reader.readAsDataURL(file);
-  } else {
-    databaseRef.ref(`users/${auth.currentUser.uid}`).update({ displayName: name });
-    closeProfileEditModal();
-    showToast('নাম পরিবর্তন সফল হয়েছে!', 'success');
-  }
-}
-
-function openUserSearchModal() { document.getElementById('userSearchModal').style.display = 'flex'; }
-function closeUserSearchModal() { document.getElementById('userSearchModal').style.display = 'none'; }
-function handleSearchMemberLive() {
-  const q = document.getElementById('userSearchQueryInput').value.trim().toLowerCase();
-  const res = document.getElementById('userSearchResultsContainer');
-  res.innerHTML = '';
-  if (!q) return;
-
-  databaseRef.ref('users').limitToLast(20).once('value', snap => {
-    const list = Object.values(snap.val() || {});
-    const filtered = list.filter(u => 
-      (u.displayName && u.displayName.toLowerCase().includes(q)) || 
-      (u.userId && u.userId.toLowerCase().includes(q))
-    );
-    filtered.forEach(u => {
-      const item = document.createElement('div');
-      item.style.padding = '8px 12px';
-      item.style.borderRadius = '10px';
-      item.style.background = 'rgba(255,255,255,0.05)';
-      item.style.display = 'flex';
-      item.style.justifyContent = 'space-between';
-      item.style.alignItems = 'center';
-      item.style.cursor = 'pointer';
-      item.innerHTML = `<b>${escapeHTML(u.displayName)}</b><span style="font-size:11px; color:var(--vip-gold);">${u.userId}</span>`;
-      item.onclick = () => {
-        closeUserSearchModal();
-        startPrivateChatWith(u.uid, u.displayName);
-      };
-      res.appendChild(item);
-    });
-  });
-}
-
-function openReportModal() { document.getElementById('reportModal').style.display = 'flex'; }
-function closeReportModal() { document.getElementById('reportModal').style.display = 'none'; }
-function submitUserReport() {
-  const target = document.getElementById('reportTargetUserInput').value.trim();
-  const reason = document.getElementById('reportReasonInput').value.trim();
-  if (!target || !reason) { showToast('সকল তথ্য দিন', 'error'); return; }
-
-  databaseRef.ref('userReports').push({
-    reporterUid: auth.currentUser.uid,
-    targetUser: target,
-    reason: reason,
-    timestamp: Date.now()
-  }).then(() => {
-    closeReportModal();
-    showToast('রিপোর্ট জমা নেওয়া হয়েছে!', 'success');
-  });
-}
-
-function openReferModal() { document.getElementById('referModal').style.display = 'flex'; }
-function closeReferModal() { document.getElementById('referModal').style.display = 'none'; }
-function copyReferralLink() {
-  navigator.clipboard.writeText(currentUserData?.referralCode || 'ABP1000');
-  showToast('রেফার কোড কপি হয়েছে!', 'success');
-}
-
-function openGiftModal() { document.getElementById('giftRedeemModal').style.display = 'flex'; }
-function closeGiftModal() { document.getElementById('giftRedeemModal').style.display = 'none'; }
-function claimGiftCode() {
-  const code = document.getElementById('giftCodeRedeemInput').value.trim().toUpperCase();
-  if (code === 'VIP100') {
-    databaseRef.ref(`users/${auth.currentUser.uid}/withdrawableBalance`).transaction(c => (c || 0) + 10);
-    closeGiftModal();
-    SoundFX.playWin();
-    showToast('🎉 অভিনন্দন! ৳১০ বোনাস পেয়ে গেছেন!', 'success');
-  } else {
-    showToast('অবৈধ গিফট কোড!', 'error');
-  }
-}
-
-function generateLiveTOTP() {
-  const key = document.getElementById('twofaKeyInput').value.trim();
-  if (key.length >= 6) {
-    const code = Math.floor(100000 + Math.random() * 900000);
-    document.getElementById('twofaResultCode').innerText = code;
-  }
-}
-function copy2FACode() {
-  const code = document.getElementById('twofaResultCode').innerText;
-  if (code !== '------') {
-    navigator.clipboard.writeText(code);
-    showToast('2FA কোড কপি হয়েছে!', 'success');
-  }
-}
-
-function showToast(text, type = 'success') {
-  const toast = document.getElementById('customToast');
-  document.getElementById('toastText').innerText = text;
-  toast.className = `toast-container show toast-${type}`;
-  setTimeout(() => toast.classList.remove('show'), 3500);
-}
-
-function toggleAuth(type) {
+function toggleLanguage() {
   SoundFX.playClick();
-  document.getElementById('loginCard').style.display = type === 'login' ? 'block' : 'none';
-  document.getElementById('signupCard').style.display = type === 'signup' ? 'block' : 'none';
-  document.getElementById('forgotPassCard').style.display = 'none';
-}
-
-function toggleSidebar() {
-  SoundFX.playClick();
-  document.getElementById('sidebarDrawer').classList.toggle('open');
-  document.getElementById('sidebarOverlay').classList.toggle('show');
-}
-
-function togglePassView(id, btn) {
-  const f = document.getElementById(id);
-  f.type = f.type === "password" ? "text" : "password";
-  btn.innerText = f.type === "password" ? "👁️" : "🙈";
-}
-
-function switchMainTab(id) {
-  SoundFX.playClick();
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  const target = document.getElementById(id);
-  if (target) target.classList.add('active');
-
-  if (id === 'home') document.getElementById('navHome').classList.add('active');
-  if (id === 'telegramGroupTab') document.getElementById('navTgGroup').classList.add('active');
-  if (id === 'submitTab') document.getElementById('navSubmit').classList.add('active');
-  if (id === 'twofaTab') document.getElementById('nav2fa').classList.add('active');
-  if (id === 'withdrawScreen') document.getElementById('navWithdraw').classList.add('active');
-  if (id === 'profileTab') document.getElementById('navProfile').classList.add('active');
-  if (id === 'googleSheetScreen') loadSheetSubmissionsData();
-}
-
-function getRelativeOrDateTime(timestamp) {
-  if (!timestamp) return '';
-  const diff = Math.floor((Date.now() - timestamp) / 1000);
-  if (diff < 60) return "এইমাত্র";
-  if (diff < 3600) return `${Math.floor(diff / 60)} মিনিট আগে`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)} ঘণ্টা আগে`;
-  const d = new Date(timestamp);
-  return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
-}
-
-async function detectUserCountryAndRegion() {
-  try {
-    const res = await fetch('https://ipapi.co/json/');
-    if (res.ok) {
-      const data = await res.json();
-      detectedCountry = data.country_name || "Bangladesh";
-      detectedRegionState = data.region || data.city || "Dhaka";
-      const geoText = `${detectedCountry} (${detectedRegionState})`;
-      document.getElementById('detectedGeoLocation').innerText = geoText;
-      const profGeo = document.getElementById('profileGeoBadge');
-      if (profGeo) profGeo.innerHTML = `<i class="fa-solid fa-location-dot"></i> ${geoText}`;
-    }
-  } catch (e) {
-    detectedCountry = "Bangladesh";
-    detectedRegionState = "Dhaka";
-    document.getElementById('detectedGeoLocation').innerText = `${detectedCountry} (${detectedRegionState})`;
-  }
-}
-
-function initSupportContactSystem() {
-  const waUrl = `https://wa.me/${SUPPORT_CONFIG.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(SUPPORT_CONFIG.whatsappMessage)}`;
-  const tgUrl = SUPPORT_CONFIG.telegramUsername.startsWith('http') 
-                ? SUPPORT_CONFIG.telegramUsername 
-                : `https://t.me/${SUPPORT_CONFIG.telegramUsername.replace('@','')}`;
-
-  const waBtn = document.getElementById('supportWhatsAppBtn');
-  const tgBtn = document.getElementById('supportTelegramBtn');
-  const mailToBtn = document.getElementById('supportMailToBtn');
-  const mailText = document.getElementById('supportEmailText');
-
-  if (waBtn) waBtn.href = waUrl;
-  if (tgBtn) tgBtn.href = tgUrl;
-  if (mailToBtn) mailToBtn.href = `mailto:${SUPPORT_CONFIG.officialEmail}`;
-  if (mailText) mailText.innerText = SUPPORT_CONFIG.officialEmail;
-}
-
-function openSupportModal() {
-  SoundFX.playClick();
-  initSupportContactSystem();
-  document.getElementById('supportContactModal').style.display = 'flex';
-}
-function closeSupportModal() {
-  document.getElementById('supportContactModal').style.display = 'none';
-}
-function openSupportWhatsApp() {
-  const waUrl = `https://wa.me/${SUPPORT_CONFIG.whatsappNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(SUPPORT_CONFIG.whatsappMessage)}`;
-  window.open(waUrl, '_blank');
-}
-function openSupportTelegram() {
-  const tgUrl = SUPPORT_CONFIG.telegramUsername.startsWith('http') ? SUPPORT_CONFIG.telegramUsername : `https://t.me/${SUPPORT_CONFIG.telegramUsername.replace('@','')}`;
-  window.open(tgUrl, '_blank');
-}
-function copySupportEmail() {
-  SoundFX.playClick();
-  navigator.clipboard.writeText(SUPPORT_CONFIG.officialEmail);
-  showToast('ইমেইল অ্যাড্রেস কপি করা হয়েছে!', 'success');
+  currentLanguage = (currentLanguage === 'bn') ? 'en' : 'bn';
+  localStorage.setItem('abp_lang', currentLanguage);
+  document.getElementById('langToggleBtn').innerHTML = `<i class="fa-solid fa-globe"></i> ${currentLanguage.toUpperCase()}`;
+  showToast(`ভাষা পরিবর্তন: ${currentLanguage === 'bn' ? 'বাংলা' : 'English'}`);
 }
 
 function escapeHTML(str) {
@@ -2321,8 +2639,11 @@ function toggleTheme() {
 
 window.addEventListener('load', () => {
   initTheme();
-  initSupportContactSystem();
+  initDraggableFloatingBubble();
+  renderMultiBoxTabs();
   detectUserCountryAndRegion();
+  AdsterraEngine.renderAd('adsterraTopBannerSlot');
+  drawSpinWheelCanvas();
   
   let p = 1;
   const pEl = document.getElementById('loaderPercentage');
@@ -2339,4 +2660,3 @@ window.addEventListener('load', () => {
 });
 </script>
 </body>    
-</html>
